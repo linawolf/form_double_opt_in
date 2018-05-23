@@ -1,0 +1,13 @@
+plugin.tx_formdoubleoptin_doubleoptin {
+    view {
+        templateRootPaths.10 = EXT:form_doubleoptin/Resources/Private/Templates
+        partialRootPaths.10 = EXT:form_doubleoptin/Resources/Private/Partials
+        layoutRootPaths.10 = EXT:form_doubleoptin/Resources/Private/Layouts
+    }
+    persistence {
+        storagePid = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid}
+    }
+    settings {
+
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2018-05-23T00:00:00Z" product-name="formdoubleoptin">
+        <header/>
+        <body>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin">
+                <source>Opt-In</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.given_name">
+                <source>Given name</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.family_name">
+                <source>Family name</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.email">
+                <source>Email address</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.company">
+                <source>Company</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.customer_number">
+                <source>Customer number</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.is_validated">
+                <source>is validated</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_hash">
+                <source>Validation hash</source>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_date">
+                <source>Validation date</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

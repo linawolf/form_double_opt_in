@@ -1,0 +1,6 @@
+plugin.tx_formdoubleoptin_doubleoptin {
+    persistence {
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}
