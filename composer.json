@@ -1,0 +1,21 @@
+{
+	"name": "medienreaktor/form_doubleoptin",
+	"type": "typo3-cms-extension",
+	"version": "1.0.0",
+	"license": "GPL-2.0",
+	"description": "Double Opt-In for the TYPO3 CMS Form Framework",
+	"authors": [
+		{
+			"name": "Daniel Kestler",
+			"email": "daniel.kestler@medienreaktor.de"
+		}
+	],
+	"require": {
+		"typo3/cms-core": ">=8.7.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Medienreaktor\\FormDoubleOptIn\\": "Classes"
+		}
+	}
+}

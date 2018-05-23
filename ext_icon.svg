@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>ext_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="ext_icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Extension" fill-rule="nonzero">
+            <polygon id="Shape" fill="#3B7EB0" points="0 0 64 0 64 64 0 64"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" points="14 14 46 14 46 50 14 50"></polygon>
+            <polygon id="Shape" fill="#3B7EB0" points="22 42 30 42 30 46 22 46"></polygon>
+            <polygon id="Shape" fill="#3B7EB0" opacity="0.5" points="32 42 40 42 40 46 32 46"></polygon>
+            <polygon id="Shape" fill="#3B7EB0" points="14 14 18 14 18 18 14 18"></polygon>
+            <polygon id="Shape" fill="#3B7EB0" opacity="0.5" points="16 14 18 14 18 50 16 50"></polygon>
+        </g>
+        <path d="M22,33.8602029 L24.638106,31.222097 L22,28.583991 L23.9165727,26.6674183 L26.5546787,29.3055242 L29.1927847,26.6674183 L31.1093574,28.583991 L28.4712514,31.222097 L31.1093574,33.8602029 L29.1927847,35.7767756 L26.5546787,33.1386697 L23.9165727,35.7767756 L22,33.8602029 Z M42,37.9864713 L34.1307779,37.9864713 L34.1307779,35.145434 L37.2874859,30.8613303 C38.8658399,28.854566 38.9560316,28.1104848 38.9560316,26.5095829 C38.9560316,25.1341601 38.5050733,24.5479143 37.0845547,24.5479143 C36.2953777,24.5479143 35.2356257,24.7959414 34.5366404,24.9537768 L34.5366404,22.3833145 C34.7846674,22.3382187 36.3179256,22 37.4002255,22 C41.0304397,22 41.9323563,23.6459977 41.9323563,26.7125141 C41.9323563,28.8094701 41.7519729,29.5986471 40.3089064,31.5603157 L37.4904171,35.416009 L42,35.416009 L42,37.9864713 Z" id="×2" fill="#3B7EB0"></path>
+    </g>
+</svg>
