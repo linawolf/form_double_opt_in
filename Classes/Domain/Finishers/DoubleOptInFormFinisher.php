@@ -20,6 +20,14 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
     protected $optInRepository = NULL;
 
     /**
+     * signalSlotDispatcher
+     *
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $signalSlotDispatcher = NULL;
+
+    /**
      * Executes this finisher
      * @see AbstractFinisher::execute()
      *
@@ -68,6 +76,8 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $optIn->setPid($storagePid);
 
         $this->optInRepository->add($optIn);
+
+        $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInCreation', [$optIn]);
 
         $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
         $persistenceManager->persistAll();

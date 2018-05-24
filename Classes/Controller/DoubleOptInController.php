@@ -16,6 +16,14 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     protected $optInRepository = NULL;
 
     /**
+     * signalSlotDispatcher
+     *
+     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @inject
+     */
+    protected $signalSlotDispatcher = NULL;
+
+    /**
      * action validation
      *
      * @return void
@@ -32,6 +40,8 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $optIn->setIsValidated(TRUE);
                 $optIn->setValidationDate(new \DateTime);
                 $this->optInRepository->update($optIn);
+
+                $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
 
                 $success = TRUE;
             }
