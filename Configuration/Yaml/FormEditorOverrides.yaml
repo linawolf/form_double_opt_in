@@ -1,0 +1,117 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      250:
+                        value: 'DoubleOptIn'
+                        label: 'Double Opt-In'
+                propertyCollections:
+                  finishers:
+                    250:
+                      __inheritances:
+                        10: 'TYPO3.CMS.Form.mixins.formElementMixins.formEmailFinisherMixin'
+                      identifier: 'DoubleOptIn'
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'Double Opt-In'
+                        110:
+                          identifier: 'givenName'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Given name'
+                          propertyPath: 'options.givenName'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        120:
+                          identifier: 'familyName'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Family name'
+                          propertyPath: 'options.familyName'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        130:
+                          identifier: 'email'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Email address'
+                          propertyPath: 'options.email'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        140:
+                          identifier: 'company'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Company'
+                          propertyPath: 'options.company'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        150:
+                          identifier: 'customerNumber'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Customer number'
+                          propertyPath: 'options.customerNumber'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+          finishersDefinition:
+            DoubleOptIn:
+              __inheritances:
+                10: 'TYPO3.CMS.Form.mixins.finishersEmailMixin'
+              implementationClassName: 'Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher'
+              options:
+                templatePathAndFilename: 'EXT:form_doubleoptin/Resources/Private/Templates/Email/DoubleOptIn.html'
+              formEditor:
+                iconIdentifier: 't3-form-icon-finisher'
+                label: 'Double Opt-In'
+                predefinedDefaults:
+                  options:
+                    givenName: ''
+                    familyName: ''
+                    email: ''
+                    company: ''
+                    customerNumber: ''
+                    subject: ''
+                    recipientAddress: ''
+                    recipientName: ''
+                    senderAddress: ''
+                    senderName: ''
+                    replyToAddress: ''
+                    carbonCopyAddress: ''
+                    blindCarbonCopyAddress: ''
+                    format: 'html'
+                    attachUploads: false
+                    translation:
+                      language: ''
+              FormEngine:
+                label: 'Double Opt-In'
+                elements:
+                  givenName:
+                    label: 'Given name'
+                    config:
+                      type: 'input'
+                  familyName:
+                    label: 'Family name'
+                    config:
+                      type: 'input'
+                  email:
+                    label: 'Email address'
+                    config:
+                      type: 'input'
+                  company:
+                    label: 'Company'
+                    config:
+                      type: 'input'
+                  customerNumber:
+                    label: 'Customer number'
+                    config:
+                      type: 'input'

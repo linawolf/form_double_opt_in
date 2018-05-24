@@ -1,0 +1,15 @@
+module.tx_form {
+    settings {
+        yamlConfigurations {
+            250 = EXT:form_doubleoptin/Configuration/Yaml/FormEditorOverrides.yaml
+        }
+    }
+}
+
+plugin.tx_form {
+    settings {
+        yamlConfigurations {
+            250 = EXT:form_doubleoptin/Configuration/Yaml/FormEditorOverrides.yaml
+        }
+    }
+}
