@@ -1,6 +1,14 @@
-This is my opt in email
-
-<f:debug>{optIn}</f:debug>
-<f:debug>{validationPid}</f:debug>
-
-<f:link.action pageUid="{validationPid}" extensionName="formdoubleoptin" pluginName="doubleoptin" controller="DoubleOptIn" action="validation" absolute="1" arguments="{hash: optIn.validationHash}">click here</f:link.action>
+<p>
+    <f:if condition="{optIn.givenName} || {optIn.familyName}">
+        <f:then><f:translate key="LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:email.greeting" /> {optIn.givenName} {optIn.familyName},</f:then>
+        <f:else><f:translate key="LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:email.greeting" />,</f:else>
+    </f:if>
+</p>
+<p>
+    <f:translate key="LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:email.text" />
+</p>
+<p>
+    <f:link.action pageUid="{validationPid}" extensionName="formdoubleoptin" pluginName="doubleoptin" controller="DoubleOptIn" action="validation" absolute="1" arguments="{hash: optIn.validationHash}">
+        {f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash})}
+    </f:link.action>
+</p>

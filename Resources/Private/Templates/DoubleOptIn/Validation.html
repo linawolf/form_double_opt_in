@@ -1,6 +1,10 @@
 <h1>Validation</h1>
 
 <f:if condition="{success}">
-    <f:then><h2>Validation successful!</h2></f:then>
-    <f:else><h2>Validation error!</h2></f:else>
+    <f:then>
+        <p><f:translate key="LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:text.success" /></p>
+    </f:then>
+    <f:else>
+        <p><f:translate key="LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:text.error" /></p>
+    </f:else>
 </f:if>

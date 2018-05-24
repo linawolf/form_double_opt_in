@@ -30,6 +30,18 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_date">
                 <source>Validation date</source>
             </trans-unit>
+            <trans-unit id="text.success">
+                <source>Thank you, your validation was successful.</source>
+            </trans-unit>
+            <trans-unit id="text.error">
+                <source>Sorry, an error occurred during validation.</source>
+            </trans-unit>
+            <trans-unit id="email.greeting">
+                <source>Hallo</source>
+            </trans-unit>
+            <trans-unit id="email.text">
+                <source>thanks you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
