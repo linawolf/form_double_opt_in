@@ -63,6 +63,13 @@ TYPO3:
                           enableFormelementSelectionButton: true
                           propertyValidators:
                             10: 'FormElementIdentifierWithinCurlyBracesInclusive'
+                        160:
+                          identifier: 'validationPid'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Validation Page ID'
+                          propertyPath: 'options.validationPid'
+                          propertyValidators:
+                            10: 'Integer'
           finishersDefinition:
             DoubleOptIn:
               __inheritances:
@@ -80,6 +87,7 @@ TYPO3:
                     email: ''
                     company: ''
                     customerNumber: ''
+                    validationPid: ''
                     subject: ''
                     recipientAddress: ''
                     recipientName: ''
@@ -113,5 +121,9 @@ TYPO3:
                       type: 'input'
                   customerNumber:
                     label: 'Customer number'
+                    config:
+                      type: 'input'
+                  validationPid:
+                    label: 'Validation Page ID'
                     config:
                       type: 'input'

@@ -1,0 +1,6 @@
+This is my opt in email
+
+<f:debug>{optIn}</f:debug>
+<f:debug>{validationPid}</f:debug>
+
+<f:link.action pageUid="{validationPid}" extensionName="formdoubleoptin" pluginName="doubleoptin" controller="DoubleOptIn" action="validation" absolute="1" arguments="{hash: optIn.validationHash}">click here</f:link.action>

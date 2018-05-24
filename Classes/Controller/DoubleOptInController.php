@@ -22,18 +22,21 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function validationAction()
     {
+        $success = FALSE;
+
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
-            $optIn = $this->optInRepository->findByValidationHash($hash);
+            $optIn = $this->optInRepository->findOneByValidationHash($hash);
 
-            $optIn->setIsValidated(TRUE);
-            $optIn->setValidationDate(new \DateTime);
+            if ($optIn) {
+                $optIn->setIsValidated(TRUE);
+                $optIn->setValidationDate(new \DateTime);
+                $this->optInRepository->update($optIn);
 
-            $this->optInRepository->update($optIn);
-
-            $this->view->assign('success', TRUE);
-        } else {
-            $this->view->assign('success', FALSE);
+                $success = TRUE;
+            }
         }
+
+        $this->view->assign('success', $success);
     }
 }
