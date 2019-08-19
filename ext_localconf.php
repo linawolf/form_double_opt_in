@@ -5,7 +5,7 @@ call_user_func(
     function($extKey)
 	{
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'Medienreaktor.FormDoubleOptIn',
+            'Medienreaktor.FormDoubleoptin',
             'DoubleOptIn',
             [
                 'DoubleOptIn' => 'validation'
