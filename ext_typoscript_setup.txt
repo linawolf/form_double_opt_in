@@ -9,6 +9,7 @@ module.tx_form {
 plugin.tx_form {
     settings {
         yamlConfigurations {
+            30 = EXT:form/Configuration/Yaml/FormEditorSetup.yaml
             250 = EXT:form_doubleoptin/Configuration/Yaml/FormEditorOverrides.yaml
         }
     }
