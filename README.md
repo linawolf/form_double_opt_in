@@ -4,7 +4,7 @@ TYPO3 Extension adding Double Opt-In to the TYPO3 CMS Form Framework
 
 ## Installation
 
-Just install it as a TYPO3 Extension or with `composer require medienreaktor/form_doubleoptin`.
+Just install it as a TYPO3 Extension or with `composer require medienreaktor/form_double_opt_in`.
 
 Then make sure to include the static TypoScript in your template.
 

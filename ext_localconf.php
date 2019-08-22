@@ -5,7 +5,7 @@ call_user_func(
     function($extKey)
 	{
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'Medienreaktor.FormDoubleoptin',
+            'Medienreaktor.FormDoubleOptIn',
             'DoubleOptIn',
             [
                 'DoubleOptIn' => 'validation'
@@ -21,7 +21,7 @@ call_user_func(
         $iconRegistry->registerIcon(
             'plugin-doubleoptin',
             \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-            ['source' => 'EXT:form_doubleoptin/Resources/Public/Icons/PluginDoubleOptIn.svg']
+            ['source' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg']
         );
 
     	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(

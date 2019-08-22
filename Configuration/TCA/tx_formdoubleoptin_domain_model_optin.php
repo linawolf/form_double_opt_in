@@ -2,7 +2,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin',
+        'title' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin',
         'label' => 'email',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -13,7 +13,7 @@ return [
             'disabled' => 'hidden'
         ],
         'searchFields' => 'email, given_name, family_name, company, customer_number, validation_hash',
-        'iconfile' => 'EXT:form_doubleoptin/Resources/Public/Icons/PluginDoubleOptIn.svg'
+        'iconfile' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'email, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
@@ -26,7 +26,7 @@ return [
     'columns' => [
         'email' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.email',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.email',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -35,7 +35,7 @@ return [
         ],
         'given_name' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.given_name',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.given_name',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -44,7 +44,7 @@ return [
         ],
         'family_name' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.family_name',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.family_name',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -53,7 +53,7 @@ return [
         ],
         'company' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.company',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.company',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -62,7 +62,7 @@ return [
         ],
         'customer_number' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.customer_number',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.customer_number',
             'config' => [
                 'type' => 'input',
                 'size' => '30',
@@ -71,7 +71,7 @@ return [
         ],
         'is_validated' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.is_validated',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.is_validated',
             'config' => [
                 'type' => 'check',
                 'readOnly' => 1
@@ -79,7 +79,7 @@ return [
         ],
         'validation_hash' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.validation_hash',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.validation_hash',
             'config' => [
                 'type' => 'input',
                 'size' => 40,
@@ -88,7 +88,7 @@ return [
         ],
         'validation_date' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:form_doubleoptin/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.validation_date',
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.validation_date',
             'config' => [
                 'type' => 'input',
                 'size' => 20,

@@ -76,7 +76,7 @@ TYPO3:
                 10: 'TYPO3.CMS.Form.mixins.finishersEmailMixin'
               implementationClassName: 'Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher'
               options:
-                templatePathAndFilename: 'EXT:form_doubleoptin/Resources/Private/Templates/Email/DoubleOptIn.html'
+                templatePathAndFilename: 'EXT:form_double_opt_in/Resources/Private/Templates/Email/DoubleOptIn.html'
               formEditor:
                 iconIdentifier: 't3-form-icon-finisher'
                 label: 'Double Opt-In'
