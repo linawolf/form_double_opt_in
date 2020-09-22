@@ -3,6 +3,8 @@ namespace Medienreaktor\FormDoubleOptIn\Domain\Finishers;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
@@ -15,17 +17,25 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
      * optInRepository
      *
      * @var \Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository
-     * @inject
      */
-    protected $optInRepository = NULL;
+    protected $optInRepository;
 
     /**
      * signalSlotDispatcher
      *
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
      */
-    protected $signalSlotDispatcher = NULL;
+    protected $signalSlotDispatcher;
+
+    public function injectOptInRepository(\Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository $optInRepository): void
+    {
+        $this->optInRepository = $optInRepository;
+    }
+
+    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $dispatcher): void
+    {
+        $this->signalSlotDispatcher = $dispatcher;
+    }
 
     /**
      * Executes this finisher
@@ -51,7 +61,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         }
 
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $standaloneView = $this->initializeStandaloneView($formRuntime);
+        $standaloneView = $this->initializeStandaloneView($formRuntime, 'text');
 
         $optIn = new OptIn();
         if(!empty($givenName)) {
@@ -70,8 +80,8 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
             $optIn->setCustomerNumber($customerNumber);
         }
 
-        $this->configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-        $configuration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
+        $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $storagePid = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['storagePid'];
         $optIn->setPid($storagePid);
 
@@ -79,7 +89,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInCreation', [$optIn]);
 
-        $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
         $persistenceManager->persistAll();
 
         $standaloneView->assign('optIn', $optIn);
@@ -96,8 +106,8 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         }
 
         $subject = $this->parseOption('subject');
-        $recipientAddress = $this->parseOption('recipientAddress');
-        $recipientName = $this->parseOption('recipientName');
+        $recipientAddress = $this->parseOption('email');
+        $recipientName = trim($this->parseOption('givenName') . ' ' . $this->parseOption('familyName'));
         $senderAddress = $this->parseOption('senderAddress');
         $senderName = $this->parseOption('senderName');
         $replyToAddress = $this->parseOption('replyToAddress');
@@ -134,9 +144,9 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         }
 
         if ($format === self::FORMAT_PLAINTEXT) {
-            $mail->setBody($message, 'text/plain');
+            $mail->text($message);
         } else {
-            $mail->setBody($message, 'text/html');
+            $mail->html($message);
         }
 
         $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();

@@ -11,17 +11,25 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * optInRepository
      *
      * @var \Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository
-     * @inject
      */
-    protected $optInRepository = NULL;
+    protected $optInRepository;
 
     /**
      * signalSlotDispatcher
      *
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     * @inject
      */
-    protected $signalSlotDispatcher = NULL;
+    protected $signalSlotDispatcher;
+
+    public function injectOptInRepository(\Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository $optInRepository): void
+    {
+        $this->optInRepository = $optInRepository;
+    }
+
+    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $dispatcher): void
+    {
+        $this->signalSlotDispatcher = $dispatcher;
+    }
 
     /**
      * action validation
