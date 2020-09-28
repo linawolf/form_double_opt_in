@@ -42,6 +42,13 @@ call_user_func(
     			}
     	   }'
     	);
+
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables'])) {
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables']['tx_formdoubleoptin_domain_model_optin'] = [
+                'dateField' => 'tstamp',
+                'expirePeriod' => 30
+            ];
+        }
     },
     $_EXTKEY
 );
