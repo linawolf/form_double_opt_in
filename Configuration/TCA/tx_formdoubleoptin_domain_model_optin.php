@@ -16,14 +16,23 @@ return [
         'iconfile' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
+        'showRecordFieldList' => 'pagelanguage, email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
     ],
     'types' => [
         '1' => [
-            'showitem' => 'email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
+            'showitem' => 'pagelanguage, email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
         ]
     ],
     'columns' => [
+        'pagelanguage' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.pagelanguage',
+            'config' => [
+                'type' => 'input',
+                'size' => '10',
+                'readOnly' => 1
+            ]
+        ],
         'email' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.email',
