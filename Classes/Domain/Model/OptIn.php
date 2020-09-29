@@ -85,6 +85,16 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Returns the pagelanguage
+     *
+     * @return string $pagelanguage
+     */
+    public function getPagelanguage()
+    {
+        return $this->pagelanguage;
+    }
+
+    /**
      * Sets the pagelanguage
      *
      * @param string $pagelanguage
