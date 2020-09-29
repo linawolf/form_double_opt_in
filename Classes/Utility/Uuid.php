@@ -8,13 +8,20 @@ class Uuid
      *
      * @return string
      */
-    public static function generate() {
+    public static function generate(): string
+    {
         $bytes = function_exists('random_bytes') ? random_bytes(16) : openssl_random_pseudo_bytes(16);
         $hash = bin2hex($bytes);
         return self::uuidFromHash($hash, 4);
     }
 
-    private static function uuidFromHash($hash, $version) {
+    /**
+     * Generate the UUID from hash.
+     *
+     * @return string
+     */
+    private static function uuidFromHash($hash, $version): string
+    {
         return sprintf('%08s-%04s-%04x-%04x-%12s',
             substr($hash, 0, 8),
             substr($hash, 8, 4),

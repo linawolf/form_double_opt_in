@@ -82,7 +82,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $email
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -91,7 +91,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the email
      *
      * @param string $email
-     * @return void
      */
     public function setEmail($email)
     {
@@ -103,7 +102,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -112,7 +111,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the title
      *
      * @param string $title
-     * @return void
      */
     public function setTitle($title)
     {
@@ -124,7 +122,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $givenName
      */
-    public function getGivenName()
+    public function getGivenName(): string
     {
         return $this->givenName;
     }
@@ -133,7 +131,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the givenName
      *
      * @param string $givenName
-     * @return void
      */
     public function setGivenName($givenName)
     {
@@ -145,7 +142,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $familyName
      */
-    public function getFamilyName()
+    public function getFamilyName(): string
     {
         return $this->familyName;
     }
@@ -154,7 +151,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the familyName
      *
      * @param string $familyName
-     * @return void
      */
     public function setFamilyName($familyName)
     {
@@ -166,7 +162,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $company
      */
-    public function getCompany()
+    public function getCompany(): string
     {
         return $this->company;
     }
@@ -175,7 +171,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the company
      *
      * @param string $company
-     * @return void
      */
     public function setCompany($company)
     {
@@ -187,7 +182,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $customerNumber
      */
-    public function getCustomerNumber()
+    public function getCustomerNumber(): string
     {
         return $this->customerNumber;
     }
@@ -196,7 +191,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the customerNumber
      *
      * @param string $customerNumber
-     * @return void
      */
     public function setCustomerNumber($customerNumber)
     {
@@ -208,7 +202,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return bool $isValidated
      */
-    public function getIsValidated()
+    public function getIsValidated(): bool
     {
         return $this->isValidated;
     }
@@ -217,7 +211,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets isValidated
      *
      * @param bool $isValidated
-     * @return void
      */
     public function setIsValidated($isValidated)
     {
@@ -229,7 +222,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $validationHash
      */
-    public function getValidationHash()
+    public function getValidationHash(): string
     {
         return $this->validationHash;
     }
@@ -238,7 +231,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the validationHash
      *
      * @param string $validationHash
-     * @return void
      */
     public function setValidationHash($validationHash)
     {
@@ -250,7 +242,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \DateTime $validationDate
      */
-    public function getValidationDate()
+    public function getValidationDate(): \DateTime
     {
         return $this->validationDate;
     }
@@ -259,7 +251,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the validationDate
      *
      * @param \DateTime $validationDate
-     * @return void
      */
     public function setValidationDate(\DateTime $validationDate)
     {

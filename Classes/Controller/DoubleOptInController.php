@@ -33,9 +33,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     }
 
     /**
-     * action validation
-     *
-     * @return void
+     * Validate the OptIn record
      */
     public function validationAction()
     {

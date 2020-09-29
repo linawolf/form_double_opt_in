@@ -19,7 +19,7 @@ final class AfterOptInCreationEvent
          $this->optIn = $optIn;
      }
 
-     public function getOptIn()
+     public function getOptIn(): \Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn
      {
          return $this->optIn;
      }
