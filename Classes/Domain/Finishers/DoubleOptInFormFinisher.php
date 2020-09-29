@@ -45,6 +45,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
      */
     protected function executeInternal()
     {
+        $title = $this->parseOption('title');
         $givenName = $this->parseOption('givenName');
         $familyName = $this->parseOption('familyName');
         $email = $this->parseOption('email');
@@ -64,6 +65,9 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $standaloneView = $this->initializeStandaloneView($formRuntime, 'text');
 
         $optIn = new OptIn();
+        if(!empty($title)) {
+            $optIn->setTitle($title);
+        }
         if(!empty($givenName)) {
             $optIn->setGivenName($givenName);
         }

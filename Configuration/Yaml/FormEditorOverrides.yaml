@@ -23,6 +23,14 @@ TYPO3:
                           10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
                         100:
                           label: 'Double Opt-In'
+                        105:
+                          identifier: 'title'
+                          templateName: 'Inspector-TextEditor'
+                          label: 'Title'
+                          propertyPath: 'options.title'
+                          enableFormelementSelectionButton: true
+                          propertyValidators:
+                            10: 'FormElementIdentifierWithinCurlyBracesInclusive'
                         110:
                           identifier: 'givenName'
                           templateName: 'Inspector-TextEditor'
@@ -82,6 +90,7 @@ TYPO3:
                 label: 'Double Opt-In'
                 predefinedDefaults:
                   options:
+                    title: ''
                     givenName: ''
                     familyName: ''
                     email: ''
@@ -103,6 +112,10 @@ TYPO3:
               FormEngine:
                 label: 'Double Opt-In'
                 elements:
+                  title:
+                    label: 'Title'
+                    config:
+                      type: 'input'
                   givenName:
                     label: 'Given name'
                     config:

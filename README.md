@@ -21,6 +21,7 @@ The Double Opt-In process consists of two parts:
 Build your form as usual using the TYPO3 Form Framework backend module. Then add the "Double Opt-In" form finisher and map your fields to the desired fields of the created Opt-In records. Also enter a Page ID where the validation plugin (see below) will be placed.
 
 Available fields in the Opt-In model are:
+ + Title
  + Given name
  + Last name
  + Email address

@@ -15,6 +15,13 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $email = '';
 
     /**
+     * title
+     *
+     * @var string
+     */
+    protected $title = '';
+
+    /**
      * givenName
      *
      * @var string
@@ -89,6 +96,27 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * Returns the title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Sets the title
+     *
+     * @param string $title
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     /**
