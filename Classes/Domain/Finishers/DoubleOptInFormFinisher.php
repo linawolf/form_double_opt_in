@@ -2,6 +2,8 @@
 namespace Medienreaktor\FormDoubleOptIn\Domain\Finishers;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
+use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -21,20 +23,18 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
     protected $optInRepository;
 
     /**
-     * signalSlotDispatcher
-     *
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @var \Psr\EventDispatcher\EventDispatcherInterface
      */
-    protected $signalSlotDispatcher;
+    protected $eventDispatcher;
 
     public function injectOptInRepository(\Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository $optInRepository): void
     {
         $this->optInRepository = $optInRepository;
     }
 
-    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $dispatcher): void
+    public function injectEventDispatcher(\Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher): void
     {
-        $this->signalSlotDispatcher = $dispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -91,7 +91,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $this->optInRepository->add($optIn);
 
-        $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInCreation', [$optIn]);
+        $this->eventDispatcher->dispatch(new AfterOptInCreationEvent($optIn));
 
         $persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
         $persistenceManager->persistAll();

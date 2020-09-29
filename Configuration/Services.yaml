@@ -7,3 +7,15 @@ services:
 
   Medienreaktor\FormDoubleOptIn\:
     resource: '../Classes/*'
+
+  # EventListeners
+  Medienreaktor\FormDoubleOptIn\Compatibility\SlotReplacement:
+    tags:
+      - name: event.listener
+        identifier: 'legacy-slot'
+        method: 'onOptInRecordCreated'
+        event: Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent
+      - name: event.listener
+        identifier: 'legacy-slot'
+        method: 'onOptInRecordValidated'
+        event: Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent

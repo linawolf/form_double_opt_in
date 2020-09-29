@@ -1,6 +1,9 @@
 <?php
 namespace Medienreaktor\FormDoubleOptIn\Controller;
 
+use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
+
 /*
  * DoubleOptInController
  */
@@ -15,20 +18,18 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     protected $optInRepository;
 
     /**
-     * signalSlotDispatcher
-     *
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @var \Psr\EventDispatcher\EventDispatcherInterface
      */
-    protected $signalSlotDispatcher;
+    protected $eventDispatcher;
 
     public function injectOptInRepository(\Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository $optInRepository): void
     {
         $this->optInRepository = $optInRepository;
     }
 
-    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $dispatcher): void
+    public function injectEventDispatcher(\Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher): void
     {
-        $this->signalSlotDispatcher = $dispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -49,7 +50,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $optIn->setValidationDate(new \DateTime);
                 $this->optInRepository->update($optIn);
 
-                $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
+                $this->eventDispatcher->dispatch(new AfterOptInValidationEvent($optIn));
 
                 $success = TRUE;
             }
