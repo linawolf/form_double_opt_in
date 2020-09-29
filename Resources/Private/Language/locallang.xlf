@@ -6,6 +6,9 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin">
                 <source>Opt-In</source>
             </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.pagelanguage">
+                <source>Language ID</source>
+            </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.title">
                 <source>Title</source>
             </trans-unit>

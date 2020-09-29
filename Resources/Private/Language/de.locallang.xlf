@@ -6,6 +6,9 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin" approved="yes">
                 <target>Opt-In</target>
             </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.pagelanguage">
+                <target>Sprache ID</target>
+            </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.title">
                 <target>Anrede</target>
             </trans-unit>

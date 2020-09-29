@@ -8,6 +8,13 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
     /**
+     * pagelanguage
+     *
+     * @var string
+     */
+    protected $pagelanguage = '';
+
+    /**
      * email
      *
      * @var string
@@ -75,6 +82,17 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         if( ! $this->validationHash){
             $this->validationHash = \Medienreaktor\FormDoubleOptIn\Utility\Uuid::generate();
         }
+    }
+
+    /**
+     * Sets the pagelanguage
+     *
+     * @param string $pagelanguage
+     * @return void
+     */
+    public function setPagelanguage($pagelanguage)
+    {
+        $this->pagelanguage = $pagelanguage;
     }
 
     /**
