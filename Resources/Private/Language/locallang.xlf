@@ -36,8 +36,20 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_date">
                 <source>Validation date</source>
             </trans-unit>
+            <trans-unit id="text.success.title">
+                <source>Success</source>
+            </trans-unit>
             <trans-unit id="text.success">
                 <source>Thank you, your validation was successful.</source>
+            </trans-unit>
+            <trans-unit id="text.validated.title">
+                <source>Notice</source>
+            </trans-unit>
+            <trans-unit id="text.validated">
+                <source>This e-mail address has been confirmed already.</source>
+            </trans-unit>
+            <trans-unit id="text.error.title">
+                <source>Error</source>
             </trans-unit>
             <trans-unit id="text.error">
                 <source>Sorry, an error occurred during validation.</source>
