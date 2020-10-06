@@ -3,7 +3,7 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-05-23T00:00:00Z" product-name="formdoubleoptin">
 		<header/>
 		<body>
-            <trans-unit id="tx_formdoubleoptin_domain_model_optin" approved="yes" approved="yes">
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin" approved="yes">
                 <target>Opt-In</target>
             </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.pagelanguage" approved="yes">
