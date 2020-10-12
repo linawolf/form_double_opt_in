@@ -2,7 +2,6 @@
 namespace Medienreaktor\FormDoubleOptIn\Controller;
 
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
-use Psr\EventDispatcher\EventDispatcherInterface;
 
 /*
  * DoubleOptInController
@@ -17,19 +16,9 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     protected $optInRepository;
 
-    /**
-     * @var \Psr\EventDispatcher\EventDispatcherInterface
-     */
-    protected $eventDispatcher;
-
     public function injectOptInRepository(\Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository $optInRepository): void
     {
         $this->optInRepository = $optInRepository;
-    }
-
-    public function injectEventDispatcher(\Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher): void
-    {
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
