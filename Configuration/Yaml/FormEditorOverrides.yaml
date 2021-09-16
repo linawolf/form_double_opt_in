@@ -108,7 +108,7 @@ TYPO3:
                     format: 'html'
                     attachUploads: false
                     translation:
-                      language: ''
+                      language: 'default'
               FormEngine:
                 label: 'Double Opt-In'
                 elements:
