@@ -107,8 +107,6 @@ TYPO3:
                     blindCarbonCopyAddress: ''
                     format: 'html'
                     attachUploads: false
-                    translation:
-                      language: 'default'
               FormEngine:
                 label: 'Double Opt-In'
                 elements:
