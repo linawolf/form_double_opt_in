@@ -17,5 +17,10 @@
 		"psr-4": {
 			"Medienreaktor\\FormDoubleOptIn\\": "Classes"
 		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "form_double_opt_in"
+		}
 	}
 }
