@@ -1,0 +1,12 @@
+stages:
+  - package-and-deploy
+
+package-and-deploy:
+  image:
+    name: "${COMPOSER_PUBLISH_IMAGE}"
+  stage: package-and-deploy
+  script:
+    - cd $CI_PROJECT_DIR
+    - /nexus-push.sh
+  only:
+    - tags
