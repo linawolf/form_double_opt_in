@@ -50,5 +50,5 @@ call_user_func(
             ];
         }
     },
-    $_EXTKEY
+    'form_double_opt_in'
 );
