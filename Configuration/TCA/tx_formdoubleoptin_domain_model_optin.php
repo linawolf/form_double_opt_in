@@ -15,9 +15,6 @@ return [
         'searchFields' => 'email, title, given_name, family_name, company, customer_number, validation_hash',
         'iconfile' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
-    ],
     'types' => [
         '1' => [
             'showitem' => 'email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
