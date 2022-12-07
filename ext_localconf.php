@@ -8,10 +8,10 @@ call_user_func(
             'Medienreaktor.FormDoubleOptIn',
             'DoubleOptIn',
             [
-                'DoubleOptIn' => 'validation'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation'
             ],
             [
-                'DoubleOptIn' => 'validation'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation'
             ]
         );
 
