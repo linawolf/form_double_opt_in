@@ -1,5 +1,5 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(
     function($extKey)
@@ -50,5 +50,5 @@ call_user_func(
             ];
         }
     },
-    $_EXTKEY
+    'form_double_opt_in'
 );
