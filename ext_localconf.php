@@ -1,17 +1,20 @@
 <?php
+
+use Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController;
+
 defined('TYPO3') || die('Access denied.');
 
 call_user_func(
     function($extKey)
 	{
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'Medienreaktor.FormDoubleOptIn',
+            'form_double_opt_in',
             'DoubleOptIn',
             [
-                'DoubleOptIn' => 'validation'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation'
             ],
             [
-                'DoubleOptIn' => 'validation'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation'
             ]
         );
 

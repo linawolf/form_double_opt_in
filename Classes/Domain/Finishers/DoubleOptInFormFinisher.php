@@ -15,6 +15,8 @@ use TYPO3\CMS\Form\Service\TranslationService;
 class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 {
 
+    const FORMAT_PLAINTEXT = 'plaintext';
+
     /**
      * optInRepository
      *
@@ -86,7 +88,11 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
         $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $storagePid = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['storagePid'];
+        $storagePid = (int) $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['storagePid'];
+        if ($storagePid === 0) {
+            throw new \Exception('The storagePid is not set. Please set it by ' .
+                'TypoScript \'plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid\'.');
+        }
         $optIn->setPid($storagePid);
 
         $this->optInRepository->add($optIn);
