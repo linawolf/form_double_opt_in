@@ -59,46 +59,14 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $customerNumber = $this->parseOption('customerNumber');
         $validationPid = $this->parseOption('validationPid');
 
-        if (empty($email) && empty($customerNumber)) {
-            throw new FinisherException('The options "email" or "customerNumber" must be set.', 1527145965);
-        }
-
-        if (empty($validationPid)) {
-            throw new FinisherException('The option "validationPid" must be set.', 1527145966);
-        }
+        $this->validateInput($email, $customerNumber, $validationPid);
 
         $formRuntime = $this->finisherContext->getFormRuntime();
-        $standaloneView = $this->initializeStandaloneView($formRuntime, 'text');
 
-        $optIn = new OptIn();
-        $optIn->setPagelanguage($pagelanguage);
-        if(!empty($title)) {
-            $optIn->setTitle($title);
-        }
-        if(!empty($givenName)) {
-            $optIn->setGivenName($givenName);
-        }
-        if(!empty($familyName)) {
-            $optIn->setFamilyName($familyName);
-        }
-        if(!empty($email)) {
-            $optIn->setEmail($email);
-        }
-        if(!empty($company)) {
-            $optIn->setCompany($company);
-        }
-        if(!empty($customerNumber)) {
-            $optIn->setCustomerNumber($customerNumber);
-        }
+        $mailToReceiverBody = $this->prepareMailToReceiver($formRuntime);
 
-        $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
-        $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $storagePid = (int) $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['storagePid'];
-        if ($storagePid === 0) {
-            throw new \Exception('The storagePid is not set. Please set it by ' .
-                'TypoScript \'plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid\'.');
-        }
-        $optIn->setPid($storagePid);
+        $optIn = $this->createOptInModel($pagelanguage, $title, $givenName, $familyName, $email, $company,
+            $customerNumber, $mailToReceiverBody);
 
         $this->optInRepository->add($optIn);
 
@@ -107,6 +75,92 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
         $persistenceManager->persistAll();
 
+        $this->sendDoubleOptinMail($formRuntime, $optIn, $validationPid);
+    }
+
+    private function prepareMailToReceiver(FormRuntime $formRuntime): string
+    {
+        $format = $this->parseOption('format');
+        $standaloneView = $this->initializeStandaloneView($formRuntime, $format);
+        $standaloneView->setTemplatePathAndFilename('EXT:form_double_opt_in/Resources/Private/Templates/Email/MailToReceiver.html');
+        return $standaloneView->render();
+    }
+
+    /**
+     * @param $email
+     * @param $customerNumber
+     * @param $validationPid
+     * @return void
+     * @throws FinisherException
+     */
+    private function validateInput($email, $customerNumber, $validationPid): void
+    {
+        if (empty($email) && empty($customerNumber)) {
+            throw new FinisherException('The options "email" or "customerNumber" must be set.', 1527145965);
+        }
+
+        if (empty($validationPid)) {
+            throw new FinisherException('The option "validationPid" must be set.', 1527145966);
+        }
+    }
+
+    /**
+     * @param $pagelanguage
+     * @param $title
+     * @param $givenName
+     * @param $familyName
+     * @param $email
+     * @param $company
+     * @param $customerNumber
+     * @return OptIn
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    protected function createOptInModel(
+        $pagelanguage,
+        $title,
+        $givenName,
+        $familyName,
+        $email,
+        $company,
+        $customerNumber,
+        string $mailToReceiverBody
+    ): OptIn {
+        $optIn = new OptIn();
+        $optIn->setPagelanguage($pagelanguage);
+        if (!empty($title)) {
+            $optIn->setTitle($title);
+        }
+        if (!empty($givenName)) {
+            $optIn->setGivenName($givenName);
+        }
+        if (!empty($familyName)) {
+            $optIn->setFamilyName($familyName);
+        }
+        if (!empty($email)) {
+            $optIn->setEmail($email);
+        }
+        if (!empty($company)) {
+            $optIn->setCompany($company);
+        }
+        if (!empty($customerNumber)) {
+            $optIn->setCustomerNumber($customerNumber);
+        }
+        $optIn->setMailBody($mailToReceiverBody);
+
+        $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
+        $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $storagePid = (int)$configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['storagePid'];
+        if ($storagePid === 0) {
+            throw new \Exception('The storagePid is not set. Please set it by ' .
+                'TypoScript \'plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid\'.');
+        }
+        $optIn->setPid($storagePid);
+        return $optIn;
+    }
+
+    private function sendDoubleOptinMail(FormRuntime $formRuntime, OptIn $optIn, int $validationPid): void
+    {
+        $standaloneView = $this->initializeStandaloneView($formRuntime, 'text');
         $standaloneView->assign('optIn', $optIn);
         $standaloneView->assign('validationPid', $validationPid);
 

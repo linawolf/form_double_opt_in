@@ -19,6 +19,7 @@ CREATE TABLE tx_formdoubleoptin_domain_model_optin (
     email varchar(255) DEFAULT '' NOT NULL,
     company varchar(255) DEFAULT '' NOT NULL,
     customer_number varchar(255) DEFAULT '' NOT NULL,
+    mail_body text,
 
     is_validated tinyint(4) unsigned DEFAULT '0' NOT NULL,
     validation_hash varchar(255) DEFAULT '' NOT NULL,

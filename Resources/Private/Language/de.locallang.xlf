@@ -21,6 +21,9 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.email" approved="yes">
                 <target>E-Mail-Adresse</target>
             </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.mail_body" approved="yes">
+                <target>E-Mail-Text</target>
+            </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.company" approved="yes">
                 <target>Unternehmen</target>
             </trans-unit>

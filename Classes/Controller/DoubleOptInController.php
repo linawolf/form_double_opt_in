@@ -39,8 +39,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             if ($optIn) {
                 $isValidated = $optIn->getIsValidated();
 
-            // Simple notification e-mail
-                $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
+                // Simple notification e-mail
                 $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
                 $notificationMailEnable = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailEnable'];
                 $notificationMailReceiverMail = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailReceiverMail'];
@@ -76,6 +75,9 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     $mail->text($language .', '. $title .', '. $givenName .', '. $familyName .', '.$email.', '.$company.', '.$customerNumber);
                     $mail->html($language .'<br />'. $title .'<br />'. $givenName .'<br />'. $familyName .'<br />'.$email.'<br />'.$company.'<br />'.$customerNumber);
                     $mail->send();
+
+                    // mail to be sent up-on double opt-in
+
                 }
 
             // Set validated if not yet
