@@ -6,6 +6,13 @@ plugin.tx_formdoubleoptin_doubleoptin {
     }
     persistence {
         storagePid = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid}
+        notificationMailEnable = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.notificationMailEnable}
+        notificationMailSubject = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.notificationMailSubject}
+        notificationMailSenderMail = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.notificationMailSenderMail}
+        notificationMailSenderName = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.notificationMailSenderName}
+        notificationMailReceiverMail = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.notificationMailReceiverMail}
+        notificationMailReceiverName = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.notificationMailReceiverName}
+        notificationMailSenderName = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.notificationMailSenderName}
     }
     settings {
 

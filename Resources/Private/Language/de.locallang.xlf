@@ -6,7 +6,10 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin" approved="yes">
                 <target>Opt-In</target>
             </trans-unit>
-            <trans-unit id="tx_formdoubleoptin_domain_model_optin.title">
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.pagelanguage" approved="yes">
+                <target>Sprache ID</target>
+            </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.title" approved="yes">
                 <target>Anrede</target>
             </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.given_name" approved="yes">
@@ -33,8 +36,20 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_date" approved="yes">
                 <target>Validierungs-Datum</target>
             </trans-unit>
+            <trans-unit id="text.success.title" approved="yes">
+                <target>Erfolg</target>
+            </trans-unit>
             <trans-unit id="text.success" approved="yes">
                 <target>Vielen Dank, Ihre Registrierung wurde erfolgreich bestätigt.</target>
+            </trans-unit>
+            <trans-unit id="text.validated.title" approved="yes">
+                <target>Beachten</target>
+            </trans-unit>
+            <trans-unit id="text.validated" approved="yes">
+                <target>Diese E-Mail-Adresse wurde bereits bestätigt.</target>
+            </trans-unit>
+            <trans-unit id="text.error.title" approved="yes">
+                <target>Fehler</target>
             </trans-unit>
             <trans-unit id="text.error" approved="yes">
                 <target>Leider ist bei der Validierung ein Fehler aufgetreten.</target>

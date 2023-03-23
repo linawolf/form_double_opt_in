@@ -4,6 +4,7 @@ namespace Medienreaktor\FormDoubleOptIn\Domain\Finishers;
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -47,6 +48,9 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
      */
     protected function executeInternal()
     {
+        $context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+        $pagelanguage = $context->getPropertyFromAspect('language', 'id');
+
         $title = $this->parseOption('title');
         $givenName = $this->parseOption('givenName');
         $familyName = $this->parseOption('familyName');
@@ -67,6 +71,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $standaloneView = $this->initializeStandaloneView($formRuntime, 'text');
 
         $optIn = new OptIn();
+        $optIn->setPagelanguage($pagelanguage);
         if(!empty($title)) {
             $optIn->setTitle($title);
         }

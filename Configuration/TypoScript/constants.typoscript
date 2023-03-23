@@ -2,5 +2,17 @@ plugin.tx_formdoubleoptin_doubleoptin {
     persistence {
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Default storage PID
         storagePid =
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=boolean; label= Send opt-in mail notification
+        notificationMailEnable =
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Notification mail subject
+        notificationMailSubject =
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail from address
+        notificationMailSenderMail =
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail from name
+        notificationMailSenderName =
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail to address (mandatory)
+        notificationMailReceiverMail = 
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail to name
+        notificationMailReceiverName =
     }
 }

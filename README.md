@@ -38,4 +38,6 @@ The validation plugin will verify your Opt-In records by checking the confirmati
 
 Just place the "Double Opt-In" plugin on a page you like and make sure to define this Page ID in the form finisher (see above).
 
+If you want an e-mail to be sent to a certain address after the validation set it up in TypoScript constants.
+
 That's it.
