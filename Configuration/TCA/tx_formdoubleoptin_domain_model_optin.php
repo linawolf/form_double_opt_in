@@ -20,7 +20,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'pagelanguage, email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
+            'showitem' => 'pagelanguage, email, mail_body, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
         ]
     ],
     'columns' => [
@@ -39,6 +39,14 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
+                'readOnly' => 1
+            ]
+        ],
+        'mail_body' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.mail_body',
+            'config' => [
+                'type' => 'text',
                 'readOnly' => 1
             ]
         ],

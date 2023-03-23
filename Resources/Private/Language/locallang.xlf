@@ -21,6 +21,9 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.email">
                 <source>Email address</source>
             </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.mail_body">
+                <source>Email text</source>
+            </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.company">
                 <source>Company</source>
             </trans-unit>

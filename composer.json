@@ -10,7 +10,9 @@
 		}
 	],
 	"require": {
-		"typo3/cms-core": "^10.4 || ^11.5"
+		"ext-json": "*",
+		"typo3/cms-core": "^10.4 || ^11.5",
+		"typo3/cms-form": "^10.4 || ^11.5"
 	},
 	"autoload": {
 		"psr-4": {

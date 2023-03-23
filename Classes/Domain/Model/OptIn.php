@@ -77,6 +77,8 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $validationDate = null;
 
+    protected string $mailBody = '';
+
     public function __construct()
     {
         if( ! $this->validationHash){
@@ -284,5 +286,14 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->validationDate = $validationDate;
     }
+    
+    public function getMailBody(): string
+    {
+        return $this->mailBody;
+    }
 
+    public function setMailBody(string $mailBody): void
+    {
+        $this->mailBody = $mailBody;
+    }
 }

@@ -79,7 +79,7 @@ TYPO3:
                         200:
                           identifier: subject
                           templateName: Inspector-TextEditor
-                          label: formEditor.elements.Form.finisher.EmailToSender.editor.subject.label
+                          label: 'Subject double opt-in email'
                           propertyPath: options.subject
                           enableFormelementSelectionButton: true
                           propertyValidators:
@@ -89,11 +89,9 @@ TYPO3:
                         350:
                           identifier: recipients
                           templateName: Inspector-PropertyGridEditor
-                          label: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.label
+                          label: Recipients after opt-in
+                          fieldExplanationText: "Recipients after successful double opt-in, leave empty if no mail should be sent"
                           propertyPath: options.recipients
-                          propertyValidators:
-                            10: NotEmpty
-                          fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.recipients.fieldExplanationText
                           isSortable: true
                           enableAddRow: true
                           enableDeleteRow: true
@@ -171,11 +169,6 @@ TYPO3:
                           label: formEditor.elements.Form.finisher.EmailToSender.editor.addHtmlPart.label
                           propertyPath: options.addHtmlPart
                           fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.addHtmlPart.fieldExplanationText
-                        1100:
-                          identifier: attachUploads
-                          templateName: Inspector-CheckboxEditor
-                          label: formEditor.elements.Form.finisher.EmailToSender.editor.attachUploads.label
-                          propertyPath: options.attachUploads
                         1200:
                           identifier: language
                           templateName: Inspector-SingleSelectEditor
@@ -185,17 +178,11 @@ TYPO3:
                             10:
                               value: default
                               label: formEditor.elements.Form.finisher.EmailToSender.editor.language.1
-                        1300:
-                          identifier: useFluidEmail
-                          templateName: Inspector-CheckboxEditor
-                          label: formEditor.elements.Form.finisher.EmailToSender.editor.useFluidEmail.label
-                          propertyPath: options.useFluidEmail
-                          fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.useFluidEmail.fieldExplanationText
                         1400:
-                          identifier: title
+                          identifier: subjectReceiver
                           templateName: Inspector-TextEditor
-                          label: formEditor.elements.Form.finisher.EmailToSender.editor.title.label
-                          propertyPath: options.title
+                          label: Email subject for receiver
+                          propertyPath: options.subjectReceiver
                           enableFormelementSelectionButton: true
                           propertyValidators:
                             10: FormElementIdentifierWithinCurlyBracesInclusive
@@ -210,7 +197,7 @@ TYPO3:
                 templateName: '{@format}.html'
                 templateRootPaths:
                   10: 'EXT:form/Resources/Private/Frontend/Templates/Finishers/Email/'
-                templatePathAndFilename: 'EXT:form_double_opt_in/Resources/Private/Templates/Email/DoubleOptIn.html'
+                  20: 'EXT:form_double_opt_in/Resources/Private/Templates/Email/'
               formEditor:
                 iconIdentifier: 't3-form-icon-finisher'
                 label: 'Double Opt-In'
@@ -231,8 +218,7 @@ TYPO3:
                     replyToAddress: ''
                     carbonCopyAddress: ''
                     blindCarbonCopyAddress: ''
-                    format: 'html'
-                    attachUploads: false
+                    subjectReceiver: ''
               FormEngine:
                 label: 'Double Opt-In'
                 elements:

@@ -1,9 +1,11 @@
 plugin.tx_formdoubleoptin_doubleoptin {
-    persistence {
+    settings {
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Default storage PID
         storagePid =
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=boolean; label= Send opt-in mail notification
-        notificationMailEnable =
+        notificationMailEnable = 1
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=boolean; label= Use prepared mail templated by form
+        usePreparedEmail = 1
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Notification mail subject
         notificationMailSubject =
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail from address
