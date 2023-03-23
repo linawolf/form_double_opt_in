@@ -3,7 +3,12 @@ namespace Medienreaktor\FormDoubleOptIn\Domain\Finishers;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
+use Medienreaktor\FormDoubleOptIn\Utility\AddressUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -75,33 +80,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
         $persistenceManager->persistAll();
 
-        $this->sendDoubleOptinMail($formRuntime, $optIn, $validationPid);
-    }
-
-    private function prepareMailToReceiver(FormRuntime $formRuntime): string
-    {
-        $format = $this->parseOption('format');
-        $standaloneView = $this->initializeStandaloneView($formRuntime, $format);
-        $standaloneView->setTemplatePathAndFilename('EXT:form_double_opt_in/Resources/Private/Templates/Email/MailToReceiver.html');
-        return $standaloneView->render();
-    }
-
-    /**
-     * @param $email
-     * @param $customerNumber
-     * @param $validationPid
-     * @return void
-     * @throws FinisherException
-     */
-    private function validateInput($email, $customerNumber, $validationPid): void
-    {
-        if (empty($email) && empty($customerNumber)) {
-            throw new FinisherException('The options "email" or "customerNumber" must be set.', 1527145965);
-        }
-
-        if (empty($validationPid)) {
-            throw new FinisherException('The option "validationPid" must be set.', 1527145966);
-        }
+        $this->sendDoubleOptInMail($formRuntime, $optIn, $validationPid);
     }
 
     /**
@@ -158,68 +137,139 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         return $optIn;
     }
 
-    private function sendDoubleOptinMail(FormRuntime $formRuntime, OptIn $optIn, int $validationPid): void
+
+
+    /**
+     * @param $email
+     * @param $customerNumber
+     * @param $validationPid
+     * @return void
+     * @throws FinisherException
+     */
+    private function validateInput($email, $customerNumber, $validationPid): void
     {
-        $standaloneView = $this->initializeStandaloneView($formRuntime, 'text');
-        $standaloneView->assign('optIn', $optIn);
-        $standaloneView->assign('validationPid', $validationPid);
+        if (empty($email) && empty($customerNumber)) {
+            throw new FinisherException('The options "email" or "customerNumber" must be set.', 1527145965);
+        }
+
+        if (empty($validationPid)) {
+            throw new FinisherException('The option "validationPid" must be set.', 1527145966);
+        }
+    }
+
+
+    private function prepareMailToReceiver(FormRuntime $formRuntime): string
+    {
+        $recipients = $this->getRecipients('recipients');
+        if (sizeof($recipients) === 0) {
+            return '';
+        }
+
+        $recipientsArray = AddressUtility::toArray($recipients);
+
+        $addHtmlPart = $this->isAddHtmlPart();
+        $subject = $this->parseOption('subjectReceiver');
+
+        if (empty($subject)) {
+            throw new FinisherException('The option "subjectReceiver" must be set for the DoubleOptInFormFinisher.', 1327060320);
+        }
+        $mail = $this->initializeFluidEmail($formRuntime)
+            ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
+            ->assign('title', $subject);
+
+        $bodyHTML = $mail->getHtmlBody(true);
+        $bodyText = $mail->getTextBody(true);
+        $json = array_merge($this->getAdresses(), compact ('recipientsArray', 'subject', 'addHtmlPart', 'bodyHTML', 'bodyText'));
+
+        return json_encode($json);
+    }
+
+
+    private function sendDoubleOptInMail(FormRuntime $formRuntime, OptIn $optIn, int $validationPid): void
+    {
+
+        $languageBackup = null;
+        $addHtmlPart = $this->isAddHtmlPart();
 
         $translationService = TranslationService::getInstance();
         if (isset($this->options['translation']['language']) && !empty($this->options['translation']['language'])) {
             $languageBackup = $translationService->getLanguage();
             $translationService->setLanguage($this->options['translation']['language']);
         }
-        $message = $standaloneView->render();
+        $recipientAddress = $this->parseOption('email');
+        extract($this->getAdresses());
+        $subject = $this->parseOption('subject');
+        if (empty($subject)) {
+            throw new FinisherException('The option "subject" must be set for the DoubleOptInFormFinisher.', 1327060320);
+        }
+        if (empty($senderAddress)) {
+            throw new FinisherException('The option "senderAddress" must be set for the DoubleOptInFormFinisher.', 1327060210);
+        }
+        $mail = $this->initializeFluidEmail($formRuntime)
+            ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
+            ->assign('title', $subject)
+            ->assign('optIn', $optIn)
+            ->assign('validationPid', $validationPid);
+
+
+        $doubleOpInTemplateName = $this->options['doubleOpInTemplateName'] ?? 'DoubleOptIn';
+        $mail
+            ->setTemplate($doubleOpInTemplateName);
+        $mail
+            ->from(new Address($senderAddress, $senderName))
+            ->to($recipientAddress)
+            ->subject($subject);
+
+        if (!empty($replyToRecipients)) {
+            $mail->replyTo(...$replyToRecipients);
+        }
+
+        if (!empty($carbonCopyRecipients)) {
+            $mail->cc(...$carbonCopyRecipients);
+        }
+
+        if (!empty($blindCarbonCopyRecipients)) {
+            $mail->bcc(...$blindCarbonCopyRecipients);
+        }
         if (!empty($languageBackup)) {
             $translationService->setLanguage($languageBackup);
         }
+        GeneralUtility::makeInstance(Mailer::class)->send($mail);
 
-        $subject = $this->parseOption('subject');
-        $recipientAddress = $this->parseOption('email');
-        $recipientName = trim($this->parseOption('givenName') . ' ' . $this->parseOption('familyName'));
+    }
+
+    /**
+     * @return bool
+     */
+    private function isAddHtmlPart(): bool
+    {
+        // Flexform overrides write strings instead of integers so
+        // we need to cast the string '0' to false.
+        if (
+            isset($this->options['addHtmlPart'])
+            && $this->options['addHtmlPart'] === '0'
+        ) {
+            $this->options['addHtmlPart'] = false;
+        }
+        $addHtmlPart = $this->parseOption('addHtmlPart') ? true : false;
+        return $addHtmlPart;
+    }
+
+    /**
+     * @return array
+     */
+    private function getAdresses(): array
+    {
         $senderAddress = $this->parseOption('senderAddress');
+        $senderAddress = is_string($senderAddress) ? $senderAddress : '';
         $senderName = $this->parseOption('senderName');
-        $replyToAddress = $this->parseOption('replyToAddress');
-        $carbonCopyAddress = $this->parseOption('carbonCopyAddress');
-        $blindCarbonCopyAddress = $this->parseOption('blindCarbonCopyAddress');
-        $format = $this->parseOption('format');
-
-        if (empty($subject)) {
-            throw new FinisherException('The option "subject" must be set for the EmailFinisher.', 1327060320);
-        }
-        if (empty($recipientAddress)) {
-            throw new FinisherException('The option "recipientAddress" must be set for the EmailFinisher.', 1327060200);
-        }
-        if (empty($senderAddress)) {
-            throw new FinisherException('The option "senderAddress" must be set for the EmailFinisher.', 1327060210);
-        }
-
-        $mail = $this->objectManager->get(MailMessage::class);
-
-        $mail->setFrom([$senderAddress => $senderName])
-            ->setTo([$recipientAddress => $recipientName])
-            ->setSubject($subject);
-
-        if (!empty($replyToAddress)) {
-            $mail->setReplyTo($replyToAddress);
-        }
-
-        if (!empty($carbonCopyAddress)) {
-            $mail->setCc($carbonCopyAddress);
-        }
-
-        if (!empty($blindCarbonCopyAddress)) {
-            $mail->setBcc($blindCarbonCopyAddress);
-        }
-
-        if ($format === self::FORMAT_PLAINTEXT) {
-            $mail->text($message);
-        } else {
-            $mail->html($message);
-        }
-
-        $elements = $formRuntime->getFormDefinition()->getRenderablesRecursively();
-
-        $mail->send();
+        $senderName = is_string($senderName) ? $senderName : '';
+        $replyToRecipients = $this->getRecipients('replyToRecipients');
+        $replyToRecipientsArray = AddressUtility::toArray($replyToRecipients);
+        $carbonCopyRecipients = $this->getRecipients('carbonCopyRecipients');
+        $carbonCopyRecipientsArray = AddressUtility::toArray($carbonCopyRecipients);
+        $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients');
+        $blindCarbonCopyRecipientsArray = AddressUtility::toArray($blindCarbonCopyRecipients);
+        return compact ('senderAddress', 'senderName', 'replyToRecipients', 'carbonCopyRecipients', 'blindCarbonCopyRecipients');
     }
 }

@@ -1,8 +1,14 @@
 <?php
 namespace Medienreaktor\FormDoubleOptIn\Controller;
 
+use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
+use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
 
+use Medienreaktor\FormDoubleOptIn\Service\MailToReceiverService;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -13,15 +19,12 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
-    /**
-     * optInRepository
-     *
-     * @var \Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository
-     */
-    protected $optInRepository;
+    private MailToReceiverService $mailToReceiverService;
+    protected OptInRepository $optInRepository;
 
-    public function injectOptInRepository(\Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository $optInRepository): void
+    public function __construct(MailToReceiverService $mailToReceiverService, OptInRepository $optInRepository)
     {
+        $this->mailToReceiverService = $mailToReceiverService;
         $this->optInRepository = $optInRepository;
     }
 
@@ -34,54 +37,29 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $validated = FALSE;
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
+            /** @var OptIn $optIn */
             $optIn = $this->optInRepository->findOneByValidationHash($hash);
 
             if ($optIn) {
-                $isValidated = $optIn->getIsValidated();
+                $isAlreadyValidated = $optIn->getIsValidated();
 
-                // Simple notification e-mail
-                $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-                $notificationMailEnable = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailEnable'];
-                $notificationMailReceiverMail = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailReceiverMail'];
+                $notificationMailEnable = $this->settings['notificationMailEnable'] ?? false;
+                $usePreparedEmail = $this->settings['usePreparedEmail'] ?? false;
 
-                if (!$isValidated && $notificationMailEnable && $notificationMailReceiverMail) {
-                    $notificationMailReceiverName = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailReceiverName'];
-                    $notificationMailSenderMail = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailSenderMail'];
-                    $notificationMailSenderName = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailSenderName'];
-                    $notificationMailSubject = $configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['notificationMailSubject'];
-
-                    $language = $optIn->getPagelanguage();
-                    $title = $optIn->getTitle();
-                    $givenName = $optIn->getGivenName();
-                    $familyName = $optIn->getFamilyName();
-                    $email = $optIn->getEmail();
-                    $company = $optIn->getCompany();
-                    $customerNumber = $optIn->getCustomerNumber();
-
-                    $mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
-                    if ($notificationMailSenderMail && $notificationMailSenderName) {
-                        $mail->from(new \Symfony\Component\Mime\Address($notificationMailSenderMail, $notificationMailSenderName));
-                    } elseif ($notificationMailSenderMail) {
-                        $mail->from(new \Symfony\Component\Mime\Address($notificationMailSenderMail));
+                if (!$isAlreadyValidated && $notificationMailEnable) {
+                    if ($usePreparedEmail) {
+                        // Prepared e-mail with full power of the form extension
+                        if ($optIn->getMailBody() !== '') {
+                            $this->mailToReceiverService->sendPreparedMail(json_decode($optIn->getMailBody(), true));
+                        }
+                    } else {
+                        // Simple notification e-mail
+                        $this->mailToReceiverService->sendNewMail($this->settings, $optIn);
                     }
-                    if ($notificationMailReceiverMail && $notificationMailReceiverName) {
-                        $mail->to(new \Symfony\Component\Mime\Address($notificationMailReceiverMail, $notificationMailReceiverName));
-                    } elseif ($notificationMailReceiverMail) {
-                        $mail->to(new \Symfony\Component\Mime\Address($notificationMailReceiverMail));
-                    }
-                    if ($notificationMailSubject) {
-                        $mail->subject($notificationMailSubject);
-                    }
-                    $mail->text($language .', '. $title .', '. $givenName .', '. $familyName .', '.$email.', '.$company.', '.$customerNumber);
-                    $mail->html($language .'<br />'. $title .'<br />'. $givenName .'<br />'. $familyName .'<br />'.$email.'<br />'.$company.'<br />'.$customerNumber);
-                    $mail->send();
-
-                    // mail to be sent up-on double opt-in
-
                 }
 
             // Set validated if not yet
-                if (!$isValidated) {
+                if (!$isAlreadyValidated) {
                     $optIn->setIsValidated(TRUE);
                     $optIn->setValidationDate(new \DateTime);
                     $this->optInRepository->update($optIn);
@@ -90,7 +68,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 }
 
             // If already validated
-                if ($isValidated) {
+                if ($isAlreadyValidated) {
                     $validated = TRUE;
                 }
             }
