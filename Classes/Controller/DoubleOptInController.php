@@ -4,7 +4,6 @@ namespace Medienreaktor\FormDoubleOptIn\Controller;
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
-
 use Medienreaktor\FormDoubleOptIn\Service\MailToReceiverService;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -35,8 +34,10 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         $success = FALSE;
         $validated = FALSE;
+
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
+
             /** @var OptIn $optIn */
             $optIn = $this->optInRepository->findOneByValidationHash($hash);
 
@@ -58,7 +59,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     }
                 }
 
-            // Set validated if not yet
+                // Set validated if not yet
                 if (!$isAlreadyValidated) {
                     $optIn->setIsValidated(TRUE);
                     $optIn->setValidationDate(new \DateTime);
@@ -67,7 +68,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     $success = TRUE;
                 }
 
-            // If already validated
+                // If already validated
                 if ($isAlreadyValidated) {
                     $validated = TRUE;
                 }

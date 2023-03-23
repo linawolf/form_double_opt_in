@@ -70,8 +70,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $mailToReceiverBody = $this->prepareMailToReceiver($formRuntime);
 
-        $optIn = $this->createOptInModel($pagelanguage, $title, $givenName, $familyName, $email, $company,
-            $customerNumber, $mailToReceiverBody);
+        $optIn = $this->createOptInModel($pagelanguage, $title, $givenName, $familyName, $email, $company, $customerNumber, $mailToReceiverBody);
 
         $this->optInRepository->add($optIn);
 
@@ -187,7 +186,6 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
     private function sendDoubleOptInMail(FormRuntime $formRuntime, OptIn $optIn, int $validationPid): void
     {
-
         $languageBackup = null;
         $addHtmlPart = $this->isAddHtmlPart();
 
@@ -211,7 +209,6 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
             ->assign('optIn', $optIn)
             ->assign('validationPid', $validationPid);
 
-
         $doubleOpInTemplateName = $this->options['doubleOpInTemplateName'] ?? 'DoubleOptIn';
         $mail
             ->setTemplate($doubleOpInTemplateName);
@@ -223,11 +220,9 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         if (!empty($replyToRecipients)) {
             $mail->replyTo(...$replyToRecipients);
         }
-
         if (!empty($carbonCopyRecipients)) {
             $mail->cc(...$carbonCopyRecipients);
         }
-
         if (!empty($blindCarbonCopyRecipients)) {
             $mail->bcc(...$blindCarbonCopyRecipients);
         }
@@ -235,7 +230,6 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
             $translationService->setLanguage($languageBackup);
         }
         GeneralUtility::makeInstance(Mailer::class)->send($mail);
-
     }
 
     /**
