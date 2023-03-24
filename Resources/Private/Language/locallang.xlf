@@ -36,6 +36,9 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_hash">
                 <source>Validation hash</source>
             </trans-unit>
+            <trans-unit id="tx_formdoubleoptin_domain_model_optin.registration_date">
+                <source>Registration date</source>
+            </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_date">
                 <source>Validation date</source>
             </trans-unit>

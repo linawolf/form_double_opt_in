@@ -59,13 +59,17 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     }
                 }
 
-                // Set validated if not yet
                 if (!$isAlreadyValidated) {
-                    $optIn->setIsValidated(TRUE);
-                    $optIn->setValidationDate(new \DateTime);
-                    $this->optInRepository->update($optIn);
-                    $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
                     $success = TRUE;
+                    if ($this->settings['deleteOptInRecordsAfterOptIn']) {
+                        $this->optInRepository->remove($optIn);
+                    } else {
+                        // Set as validated in the db
+                        $optIn->setIsValidated(TRUE);
+                        $optIn->setValidationDate(new \DateTime);
+                        $this->optInRepository->update($optIn);
+                    }
+                    $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
                 }
 
                 // If already validated

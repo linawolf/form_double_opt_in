@@ -70,12 +70,10 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $validationHash = '';
 
-    /**
-     * validationDate
-     *
-     * @var \DateTime
-     */
-    protected $validationDate = null;
+
+    protected ?\DateTime $validationDate = null;
+
+    protected ?\DateTime $registrationDate = null;
 
     protected string $mailBody = '';
 
@@ -268,11 +266,29 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * @return \DateTime|null
+     */
+    public function getRegistrationDate(): ?\DateTime
+    {
+        return $this->registrationDate;
+    }
+
+    /**
+     * @param \DateTime $registrationDate
+     */
+    public function setRegistrationDate(\DateTime $registrationDate): void
+    {
+        $this->registrationDate = $registrationDate;
+    }
+
+
+
+    /**
      * Returns the validationDate
      *
-     * @return \DateTime $validationDate
+     * @return \DateTime|null $validationDate
      */
-    public function getValidationDate(): \DateTime
+    public function getValidationDate(): ?\DateTime
     {
         return $this->validationDate;
     }

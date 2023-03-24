@@ -16,5 +16,7 @@ plugin.tx_formdoubleoptin_doubleoptin {
         notificationMailReceiverMail = 
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail to name
         notificationMailReceiverName =
+        # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Delete opt-in records after successful opt-in (recommended for privacy reasons)
+        deleteOptInRecordsAfterOptIn = 1
     }
 }

@@ -23,6 +23,7 @@ CREATE TABLE tx_formdoubleoptin_domain_model_optin (
 
     is_validated tinyint(4) unsigned DEFAULT '0' NOT NULL,
     validation_hash varchar(255) DEFAULT '' NOT NULL,
+    registration_date int(11) unsigned DEFAULT '0' NOT NULL,
     validation_date int(11) unsigned DEFAULT '0' NOT NULL,
 
     PRIMARY KEY (uid),
