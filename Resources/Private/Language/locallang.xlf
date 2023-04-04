@@ -19,10 +19,10 @@
                 <source>Family name</source>
             </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.email">
-                <source>Email address</source>
+                <source>E-mail address</source>
             </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.mail_body">
-                <source>Email text</source>
+                <source>E-mail text</source>
             </trans-unit>
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.company">
                 <source>Company</source>
@@ -58,10 +58,10 @@
                 <source>Sorry, an error occurred during validation.</source>
             </trans-unit>
             <trans-unit id="email.greeting">
-                <source>Hallo</source>
+                <source>Hello</source>
             </trans-unit>
             <trans-unit id="email.text">
-                <source>thanks you for signing up. To verify your email address, please click the following link or copy it into your browser's address bar:</source>
+                <source>thank you for signing up. To verify your e-mail address, please click the following link or copy it into your browser's address bar:</source>
             </trans-unit>
         </body>
     </file>
