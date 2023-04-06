@@ -78,4 +78,16 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('success', $success);
         $this->view->assign('validated', $validated);
     }
+
+    public function deleteAction()
+    {
+        if ($this->request->hasArgument('hash')) {
+            $hash = $this->request->getArgument('hash');
+            /** @var ?OptIn $optIn */
+            $optIn = $this->optInRepository->findOneByValidationHash($hash);
+            if ($optIn !== null) {
+                $this->optInRepository->remove($optIn);
+            }
+        }
+    }
 }
