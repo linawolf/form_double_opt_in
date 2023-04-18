@@ -58,6 +58,8 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                         $this->mailToReceiverService->sendNewMail($this->settings, $optIn);
                     }
                 }
+                
+                $this->eventDispatcher->dispatch(new AfterOptInValidationEvent($optIn));
 
                 // Set validated if not yet
                 if (!$isAlreadyValidated) {
