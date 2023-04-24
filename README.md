@@ -41,3 +41,16 @@ Just place the "Double Opt-In" plugin on a page you like and make sure to define
 If you want an e-mail to be sent to a certain address after the validation set it up in TypoScript constants.
 
 That's it.
+
+### 3. Data Privacy
+
+You can set up a scheduler to delete all entries in the opt-in table older then a certain age. This includes entries
+where the user failed to opt-in to their mail:
+
+Goto `System > Scheduler` (admins only) and create a new `Scheduled tasks` of Class `Table garbage collection`. Chose a
+frequency to run the task repetetly and set up a cron job if you have none yet. Then choose for `Table to clean up`:
+`tx_formdoubleoptin_domain_model_optin` and the desired interval. Please note that users who received the email to
+double opt in cannot opt in anymore after there opt-in record has been deleted. 
+
+More about using the scheduler in the 
+`Manual of the system extension scheduler <https://docs.typo3.org/c/typo3/cms-scheduler/main/en-us/>`__.
