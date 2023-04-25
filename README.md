@@ -54,3 +54,25 @@ double opt in cannot opt in anymore after there opt-in record has been deleted.
 
 More about using the scheduler in the 
 `Manual of the system extension scheduler <https://docs.typo3.org/c/typo3/cms-scheduler/main/en-us/>`__.
+
+It is recommended to delete all Opt-In records right after successful opt-in. For this the following TypoScript constant
+can be used (enabled by default):
+
+```
+plugin.tx_formdoubleoptin_doubleoptin {
+    settings {
+        deleteOptInRecordsAfterOptIn = 1
+    }
+}
+```
+
+Additionally, it is recommended to run the following scheduler tasks on a regular basis:
+
+ + recycler: Remove deleted records from database. Select Table Op-In (tx_formdoubleoptin_domain_model_optin). 
+ + scheduler: Table garbage collection. Select table tx_formdoubleoptin_domain_model_optin
+
+Upon deleting records TYPO3 only sets a flag to delete the record. Therefore records concerning data privacy should 
+be deleted hard from the database on a regular basis. Use the recycler task for this.
+
+When a use registers with your form but does not use the double opt-in their data would stay in the database perpetually.
+Use the table garbage collection to delete all records older then 30 days (or set another date limit).

@@ -16,5 +16,6 @@ plugin.tx_formdoubleoptin_doubleoptin {
         notificationMailReceiverMail = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverMail}
         notificationMailReceiverName = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverName}
         notificationMailSenderName = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSenderName}
+        deleteOptInRecordsAfterOptIn = {$plugin.tx_formdoubleoptin_doubleoptin.settings.deleteOptInRecordsAfterOptIn}
     }
 }

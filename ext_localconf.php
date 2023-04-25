@@ -11,10 +11,10 @@ call_user_func(
             'form_double_opt_in',
             'DoubleOptIn',
             [
-                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete'
             ],
             [
-                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete'
             ]
         );
 

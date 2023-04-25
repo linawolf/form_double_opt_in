@@ -8,6 +8,7 @@ return [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
+        'default_sortby' => 'registration_date DESC, crdate DESC',
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden'
@@ -20,7 +21,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'pagelanguage, email, mail_body, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
+            'showitem' => 'pagelanguage, email, registration_date, mail_body, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
         ]
     ],
     'columns' => [
@@ -112,6 +113,18 @@ return [
                 'readOnly' => 1
             ]
         ],
+        'registration_date' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.registration_date',
+            'config' => [
+                'type' => 'input',
+                'size' => 20,
+                'eval' => 'datetime',
+                'renderType' => 'inputDateTime',
+                'checkbox' => 0,
+                'readOnly' => 1
+            ]
+        ],
         'validation_date' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.validation_date',
@@ -119,6 +132,7 @@ return [
                 'type' => 'input',
                 'size' => 20,
                 'eval' => 'datetime',
+                'renderType' => 'inputDateTime',
                 'checkbox' => 0,
                 'readOnly' => 1
             ]

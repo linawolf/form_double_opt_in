@@ -58,14 +58,20 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                         $this->mailToReceiverService->sendNewMail($this->settings, $optIn);
                     }
                 }
+                
+                $this->eventDispatcher->dispatch(new AfterOptInValidationEvent($optIn));
 
-                // Set validated if not yet
                 if (!$isAlreadyValidated) {
-                    $optIn->setIsValidated(TRUE);
-                    $optIn->setValidationDate(new \DateTime);
-                    $this->optInRepository->update($optIn);
-                    $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
                     $success = TRUE;
+                    if ($this->settings['deleteOptInRecordsAfterOptIn']) {
+                        $this->optInRepository->remove($optIn);
+                    } else {
+                        // Set as validated in the db
+                        $optIn->setIsValidated(TRUE);
+                        $optIn->setValidationDate(new \DateTime);
+                        $this->optInRepository->update($optIn);
+                    }
+                    $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
                 }
 
                 // If already validated
@@ -77,5 +83,17 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         $this->view->assign('success', $success);
         $this->view->assign('validated', $validated);
+    }
+
+    public function deleteAction()
+    {
+        if ($this->request->hasArgument('hash')) {
+            $hash = $this->request->getArgument('hash');
+            /** @var ?OptIn $optIn */
+            $optIn = $this->optInRepository->findOneByValidationHash($hash);
+            if ($optIn !== null) {
+                $this->optInRepository->remove($optIn);
+            }
+        }
     }
 }
