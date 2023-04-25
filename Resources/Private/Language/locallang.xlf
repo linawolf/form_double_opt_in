@@ -54,6 +54,12 @@
             <trans-unit id="text.validated">
                 <source>This e-mail address has been confirmed already.</source>
             </trans-unit>
+            <trans-unit id="text.deleted.title">
+                <source>Sucess</source>
+            </trans-unit>
+            <trans-unit id="text.deleted">
+                <source>All data regarding this registration have been deleted.</source>
+            </trans-unit>
             <trans-unit id="text.error.title">
                 <source>Error</source>
             </trans-unit>
@@ -65,6 +71,9 @@
             </trans-unit>
             <trans-unit id="email.text">
                 <source>thank you for signing up. To verify your e-mail address, please click the following link or copy it into your browser's address bar:</source>
+            </trans-unit>
+            <trans-unit id="email.text-delete">
+                <source>Did you not sign up yourself? Delete all data related to this registration: </source>
             </trans-unit>
         </body>
     </file>

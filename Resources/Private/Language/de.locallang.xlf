@@ -54,6 +54,12 @@
             <trans-unit id="text.validated" approved="yes">
                 <target>Diese E-Mail-Adresse wurde bereits bestätigt.</target>
             </trans-unit>
+            <trans-unit id="text.deleted.title">
+                <target>Erfolg</target>
+            </trans-unit>
+            <trans-unit id="text.deleted">
+                <target>Alle Daten im Zusammenhang mit dieser Registrierung wurden gelöscht.</target>
+            </trans-unit>
             <trans-unit id="text.error.title" approved="yes">
                 <target>Fehler</target>
             </trans-unit>
@@ -65,6 +71,9 @@
             </trans-unit>
             <trans-unit id="email.text" approved="yes">
                 <target>vielen Dank für Ihre Anmeldung. Um Ihre E-Mail-Adresse zu bestätigen, klicken Sie bitte auf den folgenden Link oder kopieren Sie diesen in die Adresszeile Ihres Browsers:</target>
+            </trans-unit>
+            <trans-unit id="email.text-delete" approved="yes">
+                <target>Haben Sie diese E-Mail nicht angefordert und möchten Ihre Daten löschen lassen? E-Mail Daten vollständig löschen: </target>
             </trans-unit>
         </body>
 	</file>
