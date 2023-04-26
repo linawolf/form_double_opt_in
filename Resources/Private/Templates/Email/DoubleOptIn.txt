@@ -9,9 +9,9 @@
 
     <f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:email.text" />
 
-    {f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash})}
+    <f:format.raw>{f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash})}</f:format.raw>
 
     <f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:email.text-delete" />
 
-    {f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'delete', absolute: 1, arguments: {hash: optIn.validationHash})}
+    <f:format.raw>{f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'delete', absolute: 1, arguments: {hash: optIn.validationHash})}</f:format.raw>
 </f:section>
