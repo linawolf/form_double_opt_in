@@ -1,4 +1,5 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Utility;
 
 class Uuid
@@ -22,12 +23,13 @@ class Uuid
      */
     private static function uuidFromHash($hash, $version): string
     {
-        return sprintf('%08s-%04s-%04x-%04x-%12s',
+        return sprintf(
+            '%08s-%04s-%04x-%04x-%12s',
             substr($hash, 0, 8),
             substr($hash, 8, 4),
             (hexdec(substr($hash, 12, 4)) & 0x0fff) | $version << 12,
             (hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
             substr($hash, 20, 12)
         );
-   }
+    }
 }

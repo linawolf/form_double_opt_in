@@ -1,26 +1,22 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Domain\Finishers;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
 use Medienreaktor\FormDoubleOptIn\Utility\AddressUtility;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\CMS\Form\Service\TranslationService;
 
 class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 {
-
     /**
      * optInRepository
      *
@@ -122,7 +118,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
             $optIn->setCustomerNumber($customerNumber);
         }
         $optIn->setMailBody($mailToReceiverBody);
-        $optIn->setRegistrationDate(new \DateTime);
+        $optIn->setRegistrationDate(new \DateTime());
 
         $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
         $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
@@ -135,13 +131,10 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         return $optIn;
     }
 
-
-
     /**
      * @param $email
      * @param $customerNumber
      * @param $validationPid
-     * @return void
      * @throws FinisherException
      */
     private function validateInput($email, $customerNumber, $validationPid): void
@@ -155,11 +148,10 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         }
     }
 
-
     private function prepareMailToReceiver(FormRuntime $formRuntime): string
     {
         $recipients = $this->getRecipients('recipients');
-        if (sizeof($recipients) === 0) {
+        if (count($recipients) === 0) {
             return '';
         }
 
@@ -177,11 +169,10 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $bodyHTML = $mail->getHtmlBody(true);
         $bodyText = $mail->getTextBody(true);
-        $json = array_merge($this->getAdresses(), compact ('recipientsArray', 'subject', 'addHtmlPart', 'bodyHTML', 'bodyText'));
+        $json = array_merge($this->getAdresses(), compact('recipientsArray', 'subject', 'addHtmlPart', 'bodyHTML', 'bodyText'));
 
         return json_encode($json);
     }
-
 
     private function sendDoubleOptInMail(FormRuntime $formRuntime, OptIn $optIn, int $validationPid): void
     {
@@ -263,6 +254,6 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $carbonCopyRecipientsArray = AddressUtility::toArray($carbonCopyRecipients);
         $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients');
         $blindCarbonCopyRecipientsArray = AddressUtility::toArray($blindCarbonCopyRecipients);
-        return compact ('senderAddress', 'senderName', 'replyToRecipients', 'carbonCopyRecipients', 'blindCarbonCopyRecipients');
+        return compact('senderAddress', 'senderName', 'replyToRecipients', 'carbonCopyRecipients', 'blindCarbonCopyRecipients');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Domain\Model;
 
 /**
@@ -6,7 +7,6 @@ namespace Medienreaktor\FormDoubleOptIn\Domain\Model;
  */
 class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * pagelanguage
      *
@@ -61,7 +61,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var bool
      */
-    protected $isValidated = FALSE;
+    protected $isValidated = false;
 
     /**
      * validationHash
@@ -69,7 +69,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $validationHash = '';
-
 
     protected ?\DateTime $validationDate = null;
 
@@ -79,7 +78,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     public function __construct()
     {
-        if( ! $this->validationHash){
+        if (! $this->validationHash) {
             $this->validationHash = \Medienreaktor\FormDoubleOptIn\Utility\Uuid::generate();
         }
     }
@@ -98,7 +97,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the pagelanguage
      *
      * @param string $pagelanguage
-     * @return void
      */
     public function setPagelanguage($pagelanguage)
     {
@@ -281,8 +279,6 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->registrationDate = $registrationDate;
     }
 
-
-
     /**
      * Returns the validationDate
      *
@@ -302,7 +298,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->validationDate = $validationDate;
     }
-    
+
     public function getMailBody(): string
     {
         return $this->mailBody;

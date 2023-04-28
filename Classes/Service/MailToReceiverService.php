@@ -68,8 +68,8 @@ class MailToReceiverService
         if ($notificationMailSubject) {
             $mail->subject($notificationMailSubject);
         }
-        $mail->text($language .', '. $title .', '. $givenName .', '. $familyName .', '.$email.', '.$company.', '.$customerNumber);
-        $mail->html($language .'<br />'. $title .'<br />'. $givenName .'<br />'. $familyName .'<br />'.$email.'<br />'.$company.'<br />'.$customerNumber);
+        $mail->text($language . ', ' . $title . ', ' . $givenName . ', ' . $familyName . ', ' . $email . ', ' . $company . ', ' . $customerNumber);
+        $mail->html($language . '<br />' . $title . '<br />' . $givenName . '<br />' . $familyName . '<br />' . $email . '<br />' . $company . '<br />' . $customerNumber);
         $mail->send();
     }
 }

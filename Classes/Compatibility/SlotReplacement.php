@@ -1,16 +1,14 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Compatibility;
 
 use Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController;
 use Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher;
-use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 class SlotReplacement
 {
-
     /**
      * signalSlotDispatcher
      *

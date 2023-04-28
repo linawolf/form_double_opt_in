@@ -1,4 +1,5 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Domain\Repository;
 
 /**
@@ -6,5 +7,4 @@ namespace Medienreaktor\FormDoubleOptIn\Domain\Repository;
  */
 class OptInRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
 }

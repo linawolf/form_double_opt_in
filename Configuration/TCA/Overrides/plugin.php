@@ -1,8 +1,7 @@
 <?php
 
 call_user_func(
-    function($extKey)
-    {
+    function ($extKey) {
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'form_double_opt_in',
             'DoubleOptIn',

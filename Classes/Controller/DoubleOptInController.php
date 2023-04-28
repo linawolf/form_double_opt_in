@@ -1,23 +1,17 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Controller;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
 use Medienreaktor\FormDoubleOptIn\Service\MailToReceiverService;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
-use TYPO3\CMS\Core\Mail\Mailer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /*
  * DoubleOptInController
  */
 class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-
     private MailToReceiverService $mailToReceiverService;
     protected OptInRepository $optInRepository;
 
@@ -32,8 +26,8 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function validationAction()
     {
-        $success = FALSE;
-        $validated = FALSE;
+        $success = false;
+        $validated = false;
 
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
@@ -58,17 +52,17 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                         $this->mailToReceiverService->sendNewMail($this->settings, $optIn);
                     }
                 }
-                
+
                 $this->eventDispatcher->dispatch(new AfterOptInValidationEvent($optIn));
 
                 if (!$isAlreadyValidated) {
-                    $success = TRUE;
+                    $success = true;
                     if ($this->settings['deleteOptInRecordsAfterOptIn']) {
                         $this->optInRepository->remove($optIn);
                     } else {
                         // Set as validated in the db
-                        $optIn->setIsValidated(TRUE);
-                        $optIn->setValidationDate(new \DateTime);
+                        $optIn->setIsValidated(true);
+                        $optIn->setValidationDate(new \DateTime());
                         $this->optInRepository->update($optIn);
                     }
                     $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
@@ -76,7 +70,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
                 // If already validated
                 if ($isAlreadyValidated) {
-                    $validated = TRUE;
+                    $validated = true;
                 }
             }
         }

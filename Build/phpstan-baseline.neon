@@ -1,0 +1,227 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Repository\\\\OptInRepository\\:\\:findOneByValidationHash\\(\\)\\.$#"
+			count: 2
+			path: ../Classes/Controller/DoubleOptInController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: ../Classes/Controller/DoubleOptInController.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Controller\\\\DoubleOptInController\\:\\:deleteAction\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Controller/DoubleOptInController.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Controller\\\\DoubleOptInController\\:\\:validationAction\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Controller/DoubleOptInController.php
+
+		-
+			message: "#^Access to an undefined property Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:\\$configurationManager\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:createOptInModel\\(\\) has parameter \\$company with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:createOptInModel\\(\\) has parameter \\$customerNumber with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:createOptInModel\\(\\) has parameter \\$email with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:createOptInModel\\(\\) has parameter \\$familyName with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:createOptInModel\\(\\) has parameter \\$givenName with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:createOptInModel\\(\\) has parameter \\$pagelanguage with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:createOptInModel\\(\\) has parameter \\$title with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:executeInternal\\(\\) should return string\\|null but return statement is missing\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:getAdresses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:validateInput\\(\\) has parameter \\$customerNumber with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:validateInput\\(\\) has parameter \\$email with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:validateInput\\(\\) has parameter \\$validationPid with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Parameter \\#1 \\$var_array of function extract is passed by reference, so it expects variables only\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Parameter \\#3 \\$validationPid of method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:sendDoubleOptInMail\\(\\) expects int, array\\|string\\|null given\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Variable \\$senderName might not be defined\\.$#"
+			count: 1
+			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setCompany\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setCustomerNumber\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setEmail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setFamilyName\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setGivenName\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setIsValidated\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setPagelanguage\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setTitle\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setValidationDate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Model\\\\OptIn\\:\\:setValidationHash\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/OptIn.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Service\\\\MailToReceiverService\\:\\:sendNewMail\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Service\\\\MailToReceiverService\\:\\:sendPreparedMail\\(\\) has parameter \\$mailData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Variable \\$bodyHTML might not be defined\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Variable \\$bodyText might not be defined\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Variable \\$mail might not be defined\\.$#"
+			count: 2
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Variable \\$recipientsArray might not be defined\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Variable \\$senderAddress might not be defined\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Variable \\$senderName might not be defined\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Variable \\$subject might not be defined\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Utility\\\\AddressUtility\\:\\:toAdresses\\(\\) has parameter \\$adresses with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../Classes/Utility/AddressUtility.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Utility\\\\AddressUtility\\:\\:toAdresses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../Classes/Utility/AddressUtility.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Utility\\\\AddressUtility\\:\\:toArray\\(\\) has parameter \\$adresses with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../Classes/Utility/AddressUtility.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Utility\\\\AddressUtility\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../Classes/Utility/AddressUtility.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Utility\\\\Uuid\\:\\:uuidFromHash\\(\\) has parameter \\$hash with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Utility/Uuid.php
+
+		-
+			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Utility\\\\Uuid\\:\\:uuidFromHash\\(\\) has parameter \\$version with no type specified\\.$#"
+			count: 1
+			path: ../Classes/Utility/Uuid.php
+
