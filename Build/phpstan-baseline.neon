@@ -91,12 +91,12 @@ parameters:
 			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
 
 		-
-			message: "#^Parameter \\#3 \\$validationPid of method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:sendDoubleOptInMail\\(\\) expects int, array\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$name of class Symfony\\\\Component\\\\Mime\\\\Address constructor expects string, null given\\.$#"
 			count: 1
 			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
 
 		-
-			message: "#^Variable \\$senderName might not be defined\\.$#"
+			message: "#^Parameter \\#3 \\$validationPid of method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:sendDoubleOptInMail\\(\\) expects int, array\\|string\\|null given\\.$#"
 			count: 1
 			path: ../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
 
@@ -151,6 +151,16 @@ parameters:
 			path: ../Classes/Domain/Model/OptIn.php
 
 		-
+			message: "#^Cannot call method bcc\\(\\) on null\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
+			message: "#^Cannot call method cc\\(\\) on null\\.$#"
+			count: 1
+			path: ../Classes/Service/MailToReceiverService.php
+
+		-
 			message: "#^Method Medienreaktor\\\\FormDoubleOptIn\\\\Service\\\\MailToReceiverService\\:\\:sendNewMail\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../Classes/Service/MailToReceiverService.php
@@ -161,37 +171,22 @@ parameters:
 			path: ../Classes/Service/MailToReceiverService.php
 
 		-
-			message: "#^Variable \\$bodyHTML might not be defined\\.$#"
+			message: "#^Parameter \\#1 \\$address of class Symfony\\\\Component\\\\Mime\\\\Address constructor expects string, null given\\.$#"
 			count: 1
 			path: ../Classes/Service/MailToReceiverService.php
 
 		-
-			message: "#^Variable \\$bodyText might not be defined\\.$#"
+			message: "#^Parameter \\#1 \\$adresses of static method Medienreaktor\\\\FormDoubleOptIn\\\\Utility\\\\AddressUtility\\:\\:toAdresses\\(\\) expects array, null given\\.$#"
 			count: 1
 			path: ../Classes/Service/MailToReceiverService.php
 
 		-
-			message: "#^Variable \\$mail might not be defined\\.$#"
-			count: 2
-			path: ../Classes/Service/MailToReceiverService.php
-
-		-
-			message: "#^Variable \\$recipientsArray might not be defined\\.$#"
+			message: "#^Parameter \\#1 \\$subject of method Symfony\\\\Component\\\\Mime\\\\Email\\:\\:subject\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: ../Classes/Service/MailToReceiverService.php
 
 		-
-			message: "#^Variable \\$senderAddress might not be defined\\.$#"
-			count: 1
-			path: ../Classes/Service/MailToReceiverService.php
-
-		-
-			message: "#^Variable \\$senderName might not be defined\\.$#"
-			count: 1
-			path: ../Classes/Service/MailToReceiverService.php
-
-		-
-			message: "#^Variable \\$subject might not be defined\\.$#"
+			message: "#^Parameter \\#2 \\$name of class Symfony\\\\Component\\\\Mime\\\\Address constructor expects string, null given\\.$#"
 			count: 1
 			path: ../Classes/Service/MailToReceiverService.php
 

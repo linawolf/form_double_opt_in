@@ -6,11 +6,12 @@ use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
 use Medienreaktor\FormDoubleOptIn\Service\MailToReceiverService;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /*
  * DoubleOptInController
  */
-class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class DoubleOptInController extends ActionController
 {
     private MailToReceiverService $mailToReceiverService;
     protected OptInRepository $optInRepository;
@@ -45,7 +46,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     if ($usePreparedEmail) {
                         // Prepared e-mail with full power of the form extension
                         if ($optIn->getMailBody() !== '') {
-                            $this->mailToReceiverService->sendPreparedMail(json_decode($optIn->getMailBody(), true));
+                            $this->mailToReceiverService->sendPreparedMail(json_decode($optIn->getMailBody(), true, 512, JSON_THROW_ON_ERROR));
                         }
                     } else {
                         // Simple notification e-mail
@@ -65,7 +66,7 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                         $optIn->setValidationDate(new \DateTime());
                         $this->optInRepository->update($optIn);
                     }
-                    $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
+                    $this->signalSlotDispatcher->dispatch(self::class, 'afterOptInValidation', [$optIn]);
                 }
 
                 // If already validated

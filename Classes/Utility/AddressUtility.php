@@ -2,6 +2,8 @@
 
 namespace Medienreaktor\FormDoubleOptIn\Utility;
 
+use Symfony\Component\Mime\Address;
+
 class AddressUtility
 {
     public static function toArray(array $adresses): array
@@ -18,7 +20,7 @@ class AddressUtility
     public static function toAdresses(array $adresses): array
     {
         array_walk($adresses, function (&$value) {
-            $value = new \Symfony\Component\Mime\Address($value['email'], $value['name']);
+            $value = new Address($value['email'], $value['name']);
         });
         return $adresses;
     }

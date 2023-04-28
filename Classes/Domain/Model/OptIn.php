@@ -2,10 +2,13 @@
 
 namespace Medienreaktor\FormDoubleOptIn\Domain\Model;
 
+use Medienreaktor\FormDoubleOptIn\Utility\Uuid;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  * OptIn
  */
-class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class OptIn extends AbstractEntity
 {
     /**
      * pagelanguage
@@ -79,7 +82,7 @@ class OptIn extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function __construct()
     {
         if (! $this->validationHash) {
-            $this->validationHash = \Medienreaktor\FormDoubleOptIn\Utility\Uuid::generate();
+            $this->validationHash = Uuid::generate();
         }
     }
 
