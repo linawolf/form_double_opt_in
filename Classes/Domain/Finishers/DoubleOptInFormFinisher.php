@@ -21,19 +21,12 @@ use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\CMS\Form\Service\TranslationService;
 
-class DoubleOptInFormFinisher extends EmailFinisher
+final class DoubleOptInFormFinisher extends EmailFinisher
 {
-    /**
-     * optInRepository
-     *
-     * @var OptInRepository
-     */
-    protected $optInRepository;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
+    private OptInRepository $optInRepository;
+    private EventDispatcherInterface $eventDispatcher;
+    private ConfigurationManager $configurationManager;
+    private PersistenceManager $persistenceManager;
 
     public function injectOptInRepository(OptInRepository $optInRepository): void
     {
@@ -43,6 +36,16 @@ class DoubleOptInFormFinisher extends EmailFinisher
     public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
+    }
+
+    public function injectConfigurationManager(ConfigurationManager $configurationManager): void
+    {
+        $this->configurationManager = $configurationManager;
+    }
+
+    public function injectPersistenceManager(PersistenceManager $persistenceManager): void
+    {
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**
@@ -76,8 +79,7 @@ class DoubleOptInFormFinisher extends EmailFinisher
 
         $this->eventDispatcher->dispatch(new AfterOptInCreationEvent($optIn));
 
-        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
-        $persistenceManager->persistAll();
+        $this->persistenceManager->persistAll();
 
         $this->sendDoubleOptInMail($formRuntime, $optIn, $validationPid);
     }
@@ -126,7 +128,6 @@ class DoubleOptInFormFinisher extends EmailFinisher
         $optIn->setMailBody($mailToReceiverBody);
         $optIn->setRegistrationDate(new \DateTime());
 
-        $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
         $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $storagePid = (int)$configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['storagePid'];
         if ($storagePid === 0) {
