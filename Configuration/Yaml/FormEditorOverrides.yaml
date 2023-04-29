@@ -192,7 +192,7 @@ TYPO3:
                           templateName: Inspector-RemoveElementEditor
           finishersDefinition:
             DoubleOptIn:
-              implementationClassName: 'Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher'
+              implementationClassName: 'LinaWolf\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher'
               options:
                 templateName: '{@format}.html'
                 templateRootPaths:

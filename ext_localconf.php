@@ -1,5 +1,7 @@
 <?php
 
+use LinaWolf\FormDoubleOptIn\Updates\FormDoubleOptInNamespaceMigration;
+
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
@@ -8,10 +10,10 @@ call_user_func(
             'form_double_opt_in',
             'DoubleOptIn',
             [
-                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
+                \LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
             ],
             [
-                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
+                \LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
             ]
         );
 
@@ -49,6 +51,9 @@ call_user_func(
                 'expirePeriod' => 30,
             ];
         }
+
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['FormDoubleOptInNamespaceMigrationMigration']
+            = FormDoubleOptInNamespaceMigration::class;
     },
     'form_double_opt_in'
 );
