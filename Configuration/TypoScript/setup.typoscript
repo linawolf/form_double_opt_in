@@ -5,7 +5,7 @@ plugin.tx_formdoubleoptin_doubleoptin {
         layoutRootPaths.10 = EXT:form_double_opt_in/Resources/Private/Layouts
     }
     persistence {
-        storagePid = {$plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid}
+        storagePid = {$plugin.tx_formdoubleoptin_doubleoptin.settings.storagePid}
     }
     settings {
         notificationMailEnable = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailEnable}
