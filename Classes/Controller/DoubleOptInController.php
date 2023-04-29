@@ -6,6 +6,7 @@ use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
 use Medienreaktor\FormDoubleOptIn\Service\MailToReceiverService;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /*
@@ -25,7 +26,7 @@ class DoubleOptInController extends ActionController
     /**
      * Validate the OptIn record
      */
-    public function validationAction()
+    public function validationAction(): ResponseInterface
     {
         $success = false;
         $validated = false;
@@ -33,11 +34,10 @@ class DoubleOptInController extends ActionController
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
 
-            /** @var OptIn $optIn */
             $optIn = $this->optInRepository->findOneByValidationHash($hash);
 
-            if ($optIn) {
-                $isAlreadyValidated = $optIn->getIsValidated();
+            if ($optIn instanceof OptIn) {
+                $isAlreadyValidated = $optIn->isValidated();
 
                 $notificationMailEnable = $this->settings['notificationMailEnable'] ?? false;
                 $usePreparedEmail = $this->settings['usePreparedEmail'] ?? false;
@@ -78,9 +78,10 @@ class DoubleOptInController extends ActionController
 
         $this->view->assign('success', $success);
         $this->view->assign('validated', $validated);
+        return $this->htmlResponse();
     }
 
-    public function deleteAction()
+    public function deleteAction(): ResponseInterface
     {
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
@@ -90,5 +91,6 @@ class DoubleOptInController extends ActionController
                 $this->optInRepository->remove($optIn);
             }
         }
+        return $this->htmlResponse();
     }
 }

@@ -11,9 +11,10 @@
 	],
 	"require": {
 		"ext-json": "*",
+    "ext-openssl": "*",
 		"typo3/cms-core": "^10.4 || ^11.5",
-		"typo3/cms-form": "^10.4 || ^11.5"
-	},
+		"typo3/cms-form": "^10.4 || ^11.5",
+  },
 	"require-dev": {
 		"codeception/codeception": "^4.1",
 		"codeception/module-asserts": "^1.2",

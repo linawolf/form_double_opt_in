@@ -6,6 +6,10 @@ use Symfony\Component\Mime\Address;
 
 class AddressUtility
 {
+    /**
+     * @param array $adresses
+     * @return array
+     */
     public static function toArray(array $adresses): array
     {
         array_walk($adresses, function (&$value) {

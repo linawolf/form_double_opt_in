@@ -64,7 +64,7 @@ class DoubleOptInFormFinisher extends EmailFinisher
         $customerNumber = $this->parseOption('customerNumber');
         $validationPid = $this->parseOption('validationPid');
 
-        $this->validateInput($email, $customerNumber, $validationPid);
+        $this->validateInput($email, $customerNumber, (int)$validationPid);
 
         $formRuntime = $this->finisherContext->getFormRuntime();
 
@@ -94,13 +94,13 @@ class DoubleOptInFormFinisher extends EmailFinisher
      * @throws InvalidConfigurationTypeException
      */
     protected function createOptInModel(
-        $pagelanguage,
-        $title,
-        $givenName,
-        $familyName,
-        $email,
-        $company,
-        $customerNumber,
+        string $pagelanguage,
+        string $title,
+        string $givenName,
+        string $familyName,
+        string $email,
+        string $company,
+        string $customerNumber,
         string $mailToReceiverBody
     ): OptIn {
         $optIn = new OptIn();
@@ -138,18 +138,15 @@ class DoubleOptInFormFinisher extends EmailFinisher
     }
 
     /**
-     * @param $email
-     * @param $customerNumber
-     * @param $validationPid
      * @throws FinisherException
      */
-    private function validateInput($email, $customerNumber, $validationPid): void
+    private function validateInput(string $email, string $customerNumber, int $validationPid): void
     {
         if (empty($email) && empty($customerNumber)) {
             throw new FinisherException('The options "email" or "customerNumber" must be set.', 1_527_145_965);
         }
 
-        if (empty($validationPid)) {
+        if ($validationPid < 1) {
             throw new FinisherException('The option "validationPid" must be set.', 1_527_145_966);
         }
     }

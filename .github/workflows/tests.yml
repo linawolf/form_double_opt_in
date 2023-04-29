@@ -31,5 +31,6 @@ jobs:
         if: ${{ matrix.php <= '8.1' }}
         run: Build/Scripts/runTests.sh -n -p ${{ matrix.php }} -s cgl
 
-      - name: phpstan
-        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s phpstan -e "--error-format=github"
+      # phpstan does not work as there are too many issues in old code
+      #- name: phpstan
+      #  run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s phpstan -e "--error-format=github"

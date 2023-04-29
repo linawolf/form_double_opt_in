@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 namespace Medienreaktor\FormDoubleOptIn\Domain\Model;
 
 use Medienreaktor\FormDoubleOptIn\Utility\Uuid;
@@ -10,68 +11,22 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class OptIn extends AbstractEntity
 {
-    /**
-     * pagelanguage
-     *
-     * @var string
-     */
-    protected $pagelanguage = '';
+    protected string  $pagelanguage = '';
 
-    /**
-     * email
-     *
-     * @var string
-     */
-    protected $email = '';
+    protected string  $email = '';
 
-    /**
-     * title
-     *
-     * @var string
-     */
-    protected $title = '';
+    protected string  $title = '';
 
-    /**
-     * givenName
-     *
-     * @var string
-     */
-    protected $givenName = '';
+    protected string  $givenName = '';
 
-    /**
-     * familyName
-     *
-     * @var string
-     */
-    protected $familyName = '';
+    protected string  $familyName = '';
 
-    /**
-     * company
-     *
-     * @var string
-     */
-    protected $company = '';
+    protected string  $company = '';
+    protected string  $customerNumber = '';
 
-    /**
-     * customerNumber
-     *
-     * @var string
-     */
-    protected $customerNumber = '';
+    protected bool $isValidated = false;
 
-    /**
-     * isValidated
-     *
-     * @var bool
-     */
-    protected $isValidated = false;
-
-    /**
-     * validationHash
-     *
-     * @var string
-     */
-    protected $validationHash = '';
+    protected string  $validationHash = '';
 
     protected ?\DateTime $validationDate = null;
 
@@ -87,29 +42,23 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Returns the pagelanguage
-     *
-     * @return string $pagelanguage
+     * @return string
      */
-    public function getPagelanguage()
+    public function getPagelanguage(): string
     {
         return $this->pagelanguage;
     }
 
     /**
-     * Sets the pagelanguage
-     *
      * @param string $pagelanguage
      */
-    public function setPagelanguage($pagelanguage)
+    public function setPagelanguage(string $pagelanguage): void
     {
         $this->pagelanguage = $pagelanguage;
     }
 
     /**
-     * Returns the email
-     *
-     * @return string $email
+     * @return string
      */
     public function getEmail(): string
     {
@@ -117,19 +66,15 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Sets the email
-     *
      * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
     /**
-     * Returns the title
-     *
-     * @return string $title
+     * @return string
      */
     public function getTitle(): string
     {
@@ -137,19 +82,15 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Sets the title
-     *
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * Returns the givenName
-     *
-     * @return string $givenName
+     * @return string
      */
     public function getGivenName(): string
     {
@@ -157,19 +98,15 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Sets the givenName
-     *
      * @param string $givenName
      */
-    public function setGivenName($givenName)
+    public function setGivenName(string $givenName): void
     {
         $this->givenName = $givenName;
     }
 
     /**
-     * Returns the familyName
-     *
-     * @return string $familyName
+     * @return string
      */
     public function getFamilyName(): string
     {
@@ -177,19 +114,15 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Sets the familyName
-     *
      * @param string $familyName
      */
-    public function setFamilyName($familyName)
+    public function setFamilyName(string $familyName): void
     {
         $this->familyName = $familyName;
     }
 
     /**
-     * Returns the company
-     *
-     * @return string $company
+     * @return string
      */
     public function getCompany(): string
     {
@@ -197,19 +130,15 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Sets the company
-     *
      * @param string $company
      */
-    public function setCompany($company)
+    public function setCompany(string $company): void
     {
         $this->company = $company;
     }
 
     /**
-     * Returns the customerNumber
-     *
-     * @return string $customerNumber
+     * @return string
      */
     public function getCustomerNumber(): string
     {
@@ -217,39 +146,31 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Sets the customerNumber
-     *
      * @param string $customerNumber
      */
-    public function setCustomerNumber($customerNumber)
+    public function setCustomerNumber(string $customerNumber): void
     {
         $this->customerNumber = $customerNumber;
     }
 
     /**
-     * Returns isValidated
-     *
-     * @return bool $isValidated
+     * @return bool
      */
-    public function getIsValidated(): bool
+    public function isValidated(): bool
     {
         return $this->isValidated;
     }
 
     /**
-     * Sets isValidated
-     *
      * @param bool $isValidated
      */
-    public function setIsValidated($isValidated)
+    public function setIsValidated(bool $isValidated): void
     {
         $this->isValidated = $isValidated;
     }
 
     /**
-     * Returns the validationHash
-     *
-     * @return string $validationHash
+     * @return string
      */
     public function getValidationHash(): string
     {
@@ -257,13 +178,27 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * Sets the validationHash
-     *
      * @param string $validationHash
      */
-    public function setValidationHash($validationHash)
+    public function setValidationHash(string $validationHash): void
     {
         $this->validationHash = $validationHash;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getValidationDate(): ?\DateTime
+    {
+        return $this->validationDate;
+    }
+
+    /**
+     * @param \DateTime|null $validationDate
+     */
+    public function setValidationDate(?\DateTime $validationDate): void
+    {
+        $this->validationDate = $validationDate;
     }
 
     /**
@@ -275,38 +210,24 @@ class OptIn extends AbstractEntity
     }
 
     /**
-     * @param \DateTime $registrationDate
+     * @param \DateTime|null $registrationDate
      */
-    public function setRegistrationDate(\DateTime $registrationDate): void
+    public function setRegistrationDate(?\DateTime $registrationDate): void
     {
         $this->registrationDate = $registrationDate;
     }
 
     /**
-     * Returns the validationDate
-     *
-     * @return \DateTime|null $validationDate
+     * @return string
      */
-    public function getValidationDate(): ?\DateTime
-    {
-        return $this->validationDate;
-    }
-
-    /**
-     * Sets the validationDate
-     *
-     * @param \DateTime $validationDate
-     */
-    public function setValidationDate(\DateTime $validationDate)
-    {
-        $this->validationDate = $validationDate;
-    }
-
     public function getMailBody(): string
     {
         return $this->mailBody;
     }
 
+    /**
+     * @param string $mailBody
+     */
     public function setMailBody(string $mailBody): void
     {
         $this->mailBody = $mailBody;

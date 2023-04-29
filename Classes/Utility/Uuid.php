@@ -21,7 +21,7 @@ class Uuid
      *
      * @return string
      */
-    private static function uuidFromHash($hash, $version): string
+    private static function uuidFromHash(string $hash, int $version): string
     {
         return sprintf(
             '%08s-%04s-%04x-%04x-%12s',
