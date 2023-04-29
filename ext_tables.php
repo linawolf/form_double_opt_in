@@ -1,6 +1,7 @@
 <?php
 
 use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
+
 defined('TYPO3') || die('Access denied.');
 
 call_user_func(

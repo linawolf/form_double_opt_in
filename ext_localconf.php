@@ -1,13 +1,13 @@
 <?php
 
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
 use LinaWolf\FormDoubleOptIn\Updates\FormDoubleOptInNamespaceMigration;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
 
 defined('TYPO3') || die('Access denied.');
 

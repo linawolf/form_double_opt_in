@@ -7,15 +7,3 @@ services:
 
   LinaWolf\FormDoubleOptIn\:
     resource: '../Classes/*'
-
-  # EventListeners
-  LinaWolf\FormDoubleOptIn\Compatibility\SlotReplacement:
-    tags:
-      - name: event.listener
-        identifier: 'legacy-slot'
-        method: 'onOptInRecordCreated'
-        event: LinaWolf\FormDoubleOptIn\Event\AfterOptInCreationEvent
-      - name: event.listener
-        identifier: 'legacy-slot'
-        method: 'onOptInRecordValidated'
-        event: LinaWolf\FormDoubleOptIn\Event\AfterOptInValidationEvent
