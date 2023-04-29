@@ -66,7 +66,6 @@ class DoubleOptInController extends ActionController
                         $optIn->setValidationDate(new \DateTime());
                         $this->optInRepository->update($optIn);
                     }
-                    $this->signalSlotDispatcher->dispatch(self::class, 'afterOptInValidation', [$optIn]);
                 }
 
                 // If already validated

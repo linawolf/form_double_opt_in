@@ -20,7 +20,7 @@ return static function (RectorConfig $rectorConfig): void {
     $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 2);
 
     $rectorConfig->sets([
-        Typo3LevelSetList::UP_TO_TYPO3_10,
+        Typo3LevelSetList::UP_TO_TYPO3_11,
         LevelSetList::UP_TO_PHP_74,
     ]);
 
@@ -45,9 +45,6 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/Build/*',
         __DIR__ . '/Resources/*',
         NameImportingPostRector::class => [
-            'ext_localconf.php',
-            'ext_tables.php',
-            'ClassAliasMap.php',
             __DIR__ . '/**/Configuration/*.php',
             __DIR__ . '/**/Configuration/**/*.php',
         ],
