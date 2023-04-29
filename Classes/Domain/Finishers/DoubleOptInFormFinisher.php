@@ -183,7 +183,7 @@ class DoubleOptInFormFinisher extends EmailFinisher
         $languageBackup = null;
         $addHtmlPart = $this->isAddHtmlPart();
 
-        $translationService = TranslationService::getInstance();
+        $translationService = GeneralUtility::makeInstance(TranslationService::class);
         if (isset($this->options['translation']['language']) && !empty($this->options['translation']['language'])) {
             $languageBackup = $translationService->getLanguage();
             $translationService->setLanguage($this->options['translation']['language']);

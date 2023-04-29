@@ -1,32 +1,39 @@
 <?php
 
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
 use LinaWolf\FormDoubleOptIn\Updates\FormDoubleOptInNamespaceMigration;
 
-defined('TYPO3_MODE') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(
     function ($extKey) {
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'form_double_opt_in',
             'DoubleOptIn',
             [
-                \LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
+                DoubleOptInController::class => 'validation,delete',
             ],
             [
-                \LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
+                DoubleOptInController::class => 'validation,delete',
             ]
         );
 
-        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Imaging\IconRegistry::class
+        $iconRegistry = GeneralUtility::makeInstance(
+            IconRegistry::class
         );
         $iconRegistry->registerIcon(
             'plugin-doubleoptin',
-            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+            SvgIconProvider::class,
             ['source' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg']
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        ExtensionManagementUtility::addPageTSConfig(
             'mod {
     			wizards.newContentElement.wizardItems.plugins {
     				elements {
@@ -45,8 +52,8 @@ call_user_func(
     	   }'
         );
 
-        if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables'])) {
-            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables']['tx_formdoubleoptin_domain_model_optin'] = [
+        if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables'])) {
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables']['tx_formdoubleoptin_domain_model_optin'] = [
                 'dateField' => 'tstamp',
                 'expirePeriod' => 30,
             ];
