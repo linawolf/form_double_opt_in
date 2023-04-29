@@ -1,11 +1,11 @@
 <?php
 
-namespace Medienreaktor\FormDoubleOptIn\Domain\Finishers;
+namespace LinaWolf\FormDoubleOptIn\Domain\Finishers;
 
-use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
-use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
-use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
-use Medienreaktor\FormDoubleOptIn\Utility\AddressUtility;
+use LinaWolf\FormDoubleOptIn\Domain\Model\OptIn;
+use LinaWolf\FormDoubleOptIn\Domain\Repository\OptInRepository;
+use LinaWolf\FormDoubleOptIn\Event\AfterOptInCreationEvent;
+use LinaWolf\FormDoubleOptIn\Utility\AddressUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Context\Context;

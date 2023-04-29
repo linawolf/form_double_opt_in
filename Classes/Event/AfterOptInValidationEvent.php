@@ -1,8 +1,8 @@
 <?php
 
-namespace Medienreaktor\FormDoubleOptIn\Event;
+namespace LinaWolf\FormDoubleOptIn\Event;
 
-use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
+use LinaWolf\FormDoubleOptIn\Domain\Model\OptIn;
 
 /**
  * Event after OptIn record has been validated.

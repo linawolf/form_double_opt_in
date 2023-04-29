@@ -1,11 +1,11 @@
 <?php
 
-namespace Medienreaktor\FormDoubleOptIn\Controller;
+namespace LinaWolf\FormDoubleOptIn\Controller;
 
-use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
-use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
-use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
-use Medienreaktor\FormDoubleOptIn\Service\MailToReceiverService;
+use LinaWolf\FormDoubleOptIn\Domain\Model\OptIn;
+use LinaWolf\FormDoubleOptIn\Domain\Repository\OptInRepository;
+use LinaWolf\FormDoubleOptIn\Event\AfterOptInValidationEvent;
+use LinaWolf\FormDoubleOptIn\Service\MailToReceiverService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
