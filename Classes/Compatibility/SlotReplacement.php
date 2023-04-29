@@ -1,11 +1,11 @@
 <?php
 
-namespace Medienreaktor\FormDoubleOptIn\Compatibility;
+namespace LinaWolf\FormDoubleOptIn\Compatibility;
 
-use Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController;
-use Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher;
-use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
-use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
+use LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController;
+use LinaWolf\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher;
+use LinaWolf\FormDoubleOptIn\Event\AfterOptInCreationEvent;
+use LinaWolf\FormDoubleOptIn\Event\AfterOptInValidationEvent;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 class SlotReplacement

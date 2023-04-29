@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-namespace Medienreaktor\FormDoubleOptIn\Domain\Model;
+namespace LinaWolf\FormDoubleOptIn\Domain\Model;
 
-use Medienreaktor\FormDoubleOptIn\Utility\Uuid;
+use LinaWolf\FormDoubleOptIn\Utility\Uuid;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**

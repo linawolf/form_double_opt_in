@@ -1,19 +1,25 @@
 {
-	"name": "medienreaktor/form_double_opt_in",
+	"name": "linawolf/form_double_opt_in",
 	"type": "typo3-cms-extension",
 	"license": "GPL-2.0",
 	"description": "Double Opt-In for the TYPO3 CMS Form Framework",
 	"authors": [
-		{
-			"name": "Daniel Kestler",
-			"email": "daniel.kestler@medienreaktor.de"
-		}
+    {
+      "name": "Lina Wolf",
+      "email": "112@llinawolf.de"
+    },
+    {
+      "name": "The TYPO3 Community",
+      "role": "Contributor",
+      "homepage": "https://typo3.org/community/"
+    }
 	],
 	"require": {
 		"ext-json": "*",
     "ext-openssl": "*",
 		"typo3/cms-core": "^10.4 || ^11.5",
-		"typo3/cms-form": "^10.4 || ^11.5"
+    "typo3/cms-form": "^10.4 || ^11.5",
+		"typo3/cms-scheduler": "^10.4 || ^11.5"
   },
 	"require-dev": {
 		"codeception/codeception": "^4.1",
@@ -31,12 +37,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Medienreaktor\\Medienreaktor\\": "Classes"
+			"LinaWolf\\FormDoubleOptIn\\": "Classes"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Medienreaktor\\Medienreaktor\\Tests\\": "Tests"
+			"LinaWolf\\FormDoubleOptIn\\Tests\\": "Tests"
 		}
 	},
 	"extra": {

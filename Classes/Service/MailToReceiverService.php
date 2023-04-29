@@ -1,9 +1,9 @@
 <?php
 
-namespace Medienreaktor\FormDoubleOptIn\Service;
+namespace LinaWolf\FormDoubleOptIn\Service;
 
-use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
-use Medienreaktor\FormDoubleOptIn\Utility\AddressUtility;
+use LinaWolf\FormDoubleOptIn\Domain\Model\OptIn;
+use LinaWolf\FormDoubleOptIn\Utility\AddressUtility;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Mail\Mailer;

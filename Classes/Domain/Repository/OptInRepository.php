@@ -1,6 +1,6 @@
 <?php
 
-namespace Medienreaktor\FormDoubleOptIn\Domain\Repository;
+namespace LinaWolf\FormDoubleOptIn\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 

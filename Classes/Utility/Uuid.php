@@ -1,6 +1,6 @@
 <?php
 
-namespace Medienreaktor\FormDoubleOptIn\Utility;
+namespace LinaWolf\FormDoubleOptIn\Utility;
 
 class Uuid
 {

@@ -50,9 +50,9 @@ where the user failed to opt-in to their mail:
 Goto `System > Scheduler` (admins only) and create a new `Scheduled tasks` of Class `Table garbage collection`. Chose a
 frequency to run the task repetetly and set up a cron job if you have none yet. Then choose for `Table to clean up`:
 `tx_formdoubleoptin_domain_model_optin` and the desired interval. Please note that users who received the email to
-double opt in cannot opt in anymore after there opt-in record has been deleted. 
+double opt in cannot opt in anymore after there opt-in record has been deleted.
 
-More about using the scheduler in the 
+More about using the scheduler in the
 `Manual of the system extension scheduler <https://docs.typo3.org/c/typo3/cms-scheduler/main/en-us/>`__.
 
 It is recommended to delete all Opt-In records right after successful opt-in. For this the following TypoScript constant
@@ -68,11 +68,15 @@ plugin.tx_formdoubleoptin_doubleoptin {
 
 Additionally, it is recommended to run the following scheduler tasks on a regular basis:
 
- + recycler: Remove deleted records from database. Select Table Op-In (tx_formdoubleoptin_domain_model_optin). 
+ + recycler: Remove deleted records from database. Select Table Op-In (tx_formdoubleoptin_domain_model_optin).
  + scheduler: Table garbage collection. Select table tx_formdoubleoptin_domain_model_optin
 
-Upon deleting records TYPO3 only sets a flag to delete the record. Therefore records concerning data privacy should 
+Upon deleting records TYPO3 only sets a flag to delete the record. Therefore records concerning data privacy should
 be deleted hard from the database on a regular basis. Use the recycler task for this.
 
 When a use registers with your form but does not use the double opt-in their data would stay in the database perpetually.
 Use the table garbage collection to delete all records older then 30 days (or set another date limit).
+
+## 4. Attribution
+
+This extension is based on `medienreaktor/form_double_opt_in` by Daniel Kestler.
