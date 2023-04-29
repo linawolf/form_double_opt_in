@@ -1,24 +1,23 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Compatibility;
 
 use Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController;
 use Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher;
-use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 class SlotReplacement
 {
-
     /**
      * signalSlotDispatcher
      *
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+     * @var Dispatcher
      */
     protected $signalSlotDispatcher;
 
-    public function injectSignalSlotDispatcher(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $dispatcher): void
+    public function injectSignalSlotDispatcher(Dispatcher $dispatcher): void
     {
         $this->signalSlotDispatcher = $dispatcher;
     }

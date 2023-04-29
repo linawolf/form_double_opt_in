@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Medienreaktor\\\\FormDoubleOptIn\\\\Domain\\\\Repository\\\\OptInRepository\\:\\:findOneByValidationHash\\(\\)\\.$#"
+			count: 2
+			path: ../Classes/Controller/DoubleOptInController.php

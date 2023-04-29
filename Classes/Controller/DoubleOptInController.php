@@ -1,23 +1,19 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Controller;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
 use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInValidationEvent;
 use Medienreaktor\FormDoubleOptIn\Service\MailToReceiverService;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
-use TYPO3\CMS\Core\Mail\Mailer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /*
  * DoubleOptInController
  */
-class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class DoubleOptInController extends ActionController
 {
-
     private MailToReceiverService $mailToReceiverService;
     protected OptInRepository $optInRepository;
 
@@ -30,19 +26,18 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * Validate the OptIn record
      */
-    public function validationAction()
+    public function validationAction(): ResponseInterface
     {
-        $success = FALSE;
-        $validated = FALSE;
+        $success = false;
+        $validated = false;
 
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
 
-            /** @var OptIn $optIn */
             $optIn = $this->optInRepository->findOneByValidationHash($hash);
 
-            if ($optIn) {
-                $isAlreadyValidated = $optIn->getIsValidated();
+            if ($optIn instanceof OptIn) {
+                $isAlreadyValidated = $optIn->isValidated();
 
                 $notificationMailEnable = $this->settings['notificationMailEnable'] ?? false;
                 $usePreparedEmail = $this->settings['usePreparedEmail'] ?? false;
@@ -51,41 +46,42 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     if ($usePreparedEmail) {
                         // Prepared e-mail with full power of the form extension
                         if ($optIn->getMailBody() !== '') {
-                            $this->mailToReceiverService->sendPreparedMail(json_decode($optIn->getMailBody(), true));
+                            $this->mailToReceiverService->sendPreparedMail(json_decode($optIn->getMailBody(), true, 512, JSON_THROW_ON_ERROR));
                         }
                     } else {
                         // Simple notification e-mail
                         $this->mailToReceiverService->sendNewMail($this->settings, $optIn);
                     }
                 }
-                
+
                 $this->eventDispatcher->dispatch(new AfterOptInValidationEvent($optIn));
 
                 if (!$isAlreadyValidated) {
-                    $success = TRUE;
+                    $success = true;
                     if ($this->settings['deleteOptInRecordsAfterOptIn']) {
                         $this->optInRepository->remove($optIn);
                     } else {
                         // Set as validated in the db
-                        $optIn->setIsValidated(TRUE);
-                        $optIn->setValidationDate(new \DateTime);
+                        $optIn->setIsValidated(true);
+                        $optIn->setValidationDate(new \DateTime());
                         $this->optInRepository->update($optIn);
                     }
-                    $this->signalSlotDispatcher->dispatch(__CLASS__, 'afterOptInValidation', [$optIn]);
+                    $this->signalSlotDispatcher->dispatch(self::class, 'afterOptInValidation', [$optIn]);
                 }
 
                 // If already validated
                 if ($isAlreadyValidated) {
-                    $validated = TRUE;
+                    $validated = true;
                 }
             }
         }
 
         $this->view->assign('success', $success);
         $this->view->assign('validated', $validated);
+        return $this->htmlResponse();
     }
 
-    public function deleteAction()
+    public function deleteAction(): ResponseInterface
     {
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
@@ -95,5 +91,6 @@ class DoubleOptInController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $this->optInRepository->remove($optIn);
             }
         }
+        return $this->htmlResponse();
     }
 }

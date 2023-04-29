@@ -7,6 +7,8 @@ use Medienreaktor\FormDoubleOptIn\Utility\AddressUtility;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use TYPO3\CMS\Core\Mail\Mailer;
+use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MailToReceiverService
 {
@@ -19,6 +21,13 @@ class MailToReceiverService
 
     public function sendPreparedMail(array $mailData): void
     {
+        $bodyHTML = null;
+        $bodyText = null;
+        $subject = null;
+        $senderAddress = null;
+        $senderName = null;
+        $recipientsArray = null;
+        $mail = null;
         extract($mailData);
         $newMail = new Email();
         $newMail->html($bodyHTML)
@@ -54,22 +63,22 @@ class MailToReceiverService
         $company = $optIn->getCompany();
         $customerNumber = $optIn->getCustomerNumber();
 
-        $mail = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
+        $mail = GeneralUtility::makeInstance(MailMessage::class);
         if ($notificationMailSenderMail && $notificationMailSenderName) {
-            $mail->from(new \Symfony\Component\Mime\Address($notificationMailSenderMail, $notificationMailSenderName));
+            $mail->from(new Address($notificationMailSenderMail, $notificationMailSenderName));
         } elseif ($notificationMailSenderMail) {
-            $mail->from(new \Symfony\Component\Mime\Address($notificationMailSenderMail));
+            $mail->from(new Address($notificationMailSenderMail));
         }
         if ($notificationMailReceiverMail && $notificationMailReceiverName) {
-            $mail->to(new \Symfony\Component\Mime\Address($notificationMailReceiverMail, $notificationMailReceiverName));
+            $mail->to(new Address($notificationMailReceiverMail, $notificationMailReceiverName));
         } elseif ($notificationMailReceiverMail) {
-            $mail->to(new \Symfony\Component\Mime\Address($notificationMailReceiverMail));
+            $mail->to(new Address($notificationMailReceiverMail));
         }
         if ($notificationMailSubject) {
             $mail->subject($notificationMailSubject);
         }
-        $mail->text($language .', '. $title .', '. $givenName .', '. $familyName .', '.$email.', '.$company.', '.$customerNumber);
-        $mail->html($language .'<br />'. $title .'<br />'. $givenName .'<br />'. $familyName .'<br />'.$email.'<br />'.$company.'<br />'.$customerNumber);
+        $mail->text($language . ', ' . $title . ', ' . $givenName . ', ' . $familyName . ', ' . $email . ', ' . $company . ', ' . $customerNumber);
+        $mail->html($language . '<br />' . $title . '<br />' . $givenName . '<br />' . $familyName . '<br />' . $email . '<br />' . $company . '<br />' . $customerNumber);
         $mail->send();
     }
 }

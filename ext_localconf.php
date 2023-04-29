@@ -1,25 +1,22 @@
 <?php
 
-use Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController;
-
-defined('TYPO3') || die('Access denied.');
+defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function($extKey)
-	{
+    function ($extKey) {
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'form_double_opt_in',
             'DoubleOptIn',
             [
-                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
             ],
             [
-                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete'
+                \Medienreaktor\FormDoubleOptIn\Controller\DoubleOptInController::class => 'validation,delete',
             ]
         );
 
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-           \TYPO3\CMS\Core\Imaging\IconRegistry::class
+            \TYPO3\CMS\Core\Imaging\IconRegistry::class
         );
         $iconRegistry->registerIcon(
             'plugin-doubleoptin',
@@ -27,8 +24,8 @@ call_user_func(
             ['source' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg']
         );
 
-    	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    		'mod {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+            'mod {
     			wizards.newContentElement.wizardItems.plugins {
     				elements {
     					formdoubleoptin_doubleoptin {
@@ -44,12 +41,12 @@ call_user_func(
     				show = *
     			}
     	   }'
-    	);
+        );
 
         if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables'])) {
             $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables']['tx_formdoubleoptin_domain_model_optin'] = [
                 'dateField' => 'tstamp',
-                'expirePeriod' => 30
+                'expirePeriod' => 30,
             ];
         }
     },

@@ -1,0 +1,17 @@
+includes:
+  - phpstan-baseline.neon
+
+parameters:
+  level: 6
+
+  # Use local cache dir instead of /tmp
+  tmpDir: ../.Build/.cache/phpstan
+
+  paths:
+    - %currentWorkingDirectory%/Classes
+    - %currentWorkingDirectory%/Tests
+
+  excludePaths:
+    - %currentWorkingDirectory%/Tests/Acceptance/Support/BackendTester.php
+    - %currentWorkingDirectory%/Tests/Acceptance/Backend/ModuleCest.php
+    - %currentWorkingDirectory%/Tests/Acceptance/Backend/GenerateCommandCest.php

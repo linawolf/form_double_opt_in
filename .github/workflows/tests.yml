@@ -1,0 +1,36 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  testsuite:
+    name: all tests
+    runs-on: ubuntu-20.04
+    strategy:
+      # This prevents cancellation of matrix job runs, if one or more already failed
+      # and let the remaining matrix jobs be be executed anyway.
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.0', '8.1', '8.2' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install testing system
+        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s composerUpdate
+
+      - name: Composer validate
+        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s composerValidate
+
+      - name: Lint PHP
+        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s lint
+
+      - name: CGL
+        if: ${{ matrix.php <= '8.1' }}
+        run: Build/Scripts/runTests.sh -n -p ${{ matrix.php }} -s cgl
+
+      # phpstan does not work as there are too many issues in old code
+      #- name: phpstan
+      #  run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s phpstan -e "--error-format=github"

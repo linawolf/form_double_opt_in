@@ -1,4 +1,5 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Event;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
@@ -8,18 +9,14 @@ use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
  */
 final class AfterOptInCreationEvent
 {
+    private OptIn $optIn;
 
-    /**
-     * @var \Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn
-     */
-    private $optIn;
-
-    public function __construct(\Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn $optIn)
+    public function __construct(OptIn $optIn)
     {
         $this->optIn = $optIn;
     }
 
-    public function getOptIn(): \Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn
+    public function getOptIn(): OptIn
     {
         return $this->optIn;
     }

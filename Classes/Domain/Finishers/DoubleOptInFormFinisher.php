@@ -1,44 +1,46 @@
 <?php
+
 namespace Medienreaktor\FormDoubleOptIn\Domain\Finishers;
 
 use Medienreaktor\FormDoubleOptIn\Domain\Model\OptIn;
+use Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use Medienreaktor\FormDoubleOptIn\Event\AfterOptInCreationEvent;
 use Medienreaktor\FormDoubleOptIn\Utility\AddressUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Form\Domain\Finishers\EmailFinisher;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime;
 use TYPO3\CMS\Form\Service\TranslationService;
 
-class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
+class DoubleOptInFormFinisher extends EmailFinisher
 {
-
     /**
      * optInRepository
      *
-     * @var \Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository
+     * @var OptInRepository
      */
     protected $optInRepository;
 
     /**
-     * @var \Psr\EventDispatcher\EventDispatcherInterface
+     * @var EventDispatcherInterface
      */
     protected $eventDispatcher;
 
-    public function injectOptInRepository(\Medienreaktor\FormDoubleOptIn\Domain\Repository\OptInRepository $optInRepository): void
+    public function injectOptInRepository(OptInRepository $optInRepository): void
     {
         $this->optInRepository = $optInRepository;
     }
 
-    public function injectEventDispatcher(\Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher): void
+    public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -51,7 +53,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
      */
     protected function executeInternal()
     {
-        $context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+        $context = GeneralUtility::makeInstance(Context::class);
         $pagelanguage = $context->getPropertyFromAspect('language', 'id');
 
         $title = $this->parseOption('title');
@@ -62,7 +64,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $customerNumber = $this->parseOption('customerNumber');
         $validationPid = $this->parseOption('validationPid');
 
-        $this->validateInput($email, $customerNumber, $validationPid);
+        $this->validateInput($email, $customerNumber, (int)$validationPid);
 
         $formRuntime = $this->finisherContext->getFormRuntime();
 
@@ -74,7 +76,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $this->eventDispatcher->dispatch(new AfterOptInCreationEvent($optIn));
 
-        $persistenceManager = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager::class);
+        $persistenceManager = $this->objectManager->get(PersistenceManager::class);
         $persistenceManager->persistAll();
 
         $this->sendDoubleOptInMail($formRuntime, $optIn, $validationPid);
@@ -89,16 +91,16 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
      * @param $company
      * @param $customerNumber
      * @return OptIn
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     * @throws InvalidConfigurationTypeException
      */
     protected function createOptInModel(
-        $pagelanguage,
-        $title,
-        $givenName,
-        $familyName,
-        $email,
-        $company,
-        $customerNumber,
+        string $pagelanguage,
+        string $title,
+        string $givenName,
+        string $familyName,
+        string $email,
+        string $company,
+        string $customerNumber,
         string $mailToReceiverBody
     ): OptIn {
         $optIn = new OptIn();
@@ -122,7 +124,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
             $optIn->setCustomerNumber($customerNumber);
         }
         $optIn->setMailBody($mailToReceiverBody);
-        $optIn->setRegistrationDate(new \DateTime);
+        $optIn->setRegistrationDate(new \DateTime());
 
         $this->configurationManager = $this->objectManager->get(ConfigurationManager::class);
         $configuration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
@@ -135,31 +137,24 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         return $optIn;
     }
 
-
-
     /**
-     * @param $email
-     * @param $customerNumber
-     * @param $validationPid
-     * @return void
      * @throws FinisherException
      */
-    private function validateInput($email, $customerNumber, $validationPid): void
+    private function validateInput(string $email, string $customerNumber, int $validationPid): void
     {
         if (empty($email) && empty($customerNumber)) {
-            throw new FinisherException('The options "email" or "customerNumber" must be set.', 1527145965);
+            throw new FinisherException('The options "email" or "customerNumber" must be set.', 1_527_145_965);
         }
 
-        if (empty($validationPid)) {
-            throw new FinisherException('The option "validationPid" must be set.', 1527145966);
+        if ($validationPid < 1) {
+            throw new FinisherException('The option "validationPid" must be set.', 1_527_145_966);
         }
     }
-
 
     private function prepareMailToReceiver(FormRuntime $formRuntime): string
     {
         $recipients = $this->getRecipients('recipients');
-        if (sizeof($recipients) === 0) {
+        if (count($recipients) === 0) {
             return '';
         }
 
@@ -169,7 +164,7 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $subject = $this->parseOption('subjectReceiver');
 
         if (empty($subject)) {
-            throw new FinisherException('The option "subjectReceiver" must be set for the DoubleOptInFormFinisher.', 1327060320);
+            throw new FinisherException('The option "subjectReceiver" must be set for the DoubleOptInFormFinisher.', 1_327_060_320);
         }
         $mail = $this->initializeFluidEmail($formRuntime)
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
@@ -177,14 +172,14 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
 
         $bodyHTML = $mail->getHtmlBody(true);
         $bodyText = $mail->getTextBody(true);
-        $json = array_merge($this->getAdresses(), compact ('recipientsArray', 'subject', 'addHtmlPart', 'bodyHTML', 'bodyText'));
+        $json = array_merge($this->getAdresses(), compact('recipientsArray', 'subject', 'addHtmlPart', 'bodyHTML', 'bodyText'));
 
-        return json_encode($json);
+        return json_encode($json, JSON_THROW_ON_ERROR);
     }
-
 
     private function sendDoubleOptInMail(FormRuntime $formRuntime, OptIn $optIn, int $validationPid): void
     {
+        $senderName = null;
         $languageBackup = null;
         $addHtmlPart = $this->isAddHtmlPart();
 
@@ -197,10 +192,10 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         extract($this->getAdresses());
         $subject = $this->parseOption('subject');
         if (empty($subject)) {
-            throw new FinisherException('The option "subject" must be set for the DoubleOptInFormFinisher.', 1327060320);
+            throw new FinisherException('The option "subject" must be set for the DoubleOptInFormFinisher.', 1_327_060_320);
         }
         if (empty($senderAddress)) {
-            throw new FinisherException('The option "senderAddress" must be set for the DoubleOptInFormFinisher.', 1327060210);
+            throw new FinisherException('The option "senderAddress" must be set for the DoubleOptInFormFinisher.', 1_327_060_210);
         }
         $mail = $this->initializeFluidEmail($formRuntime)
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
@@ -263,6 +258,6 @@ class DoubleOptInFormFinisher extends \TYPO3\CMS\Form\Domain\Finishers\EmailFini
         $carbonCopyRecipientsArray = AddressUtility::toArray($carbonCopyRecipients);
         $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients');
         $blindCarbonCopyRecipientsArray = AddressUtility::toArray($blindCarbonCopyRecipients);
-        return compact ('senderAddress', 'senderName', 'replyToRecipients', 'carbonCopyRecipients', 'blindCarbonCopyRecipients');
+        return compact('senderAddress', 'senderName', 'replyToRecipients', 'carbonCopyRecipients', 'blindCarbonCopyRecipients');
     }
 }

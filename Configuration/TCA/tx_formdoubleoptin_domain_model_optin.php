@@ -7,22 +7,18 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
         'default_sortby' => 'registration_date DESC, crdate DESC',
         'delete' => 'deleted',
         'enablecolumns' => [
-            'disabled' => 'hidden'
+            'disabled' => 'hidden',
         ],
         'searchFields' => 'email, title, given_name, family_name, company, customer_number, validation_hash',
-        'iconfile' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg'
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'pagelanguage, email, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
+        'iconfile' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'pagelanguage, email, registration_date, mail_body, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated'
-        ]
+            'showitem' => 'pagelanguage, email, registration_date, mail_body, title, given_name, family_name, company, customer_number, validation_hash, validation_date, is_validated',
+        ],
     ],
     'columns' => [
         'pagelanguage' => [
@@ -31,8 +27,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '10',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'email' => [
             'exclude' => 1,
@@ -40,16 +36,16 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'mail_body' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.mail_body',
             'config' => [
                 'type' => 'text',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'title' => [
             'exclude' => 1,
@@ -57,8 +53,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'given_name' => [
             'exclude' => 1,
@@ -66,8 +62,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'family_name' => [
             'exclude' => 1,
@@ -75,8 +71,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'company' => [
             'exclude' => 1,
@@ -84,8 +80,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'customer_number' => [
             'exclude' => 1,
@@ -93,16 +89,16 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => '30',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'is_validated' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.is_validated',
             'config' => [
                 'type' => 'check',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'validation_hash' => [
             'exclude' => 1,
@@ -110,8 +106,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 40,
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'registration_date' => [
             'exclude' => 1,
@@ -122,8 +118,8 @@ return [
                 'eval' => 'datetime',
                 'renderType' => 'inputDateTime',
                 'checkbox' => 0,
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'validation_date' => [
             'exclude' => 1,
@@ -134,8 +130,8 @@ return [
                 'eval' => 'datetime',
                 'renderType' => 'inputDateTime',
                 'checkbox' => 0,
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
-    ]
+    ],
 ];
