@@ -3,29 +3,20 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Core\Configuration\Option;
-use Rector\Core\ValueObject\PhpVersion;
 use Rector\PostRector\Rector\NameImportingPostRector;
 use Rector\Set\ValueObject\LevelSetList;
-use Ssch\TYPO3Rector\Configuration\Typo3Option;
-use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
-use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 
 // .Build/vendor/bin/rector process
 
 return static function (RectorConfig $rectorConfig): void {
-    // If you want to override the number of spaces for your typoscript files you can define it here, the default value is 4
-    $parameters = $rectorConfig->parameters();
-    $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 2);
-
     $rectorConfig->sets([
-        Typo3LevelSetList::UP_TO_TYPO3_11,
-        LevelSetList::UP_TO_PHP_74,
+        Typo3LevelSetList::UP_TO_TYPO3_12,
+        LevelSetList::UP_TO_PHP_81,
     ]);
 
     // Define your target version which you want to support
-    $rectorConfig->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->phpVersion(\Rector\ValueObject\PhpVersion::PHP_81);
 
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
     // If you use the option --config change __DIR__ to getcwd()
@@ -76,9 +67,9 @@ return static function (RectorConfig $rectorConfig): void {
         \Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector::FILENAME => __DIR__ . '/packages/acme_demo/Configuration/Extbase/Persistence/Classes.php',
     ]); */
     // Add some general TYPO3 rules
-    $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
-    $rectorConfig->ruleWithConfiguration(ExtEmConfRector::class, [
-        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => [],
+    $rectorConfig->rule(\Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector::class);
+    $rectorConfig->ruleWithConfiguration(\Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector::class, [
+        \Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => [],
     ]);
 
     // Modernize your TypoScript include statements for files and move from <INCLUDE /> to @import use the FileIncludeToImportStatementVisitor (introduced with TYPO3 9.0)

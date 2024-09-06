@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       # This prevents cancellation of matrix job runs, if one or more already failed
-      # and let the remaining matrix jobs be be executed anyway.
+      # and let the remaining matrix jobs be executed anyway.
       fail-fast: false
       matrix:
-        php: [ '7.4', '8.0', '8.1', '8.2' ]
+        php: [ '8.1', '8.2', '8.3' ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install testing system
         run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s composerUpdate
