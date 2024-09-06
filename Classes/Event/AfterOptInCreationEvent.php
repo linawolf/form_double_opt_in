@@ -9,11 +9,8 @@ use LinaWolf\FormDoubleOptIn\Domain\Model\OptIn;
  */
 final class AfterOptInCreationEvent
 {
-    private OptIn $optIn;
-
-    public function __construct(OptIn $optIn)
+    public function __construct(private readonly OptIn $optIn)
     {
-        $this->optIn = $optIn;
     }
 
     public function getOptIn(): OptIn
