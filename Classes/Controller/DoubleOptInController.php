@@ -14,13 +14,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class DoubleOptInController extends ActionController
 {
-    private MailToReceiverService $mailToReceiverService;
-    protected OptInRepository $optInRepository;
-
-    public function __construct(MailToReceiverService $mailToReceiverService, OptInRepository $optInRepository)
+    public function __construct(private readonly MailToReceiverService $mailToReceiverService, protected OptInRepository $optInRepository)
     {
-        $this->mailToReceiverService = $mailToReceiverService;
-        $this->optInRepository = $optInRepository;
     }
 
     /**
@@ -34,7 +29,7 @@ class DoubleOptInController extends ActionController
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
 
-            $optIn = $this->optInRepository->findOneByValidationHash($hash);
+            $optIn = $this->optInRepository->findOneBy(['validationHash' => $hash]);
 
             if ($optIn instanceof OptIn) {
                 $isAlreadyValidated = $optIn->isValidated();
@@ -85,7 +80,7 @@ class DoubleOptInController extends ActionController
         if ($this->request->hasArgument('hash')) {
             $hash = $this->request->getArgument('hash');
             /** @var ?OptIn $optIn */
-            $optIn = $this->optInRepository->findOneByValidationHash($hash);
+            $optIn = $this->optInRepository->findOneBy(['validationHash' => $hash]);
             if ($optIn !== null) {
                 $this->optInRepository->remove($optIn);
             }

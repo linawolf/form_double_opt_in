@@ -6,7 +6,6 @@ return [
         'label' => 'email',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'default_sortby' => 'registration_date DESC, crdate DESC',
         'delete' => 'deleted',
         'enablecolumns' => [
@@ -113,10 +112,8 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.registration_date',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => 20,
-                'eval' => 'datetime',
-                'renderType' => 'inputDateTime',
                 'checkbox' => 0,
                 'readOnly' => 1,
             ],
@@ -125,10 +122,8 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.validation_date',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => 20,
-                'eval' => 'datetime',
-                'renderType' => 'inputDateTime',
                 'checkbox' => 0,
                 'readOnly' => 1,
             ],

@@ -12,11 +12,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MailToReceiverService
 {
-    private Mailer $mailer;
-
-    public function __construct(Mailer $mailer)
+    public function __construct(private readonly Mailer $mailer)
     {
-        $this->mailer = $mailer;
     }
 
     public function sendPreparedMail(array $mailData): void
