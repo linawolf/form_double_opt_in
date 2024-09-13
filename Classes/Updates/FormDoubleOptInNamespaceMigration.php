@@ -24,7 +24,7 @@ class FormDoubleOptInNamespaceMigration implements UpgradeWizardInterface, Confi
             false,
             'Yes, I understand!',
             'No thanks',
-            false
+            false,
         );
     }
 

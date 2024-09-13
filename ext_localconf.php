@@ -21,16 +21,16 @@ call_user_func(
             ],
             [
                 DoubleOptInController::class => 'validation,delete',
-            ]
+            ],
         );
 
         $iconRegistry = GeneralUtility::makeInstance(
-            IconRegistry::class
+            IconRegistry::class,
         );
         $iconRegistry->registerIcon(
             'plugin-doubleoptin',
             SvgIconProvider::class,
-            ['source' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg']
+            ['source' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg'],
         );
 
         ExtensionManagementUtility::addPageTSConfig(
@@ -49,7 +49,7 @@ call_user_func(
     				}
     				show = *
     			}
-    	   }'
+    	   }',
         );
 
         if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][TableGarbageCollectionTask::class]['options']['tables'])) {
@@ -62,5 +62,5 @@ call_user_func(
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['FormDoubleOptInNamespaceMigrationMigration']
             = FormDoubleOptInNamespaceMigration::class;
     },
-    'form_double_opt_in'
+    'form_double_opt_in',
 );

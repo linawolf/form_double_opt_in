@@ -103,7 +103,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         string $email,
         string $company,
         string $customerNumber,
-        string $mailToReceiverBody
+        string $mailToReceiverBody,
     ): OptIn {
         $optIn = new OptIn();
         $optIn->setPagelanguage($pagelanguage);

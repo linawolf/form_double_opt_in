@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace LinaWolf\FormDoubleOptIn\Domain\Model;
 
 use LinaWolf\FormDoubleOptIn\Utility\Uuid;
@@ -11,32 +12,22 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class OptIn extends AbstractEntity
 {
-    protected string  $pagelanguage = '';
-
-    protected string  $email = '';
-
-    protected string  $title = '';
-
-    protected string  $givenName = '';
-
-    protected string  $familyName = '';
-
-    protected string  $company = '';
-    protected string  $customerNumber = '';
-
+    protected string $pagelanguage = '';
+    protected string $email = '';
+    protected string $title = '';
+    protected string $givenName = '';
+    protected string $familyName = '';
+    protected string $company = '';
+    protected string $customerNumber = '';
     protected bool $isValidated = false;
-
-    protected string  $validationHash = '';
-
+    protected string $validationHash = '';
     protected ?\DateTime $validationDate = null;
-
     protected ?\DateTime $registrationDate = null;
-
     protected string $mailBody = '';
 
     public function __construct()
     {
-        if (! $this->validationHash) {
+        if (!$this->validationHash) {
             $this->validationHash = Uuid::generate();
         }
     }

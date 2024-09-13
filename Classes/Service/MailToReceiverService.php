@@ -12,9 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MailToReceiverService
 {
-    public function __construct(private readonly Mailer $mailer)
-    {
-    }
+    public function __construct(private readonly Mailer $mailer) {}
 
     public function sendPreparedMail(array $mailData): void
     {

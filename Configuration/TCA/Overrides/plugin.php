@@ -8,11 +8,11 @@ call_user_func(
         ExtensionUtility::registerPlugin(
             'form_double_opt_in',
             'DoubleOptIn',
-            'DoubleOptIn'
+            'DoubleOptIn',
         );
 
         ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript', 'FormDoubleOptIn');
         ExtensionManagementUtility::allowTableOnStandardPages('tx_formdoubleoptin_domain_model_optin');
     },
-    'form_double_opt_in'
+    'form_double_opt_in',
 );
