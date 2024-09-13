@@ -1,8 +1,8 @@
 {
   "name": "linawolf/form_double_opt_in",
-  "type": "typo3-cms-extension",
-  "license": "GPL-2.0-or-later",
   "description": "Double Opt-In for the TYPO3 CMS Form Framework",
+  "license": "GPL-2.0-or-later",
+  "type": "typo3-cms-extension",
   "authors": [
     {
       "name": "Lina Wolf",
@@ -10,8 +10,8 @@
     },
     {
       "name": "The TYPO3 Community",
-      "role": "Contributor",
-      "homepage": "https://typo3.org/community/"
+      "homepage": "https://typo3.org/community/",
+      "role": "Contributor"
     }
   ],
   "require": {
@@ -22,6 +22,7 @@
     "typo3/cms-scheduler": "^12.4"
   },
   "require-dev": {
+    "ergebnis/composer-normalize": "^2.43",
     "phpstan/phpstan": "^1.8.2",
     "ssch/typo3-rector": "^2.6",
     "typo3/cms-core": "12.*.*@dev",
@@ -41,23 +42,24 @@
       "LinaWolf\\FormDoubleOptIn\\Tests\\": "Tests"
     }
   },
-  "extra": {
-    "typo3/cms": {
-      "app-dir": ".Build",
-      "web-dir": ".Build/Web",
-      "extension-key": "form_double_opt_in"
-    }
-  },
   "config": {
-    "vendor-dir": ".Build/vendor",
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true,
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
+    },
     "bin-dir": ".Build/bin",
     "preferred-install": {
       "typo3/cms-core": "source"
     },
     "sort-packages": true,
-    "allow-plugins": {
-      "typo3/class-alias-loader": true,
-      "typo3/cms-composer-installers": true
+    "vendor-dir": ".Build/vendor"
+  },
+  "extra": {
+    "typo3/cms": {
+      "app-dir": ".Build",
+      "extension-key": "form_double_opt_in",
+      "web-dir": ".Build/Web"
     }
   }
 }
