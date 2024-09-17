@@ -20,7 +20,7 @@ call_user_func(static function (): void {
         ],
     );
 
-    # Configure the table garbage collection task.
+    // Configure the table garbage collection task.
     if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][
         TableGarbageCollectionTask::class]['options']['tables'])
     ) {

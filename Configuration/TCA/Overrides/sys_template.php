@@ -6,7 +6,7 @@ call_user_func(static function (): void {
     ExtensionManagementUtility::addStaticFile(
         'form_double_opt_in',
         'Configuration/TypoScript',
-        'FormDoubleOptIn'
+        'FormDoubleOptIn',
     );
 
     ExtensionManagementUtility::allowTableOnStandardPages('tx_formdoubleoptin_domain_model_optin');
