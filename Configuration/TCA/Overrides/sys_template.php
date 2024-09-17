@@ -1,18 +1,13 @@
 <?php
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-call_user_func(
-    static function ($extKey) {
-        ExtensionUtility::registerPlugin(
-            'form_double_opt_in',
-            'DoubleOptIn',
-            'DoubleOptIn',
-        );
+call_user_func(static function (): void {
+    ExtensionManagementUtility::addStaticFile(
+        'form_double_opt_in',
+        'Configuration/TypoScript',
+        'FormDoubleOptIn'
+    );
 
-        ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript', 'FormDoubleOptIn');
-        ExtensionManagementUtility::allowTableOnStandardPages('tx_formdoubleoptin_domain_model_optin');
-    },
-    'form_double_opt_in',
-);
+    ExtensionManagementUtility::allowTableOnStandardPages('tx_formdoubleoptin_domain_model_optin');
+});
