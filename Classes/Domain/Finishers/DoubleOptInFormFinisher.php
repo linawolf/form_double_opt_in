@@ -85,14 +85,6 @@ final class DoubleOptInFormFinisher extends EmailFinisher
     }
 
     /**
-     * @param $pagelanguage
-     * @param $title
-     * @param $givenName
-     * @param $familyName
-     * @param $email
-     * @param $company
-     * @param $customerNumber
-     * @return OptIn
      * @throws InvalidConfigurationTypeException
      */
     protected function createOptInModel(
@@ -227,9 +219,6 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         GeneralUtility::makeInstance(Mailer::class)->send($mail);
     }
 
-    /**
-     * @return bool
-     */
     private function isAddHtmlPart(): bool
     {
         // Flexform overrides write strings instead of integers so

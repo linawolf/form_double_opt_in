@@ -43,9 +43,9 @@ class OptIn extends AbstractEntity
     /**
      * @param string $pagelanguage
      */
-    public function setPagelanguage(string $pagelanguage): void
+    public function setPagelanguage(string $pageLanguage): void
     {
-        $this->pagelanguage = $pagelanguage;
+        $this->pagelanguage = $pageLanguage;
     }
 
     /**
