@@ -3,13 +3,12 @@
 declare(strict_types=1);
 
 use LinaWolf\FormDoubleOptIn\Controller\DoubleOptInController;
-use LinaWolf\FormDoubleOptIn\Updates\FormDoubleOptInNamespaceMigration;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
 
 defined('TYPO3') or die();
 
-call_user_func(static function () {
+call_user_func(static function (): void {
     ExtensionUtility::configurePlugin(
         'form_double_opt_in',
         'DoubleOptIn',
