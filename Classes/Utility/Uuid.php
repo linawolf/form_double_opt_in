@@ -29,7 +29,7 @@ class Uuid
             substr($hash, 8, 4),
             (hexdec(substr($hash, 12, 4)) & 0x0fff) | $version << 12,
             (hexdec(substr($hash, 16, 4)) & 0x3fff) | 0x8000,
-            substr($hash, 20, 12)
+            substr($hash, 20, 12),
         );
     }
 }

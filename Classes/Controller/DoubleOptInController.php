@@ -14,9 +14,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class DoubleOptInController extends ActionController
 {
-    public function __construct(private readonly MailToReceiverService $mailToReceiverService, protected OptInRepository $optInRepository)
-    {
-    }
+    public function __construct(private readonly MailToReceiverService $mailToReceiverService, protected OptInRepository $optInRepository) {}
 
     /**
      * Validate the OptIn record

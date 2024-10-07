@@ -9,9 +9,7 @@ use LinaWolf\FormDoubleOptIn\Domain\Model\OptIn;
  */
 final class AfterOptInValidationEvent
 {
-    public function __construct(private readonly OptIn $optIn)
-    {
-    }
+    public function __construct(private readonly OptIn $optIn) {}
 
     public function getOptIn(): OptIn
     {
