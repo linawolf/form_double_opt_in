@@ -80,3 +80,29 @@ Use the table garbage collection to delete all records older then 30 days (or se
 ## 4. Attribution
 
 This extension is based on `medienreaktor/form_double_opt_in` by Daniel Kestler.
+
+##  Contribution
+
+### Run tests
+
+```
+make install
+make test
+```
+
+### Fix Rector and CGL
+
+```
+make install
+make fix
+```
+
+
+### Update PHPstan baseline
+
+If you fixed a phpstan warning you can rebuild the baseline with the following command:
+
+```
+make install
+make phpstanBaseline
+```
