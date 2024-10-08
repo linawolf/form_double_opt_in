@@ -3,7 +3,7 @@ help: ## Displays this list of targets with descriptions
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: fix ## Run all tests
-fix: rector fix-code-style-php
+fix: rector fix-code-style
 
 .PHONY: test ## Run all tests
 test: lint code-style phpstan
