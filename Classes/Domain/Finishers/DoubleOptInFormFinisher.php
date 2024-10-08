@@ -82,6 +82,12 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         $this->persistenceManager->persistAll();
 
         $this->sendDoubleOptInMail($formRuntime, $optIn, $validationPid);
+
+        $this->finisherContext->getFinisherVariableProvider()->add(
+            $this->shortFinisherIdentifier,
+            'optInRecordUid',
+            $optIn->getUid(),
+        );
     }
 
     /**
