@@ -86,7 +86,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         $this->finisherContext->getFinisherVariableProvider()->add(
             $this->shortFinisherIdentifier,
             'optInRecordUid',
-            $optIn->getUid()
+            $optIn->getUid(),
         );
     }
 
