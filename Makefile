@@ -6,7 +6,7 @@ help: ## Displays this list of targets with descriptions
 fix: rector fix-code-style-php
 
 .PHONY: test ## Run all tests
-test: lint, code-style phpstan
+test: lint code-style phpstan
 
 .PHONY: lint
 lint:
@@ -19,7 +19,6 @@ phpstan:
 .PHONY: phpstanBaseline
 phpstanBaseline:
 	Build/Scripts/runTests.sh -s phpstanBaseline
-
 
 .PHONY: code-style
 code-style:
