@@ -40,9 +40,8 @@ jobs:
       - name: 'CGL'
         run: Build/Scripts/runTests.sh -n -p ${{ matrix.php }} -s cgl
 
-      # phpstan is disabled because the code is still old and needs optimizations
-      #- name: 'phpstan'
-      #  run: Build/Scripts/runTests.sh -n -p ${{ matrix.php }} -s phpstan
+      - name: 'phpstan'
+        run: Build/Scripts/runTests.sh -n -p ${{ matrix.php }} -s phpstan
 
       # Unit Tests and Functional Tests are not implemented yet
       #- name: 'Execute unit tests'

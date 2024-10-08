@@ -139,7 +139,6 @@ Options:
             - composer: "composer" with all remaining arguments dispatched.
             - composerNormalize: "composer normalize"
             - composerUpdate: "composer update", handy if host has no PHP
-            - composerUpdateRector: "composer update", for rector subdirectory
             - composerValidate: "composer validate"
             - functional: PHP functional tests
             - lint: PHP linting
@@ -411,7 +410,7 @@ fi
 case ${TEST_SUITE} in
     cgl)
         if [ "${CGLCHECK_DRY_RUN}" -eq 1 ]; then
-            COMMAND="php -dxdebug.mode=off .Build/bin/php-cs-fixer fix -v --dry-run --diff --config=Build/cgl/.php-cs-fixer.dist.php --using-cache=no ."
+            COMMAND="php -dxdebug.mode=off .Build/bin/php-cs-fixer fix -v --dry-run --diff --config=Build/cgl/.php-cs-fixer.dist.php --using-cache=no"
         else
             COMMAND="php -dxdebug.mode=off .Build/bin/php-cs-fixer fix -v --config=Build/cgl/.php-cs-fixer.dist.php --using-cache=no ."
         fi
@@ -453,18 +452,6 @@ case ${TEST_SUITE} in
         SUITE_EXIT_CODE=$?
         cp ${ROOT_DIR}/composer.json ${ROOT_DIR}/composer.json.testing
         mv ${ROOT_DIR}/composer.json.orig ${ROOT_DIR}/composer.json
-        ;;
-    composerUpdateRector)
-        rm -rf Build/rector/.Build/bin/ Build/rector/.Build/vendor Build/rector/composer.lock
-        cp ${ROOT_DIR}/Build/rector/composer.json ${ROOT_DIR}/Build/rector/composer.json.orig
-        if [ -f "${ROOT_DIR}/Build/rector/composer.json.testing" ]; then
-            cp ${ROOT_DIR}/Build/rector/composer.json ${ROOT_DIR}/Build/rector/composer.json.orig
-        fi
-        COMMAND=(composer require --working-dir=${ROOT_DIR}/Build/rector --no-ansi --no-interaction --no-progress)
-        ${CONTAINER_BIN} run ${CONTAINER_COMMON_PARAMS} --name composer-install-${SUFFIX} -e COMPOSER_CACHE_DIR=.Build/.cache/composer -e COMPOSER_ROOT_VERSION=${COMPOSER_ROOT_VERSION} ${IMAGE_PHP} "${COMMAND[@]}"
-        SUITE_EXIT_CODE=$?
-        cp ${ROOT_DIR}/Build/rector/composer.json ${ROOT_DIR}/Build/rector/composer.json.testing
-        mv ${ROOT_DIR}/Build/rector/composer.json.orig ${ROOT_DIR}/Build/rector/composer.json
         ;;
     composerValidate)
         COMMAND=(composer validate "$@")
@@ -524,9 +511,9 @@ case ${TEST_SUITE} in
         ;;
     rector)
         if [ "${CGLCHECK_DRY_RUN}" -eq 1 ]; then
-            COMMAND=(php -dxdebug.mode=off Build/rector/.Build/bin/rector -n --config=Build/rector/rector.php --clear-cache "$@")
+            COMMAND=(php -dxdebug.mode=off .Build/bin/rector -n --config=Build/rector.php --clear-cache "$@")
         else
-            COMMAND=(php -dxdebug.mode=off Build/rector/.Build/bin/rector --config=Build/rector/rector.php --clear-cache "$@")
+            COMMAND=(php -dxdebug.mode=off .Build/bin/rector --config=Build/rector.php --clear-cache "$@")
         fi
         ${CONTAINER_BIN} run ${CONTAINER_COMMON_PARAMS} --name rector-${SUFFIX} -e COMPOSER_CACHE_DIR=.Build/.cache/composer -e COMPOSER_ROOT_VERSION=${COMPOSER_ROOT_VERSION} ${IMAGE_PHP} "${COMMAND[@]}"
         SUITE_EXIT_CODE=$?
