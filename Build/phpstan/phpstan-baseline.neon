@@ -1,12 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method LinaWolf\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:executeInternal\\(\\) should return string\\|null but return statement is missing\\.$#"
+			message: "#^Method LinaWolf\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:getAdresses\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
 
 		-
-			message: "#^Method LinaWolf\\\\FormDoubleOptIn\\\\Domain\\\\Finishers\\\\DoubleOptInFormFinisher\\:\\:getAdresses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException is not subtype of Throwable$#"
 			count: 1
 			path: ../../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
 
