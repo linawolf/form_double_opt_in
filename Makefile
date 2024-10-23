@@ -35,3 +35,11 @@ install: ## Fix PHP coding style issues
 .PHONY: rector
 rector: ## Refactor code using rector
 	Build/Scripts/runTests.sh -s rector
+
+.PHONY: install
+install:
+	Build/Scripts/runTests.sh -s composerUpdate
+
+.PHONY: install-rector
+install-rector:
+	Build/Scripts/runTests.sh -s composerUpdateRector

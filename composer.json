@@ -17,17 +17,15 @@
   "require": {
     "ext-json": "*",
     "ext-openssl": "*",
-    "typo3/cms-core": "^12.4",
-    "typo3/cms-form": "^12.4",
-    "typo3/cms-scheduler": "^12.4"
+    "typo3/cms-core": "^13.4",
+    "typo3/cms-form": "^13.4",
+    "typo3/cms-scheduler": "^13.4",
+    "typo3/cms-frontend": "^13.4",
+    "typo3/cms-install": "^13.4"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.43",
     "phpstan/phpstan": "^1.8.2",
-    "ssch/typo3-rector": "^2.6",
-    "typo3/cms-core": "12.*.*@dev",
-    "typo3/cms-frontend": "12.*.*@dev",
-    "typo3/cms-install": "12.*.*@dev",
     "typo3/coding-standards": "^0.8",
     "typo3/tailor": "^1.6",
     "typo3/testing-framework": "^8.2"

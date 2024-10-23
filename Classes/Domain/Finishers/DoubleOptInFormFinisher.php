@@ -23,28 +23,13 @@ use TYPO3\CMS\Form\Service\TranslationService;
 
 final class DoubleOptInFormFinisher extends EmailFinisher
 {
-    private OptInRepository $optInRepository;
     private EventDispatcherInterface $eventDispatcher;
     private ConfigurationManager $configurationManager;
     private PersistenceManager $persistenceManager;
-
-    public function injectOptInRepository(OptInRepository $optInRepository): void
-    {
-        $this->optInRepository = $optInRepository;
-    }
-
-    public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
+    public function __construct(private OptInRepository $optInRepository, EventDispatcherInterface $eventDispatcher, ConfigurationManager $configurationManager, PersistenceManager $persistenceManager)
     {
         $this->eventDispatcher = $eventDispatcher;
-    }
-
-    public function injectConfigurationManager(ConfigurationManager $configurationManager): void
-    {
         $this->configurationManager = $configurationManager;
-    }
-
-    public function injectPersistenceManager(PersistenceManager $persistenceManager): void
-    {
         $this->persistenceManager = $persistenceManager;
     }
 
@@ -54,7 +39,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
      *
      * @throws FinisherException
      */
-    protected function executeInternal()
+    protected function executeInternal(): void
     {
         $context = GeneralUtility::makeInstance(Context::class);
         $pagelanguage = $context->getPropertyFromAspect('language', 'id');
@@ -130,7 +115,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         $storagePid = (int)$configuration['plugin.']['tx_formdoubleoptin_doubleoptin.']['persistence.']['storagePid'];
         if ($storagePid === 0) {
             throw new \Exception('The storagePid is not set. Please set it by ' .
-                'TypoScript \'plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid\'.');
+                'TypoScript \'plugin.tx_formdoubleoptin_doubleoptin.persistence.storagePid\'.', 6259273299);
         }
         $optIn->setPid($storagePid);
         return $optIn;
