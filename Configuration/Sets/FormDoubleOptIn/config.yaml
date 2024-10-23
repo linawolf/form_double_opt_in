@@ -1,0 +1,4 @@
+name: linawolf/form_double_opt_in
+label: Double Opt-In for the TYPO3 CMS Form Framework"
+dependencies:
+  - typo3/form

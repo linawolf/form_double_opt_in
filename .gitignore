@@ -36,3 +36,4 @@ nbproject
 composer.json.testing
 /.ddev/
 !/.ddev/config.yaml
+/Build/rector/composer.lock
