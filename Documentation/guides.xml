@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<guides
+    xmlns="https://www.phpdoc.org/guides"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.phpdoc.org/guides vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd"
+    input-format="md"
+    index-name="Index"
+    automatic-menu="true"
+>
+    <project
+        title="Form Double Opt-In"
+        version="main"
+        release="main"
+    />
+    <extension
+        class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
+        edit-on-github="linawolf/form_double_opt_in"
+        edit-on-github-branch="main"
+        interlink-shortcode="linawolf/form_double_opt_in"
+        project-home="https://github.com/linawolf/form_double_opt_in"
+        project-issues="https://github.com/linawolf/form_double_opt_in/issues"
+        project-repository="https://github.com/linawolf/form_double_opt_in"
+        typo3-core-preferred="stable"
+    />
+</guides>
