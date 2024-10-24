@@ -5,11 +5,11 @@ $EM_CONF[$_EXTKEY] = [
     'description' => 'Double Opt-In for the TYPO3 CMS Form Framework',
     'category' => 'plugin',
     'state' => 'stable',
-    'version' => '12.0.0',
+    'version' => '13.0.0',
     'constraints' => [
         'depends' => [
             'typo3' => '13.3.0-13.99.99',
-            'form' => '12.4.0-12.4.99',
+            'form' => '13.4.0-13.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
