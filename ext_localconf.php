@@ -19,6 +19,7 @@ call_user_func(static function (): void {
         [
             DoubleOptInController::class => 'validation,delete',
         ],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionManagementUtility::addTypoScript(

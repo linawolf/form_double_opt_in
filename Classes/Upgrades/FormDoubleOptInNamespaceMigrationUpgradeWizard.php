@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace LinaWolf\FormDoubleOptIn\Upgrades;
 
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\ConfirmableInterface;
 use TYPO3\CMS\Install\Updates\Confirmation;
-use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 #[UpgradeWizard('formDoubleOptInNamespaceMigrationMigration')]
@@ -42,7 +42,7 @@ class FormDoubleOptInNamespaceMigrationUpgradeWizard implements UpgradeWizardInt
     public function getDescription(): string
     {
         return 'Migrate usage of `Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher` in form ' .
-            'finishers to `Medienreaktor\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher` manually.';
+            'finishers to `LinaWolf\FormDoubleOptIn\Domain\Finishers\DoubleOptInFormFinisher` manually.';
     }
 
     public function updateNecessary(): bool
@@ -56,7 +56,6 @@ class FormDoubleOptInNamespaceMigrationUpgradeWizard implements UpgradeWizardInt
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class,
         ];
     }
 
