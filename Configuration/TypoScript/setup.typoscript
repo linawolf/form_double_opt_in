@@ -1,3 +1,11 @@
+plugin.tx_form {
+  settings {
+    yamlConfigurations {
+      250 = EXT:form_double_opt_in/Configuration/Yaml/FormEditorOverrides.yaml
+    }
+  }
+}
+
 plugin.tx_formdoubleoptin_doubleoptin {
     view {
         templateRootPaths.10 = EXT:form_double_opt_in/Resources/Private/Templates

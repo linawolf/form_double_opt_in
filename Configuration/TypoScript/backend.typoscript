@@ -1,0 +1,7 @@
+module.tx_form {
+  settings {
+    yamlConfigurations {
+      250 = EXT:form_double_opt_in/Configuration/Yaml/FormEditorOverrides.yaml
+    }
+  }
+}
