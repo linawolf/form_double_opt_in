@@ -1,21 +1,37 @@
+plugin.tx_form {
+  settings {
+    yamlConfigurations {
+      250 = EXT:form_double_opt_in/Configuration/Yaml/FormEditorOverrides.yaml
+    }
+  }
+}
+
 plugin.tx_formdoubleoptin_doubleoptin {
     view {
-        templateRootPaths.10 = EXT:form_double_opt_in/Resources/Private/Templates
-        partialRootPaths.10 = EXT:form_double_opt_in/Resources/Private/Partials
-        layoutRootPaths.10 = EXT:form_double_opt_in/Resources/Private/Layouts
+        templateRootPaths {
+          10 = EXT:form_double_opt_in/Resources/Private/Templates
+          20 = {$formdoubleoptin.templateRootPaths}
+        }
+        partialRootPaths {
+          10 = EXT:form_double_opt_in/Resources/Private/Partials
+          20 = {$formdoubleoptin.partialRootPaths}
+        }
+        layoutRootPaths {
+          10 = EXT:form_double_opt_in/Resources/Private/Layouts
+          20 = {$formdoubleoptin.layoutRootPaths}
+        }
     }
     persistence {
-        storagePid = {$plugin.tx_formdoubleoptin_doubleoptin.settings.storagePid}
+        storagePid = {$formdoubleoptin.storagePid ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.storagePid}
     }
     settings {
-        notificationMailEnable = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailEnable}
-        usePreparedEmail = {$plugin.tx_formdoubleoptin_doubleoptin.settings.usePreparedEmail}
-        notificationMailSubject = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSubject}
-        notificationMailSenderMail = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSenderMail}
-        notificationMailSenderName = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSenderName}
-        notificationMailReceiverMail = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverMail}
-        notificationMailReceiverName = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverName}
-        notificationMailSenderName = {$plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSenderName}
-        deleteOptInRecordsAfterOptIn = {$plugin.tx_formdoubleoptin_doubleoptin.settings.deleteOptInRecordsAfterOptIn}
+        notificationMailEnable = {$formdoubleoptin.notificationMailEnable ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailEnable}
+        usePreparedEmail = {$formdoubleoptin.usePreparedEmail ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.usePreparedEmail}
+        notificationMailSubject = {$formdoubleoptin.notificationMailSubject ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSubject}
+        notificationMailSenderMail = {$formdoubleoptin.notificationMailSenderMail ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSenderMail}
+        notificationMailSenderName = {$formdoubleoptin.notificationMailSenderName ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSenderName}
+        notificationMailReceiverMail = {$formdoubleoptin.notificationMailReceiverMail ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverMail}
+        notificationMailReceiverName = {$formdoubleoptin.notificationMailReceiverName ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverName}
+        deleteOptInRecordsAfterOptIn = {$formdoubleoptin.deleteOptInRecordsAfterOptIn ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.deleteOptInRecordsAfterOptIn}
     }
 }

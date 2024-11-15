@@ -7,7 +7,3 @@ services:
 
   LinaWolf\FormDoubleOptIn\:
     resource: '../Classes/*'
-
-  LinaWolf\FormDoubleOptIn\Upgrades\FormDoubleOptInNamespaceMigrationUpgradeWizard:
-    tags:
-      - name: install.upgradewizard

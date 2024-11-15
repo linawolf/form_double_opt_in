@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Form\Domain\Finishers\EmailFinisher;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
@@ -75,9 +74,6 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         );
     }
 
-    /**
-     * @throws InvalidConfigurationTypeException
-     */
     protected function createOptInModel(
         string $pagelanguage,
         string $title,
@@ -163,17 +159,26 @@ final class DoubleOptInFormFinisher extends EmailFinisher
 
     private function sendDoubleOptInMail(FormRuntime $formRuntime, OptIn $optIn, int $validationPid): void
     {
-        $senderName = null;
-        $languageBackup = null;
         $addHtmlPart = $this->isAddHtmlPart();
 
         $translationService = GeneralUtility::makeInstance(TranslationService::class);
-        if (isset($this->options['translation']['language']) && !empty($this->options['translation']['language'])) {
+        $languageBackup = null;
+
+        if (!empty($this->options['translation']['language'])) {
             $languageBackup = $translationService->getLanguage();
             $translationService->setLanguage($this->options['translation']['language']);
         }
+
         $recipientAddress = $this->parseOption('email');
-        extract($this->getAdresses());
+
+        // Replace `extract` with explicit variable assignments
+        $addresses = $this->getAdresses();
+        $senderAddress = $addresses['senderAddress'] ?? null;
+        $senderName = $addresses['senderName'] ?? null;
+        $replyToRecipients = $addresses['replyToRecipients'] ?? [];
+        $carbonCopyRecipients = $addresses['carbonCopyRecipients'] ?? [];
+        $blindCarbonCopyRecipients = $addresses['blindCarbonCopyRecipients'] ?? [];
+
         $subject = $this->parseOption('subject');
         if (empty($subject)) {
             throw new FinisherException('The option "subject" must be set for the DoubleOptInFormFinisher.', 1_327_060_320);
@@ -181,6 +186,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         if (empty($senderAddress)) {
             throw new FinisherException('The option "senderAddress" must be set for the DoubleOptInFormFinisher.', 1_327_060_210);
         }
+
         $mail = $this->initializeFluidEmail($formRuntime)
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
             ->assign('title', $subject)
@@ -188,10 +194,8 @@ final class DoubleOptInFormFinisher extends EmailFinisher
             ->assign('validationPid', $validationPid);
 
         $doubleOpInTemplateName = $this->options['doubleOpInTemplateName'] ?? 'DoubleOptIn';
-        $mail
-            ->setTemplate($doubleOpInTemplateName);
-        $mail
-            ->from(new Address($senderAddress, $senderName))
+        $mail->setTemplate($doubleOpInTemplateName);
+        $mail->from(new Address($senderAddress, $senderName))
             ->to($recipientAddress)
             ->subject($subject);
 
@@ -204,9 +208,11 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         if (!empty($blindCarbonCopyRecipients)) {
             $mail->bcc(...$blindCarbonCopyRecipients);
         }
+
         if (!empty($languageBackup)) {
             $translationService->setLanguage($languageBackup);
         }
+
         GeneralUtility::makeInstance(Mailer::class)->send($mail);
     }
 
