@@ -19,8 +19,14 @@ class MailToReceiverService
         $bodyHTML = $mailData['bodyHTML'] ?? '';
         $bodyText = $mailData['bodyText'] ?? '';
         $subject = $mailData['subject'] ?? 'Default Subject';
-        $senderAddress = $mailData['senderAddress'] ?? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] ?? 'default@example.org';
-        $senderName = $mailData['senderName'] ?? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] ?? 'Default Sender';
+        $senderAddress = $mailData['senderAddress'] ?? '';
+        if ($senderAddress === '') {
+            $senderAddress = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] ?? 'default@example.org';
+        }
+        $senderName = $mailData['senderName'] ?? '';
+        if ($senderName === '') {
+            $senderName = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] ?? 'Default Sender';
+        }
         $recipientsArray = $mailData['recipientsArray'] ?? [];
         $replyToRecipientsArray = $mailData['replyToRecipientsArray'] ?? [];
         $carbonCopyRecipientsArray = $mailData['carbonCopyRecipientsArray'] ?? [];

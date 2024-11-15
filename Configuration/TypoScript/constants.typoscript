@@ -13,10 +13,15 @@ plugin.tx_formdoubleoptin_doubleoptin {
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail from name
         notificationMailSenderName =
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail to address (mandatory)
-        notificationMailReceiverMail = 
+        notificationMailReceiverMail =
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Mail to name
         notificationMailReceiverName =
         # cat=plugin.tx_formdoubleoptin_doubleoptin//a; type=string; label=Delete opt-in records after successful opt-in (recommended for privacy reasons)
         deleteOptInRecordsAfterOptIn = 1
     }
+}
+formdoubleoptin {
+  templateRootPaths = EXT:form_double_opt_in/Resources/Private/Templates
+  partialRootPaths = EXT:form_double_opt_in/Resources/Private/Partials
+  layoutRootPaths = EXT:form_double_opt_in/Resources/Private/Layouts
 }

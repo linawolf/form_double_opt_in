@@ -1,0 +1,78 @@
+categories:
+  form_double_opt_in:
+    label: 'Form double opt-in'
+
+settings:
+  formdoubleoptin.storagePid:
+    label: 'storage'
+    category: form_double_opt_in
+    description: 'Backend folder to store the double opt-in data.'
+    type: int
+    default: 0
+  formdoubleoptin.deleteOptInRecordsAfterOptIn:
+    label: 'Delete opt-in records'
+    category: form_double_opt_in
+    description: 'Delete opt-in records after successful opt-in (recommended for privacy reasons) '
+    type: bool
+    default: true
+  formdoubleoptin.notificationMailEnable:
+    label: 'mail notification'
+    category: form_double_opt_in
+    description: 'Send opt-in mail notification'
+    type: bool
+    default: true
+  formdoubleoptin.usePreparedEmail:
+    label: 'Prepared mail'
+    category: form_double_opt_in
+    description: 'Use prepared mail templated by form'
+    type: bool
+    default: true
+  formdoubleoptin.notificationMailSubject:
+    label: 'Mails subject'
+    category: form_double_opt_in
+    description: 'Notification mail subject'
+    type: string
+    default: ''
+  formdoubleoptin.notificationMailSenderMail:
+    label: 'Mail from name'
+    category: form_double_opt_in
+    description: 'If empty, defaultMailFromAddress from the mail settings will be used. '
+    type: string
+    default: ''
+  formdoubleoptin.notificationMailSenderName:
+    label: 'Mail from address'
+    category: form_double_opt_in
+    description: 'If empty, defaultMailFromName from the mail settings will be used. '
+    type: string
+    default: ''
+  formdoubleoptin.notificationMailReceiverMail:
+    label: 'Mail to name'
+    category: form_double_opt_in
+    description: 'If empty, taken from the form data. '
+    type: string
+    default: ''
+  formdoubleoptin.notificationMailReceiverName:
+    label: 'Mail to address'
+    category: form_double_opt_in
+    description: 'If empty, taken from the form data. '
+    type: string
+    default: ''
+  formdoubleoptin.templateRootPaths:
+    label: 'Template path'
+    category: form_double_opt_in
+    description: ''
+    type: string
+    default: 'EXT:form_double_opt_in/Resources/Private/Templates'
+  formdoubleoptin.partialRootPaths:
+    label: 'Template path'
+    category: form_double_opt_in
+    description: ''
+    type: string
+    default: 'EXT:form_double_opt_in/Resources/Private/Partials'
+  formdoubleoptin.layoutRootPaths:
+    label: 'Template path'
+    category: form_double_opt_in
+    description: ''
+    type: string
+    default: 'EXT:form_double_opt_in/Resources/Private/Layouts'
+
