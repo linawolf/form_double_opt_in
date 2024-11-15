@@ -16,14 +16,19 @@ class MailToReceiverService
 
     public function sendPreparedMail(array $mailData): void
     {
-        $bodyHTML = null;
-        $bodyText = null;
-        $subject = null;
-        $senderAddress = null;
-        $senderName = null;
-        $recipientsArray = null;
-        $mail = null;
-        extract($mailData);
+        $bodyHTML = $mailData['bodyHTML'] ?? '';
+        $bodyText = $mailData['bodyText'] ?? '';
+        $subject = $mailData['subject'] ?? 'Default Subject';
+        $senderAddress = $mailData['senderAddress'] ?? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] ?? 'default@example.org';
+        $senderName = $mailData['senderName'] ?? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] ?? 'Default Sender';
+        $recipientsArray = $mailData['recipientsArray'] ?? [];
+        $replyToRecipientsArray = $mailData['replyToRecipientsArray'] ?? [];
+        $carbonCopyRecipientsArray = $mailData['carbonCopyRecipientsArray'] ?? [];
+        $blindCarbonCopyRecipientsArray = $mailData['blindCarbonCopyRecipientsArray'] ?? [];
+
+        if (empty($recipientsArray)) {
+            throw new \InvalidArgumentException('Recipients array cannot be empty.', 1731659857);
+        }
         $newMail = new Email();
         $newMail->html($bodyHTML)
             ->text($bodyText)
@@ -34,21 +39,21 @@ class MailToReceiverService
             $newMail->replyTo(...AddressUtility::toAdresses($replyToRecipientsArray));
         }
         if (!empty($carbonCopyRecipientsArray)) {
-            $mail->cc(...AddressUtility::toAdresses($carbonCopyRecipientsArray));
+            $newMail->cc(...AddressUtility::toAdresses($carbonCopyRecipientsArray));
         }
         if (!empty($blindCarbonCopyRecipientsArray)) {
-            $mail->bcc(...AddressUtility::toAdresses($blindCarbonCopyRecipientsArray));
+            $newMail->bcc(...AddressUtility::toAdresses($blindCarbonCopyRecipientsArray));
         }
         $this->mailer->send($newMail);
     }
 
     public function sendNewMail(array $settings, OptIn $optIn): void
     {
-        $notificationMailReceiverName = $settings['notificationMailReceiverName'];
-        $notificationMailSenderMail = $settings['notificationMailSenderMail'];
-        $notificationMailSenderName = $settings['notificationMailSenderName'];
-        $notificationMailSubject = $settings['notificationMailSubject'];
-        $notificationMailReceiverMail = $settings['notificationMailReceiverMail'];
+        $notificationMailReceiverName = $settings['notificationMailReceiverName'] ?? false;
+        $notificationMailSenderMail = $settings['notificationMailSenderMail'] ?? false;
+        $notificationMailSenderName = $settings['notificationMailSenderName'] ?? false;
+        $notificationMailSubject = $settings['notificationMailSubject'] ?? false;
+        $notificationMailReceiverMail = $settings['notificationMailReceiverMail'] ?? false;
 
         $language = $optIn->getPagelanguage();
         $title = $optIn->getTitle();
