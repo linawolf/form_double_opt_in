@@ -2,4 +2,4 @@
 
 TYPO3 Extension adding Double Opt-In to the TYPO3 CMS Form Framework
 
-[Documentation](Documentation/Index.md)
+[Documentation](https://docs.typo3.org/p/linawolf/form_double_opt_in/main/en-us/)
