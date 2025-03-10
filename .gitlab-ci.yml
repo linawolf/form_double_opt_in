@@ -1,0 +1,23 @@
+stages:
+  - package-and-deploy
+
+package-and-deploy:
+  image: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl:latest"
+  stage: package-and-deploy
+  script:
+    - version=$([[ -z "$CI_COMMIT_TAG" ]] && echo "branch=$CI_COMMIT_REF_NAME" || echo "tag=$CI_COMMIT_TAG")
+    - "echo publishing version $version"
+    - ls -lah
+    - 'response=$(curl -s -w "\n%{http_code}" --header "Job-Token: $CI_JOB_TOKEN" --data $version "${CI_API_V4_URL}/projects/$CI_PROJECT_ID/packages/composer")'
+    - code=$(echo "$response" | tail -n 1)
+    - body=$(echo "$response" | head -n 1)
+    # Output state information
+    - if [ $code -eq 201 ]; then
+      echo "Package created - Code $code - $body";
+      else
+      echo "Could not create package - Code $code - $body";
+      exit 1;
+      fi
+  needs: []
+  only:
+    - tags
