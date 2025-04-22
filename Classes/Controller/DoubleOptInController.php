@@ -5,6 +5,7 @@ namespace LinaWolf\FormDoubleOptIn\Controller;
 use LinaWolf\FormDoubleOptIn\Domain\Model\OptIn;
 use LinaWolf\FormDoubleOptIn\Domain\Repository\OptInRepository;
 use LinaWolf\FormDoubleOptIn\Event\AfterOptInValidationEvent;
+use LinaWolf\FormDoubleOptIn\Event\BeforeOptInDeletionEvent;
 use LinaWolf\FormDoubleOptIn\Service\MailToReceiverService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -52,6 +53,8 @@ class DoubleOptInController extends ActionController
                 if (!$isAlreadyValidated) {
                     $success = true;
                     if ($this->settings['deleteOptInRecordsAfterOptIn']) {
+                        $event = new BeforeOptInDeletionEvent($optIn);
+                        $this->eventDispatcher->dispatch($event);
                         $this->optInRepository->remove($optIn);
                     } else {
                         // Set as validated in the db
