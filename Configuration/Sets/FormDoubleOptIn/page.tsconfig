@@ -1,2 +1,0 @@
-# Add form_double_opt_in plugins_cns to new content element wizard
-@import 'EXT:form_double_opt_in/Configuration/TSconfig/NewContentElementWizard.tsconfig'
