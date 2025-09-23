@@ -11,11 +11,6 @@ parameters:
 			path: ../../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function extract is passed by reference, so it expects variables only\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Finishers/DoubleOptInFormFinisher.php
-
-		-
 			message: "#^Parameter \\#2 \\$name of class Symfony\\\\Component\\\\Mime\\\\Address constructor expects string, null given\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Finishers/DoubleOptInFormFinisher.php

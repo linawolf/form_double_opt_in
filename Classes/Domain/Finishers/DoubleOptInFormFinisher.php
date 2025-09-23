@@ -81,12 +81,50 @@ final class DoubleOptInFormFinisher extends EmailFinisher
 
         $this->persistenceManager->persistAll();
 
-        $this->sendDoubleOptInMail($formRuntime, $optIn, $validationPid);
+        $useConfirmEmailButton = $this->parseOption('useConfirmEmailButton');
+
+        $validationPidInt = (int)$validationPid;
+
+        if ($useConfirmEmailButton) {
+            $this->redirectToConfirmEmail($validationPidInt, $optIn);
+        } else {
+            $this->sendDoubleOptInMail($formRuntime, $optIn, $validationPidInt);
+        }
 
         $this->finisherContext->getFinisherVariableProvider()->add(
             $this->shortFinisherIdentifier,
             'optInRecordUid',
             $optIn->getUid(),
+        );
+    }
+
+    private function redirectToConfirmEmail(int $validationPid, OptIn $optIn): void
+    {
+        /** @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder */
+        $uriBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder::class,
+        );
+
+        $uriBuilder->setRequest($this->finisherContext->getRequest());
+
+        $uri = $uriBuilder
+            ->reset()
+            ->setTargetPageUid($validationPid)
+            ->uriFor(
+                'confirmEmail',
+                [
+                    'hash' => $optIn->getValidationHash(),
+                    'validationPid' => $validationPid,
+                ],
+                'DoubleOptIn',
+                'formdoubleoptin',
+                'doubleoptin',
+            );
+
+        $this->finisherContext->cancel();
+        throw new \TYPO3\CMS\Core\Http\PropagateResponseException(
+            new \TYPO3\CMS\Core\Http\RedirectResponse($uri, 303),
+            1477070964,
         );
     }
 
@@ -196,11 +234,15 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         if (empty($senderAddress)) {
             throw new FinisherException('The option "senderAddress" must be set for the DoubleOptInFormFinisher.', 1_327_060_210);
         }
+        // Check if we should use form link instead of direct validation link
+        $useFormLinkInEmail = $this->parseOption('useFormLinkInEmail');
+
         $mail = $this->initializeFluidEmail($formRuntime)
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
             ->assign('title', $subject)
             ->assign('optIn', $optIn)
-            ->assign('validationPid', $validationPid);
+            ->assign('validationPid', $validationPid)
+            ->assign('useFormLinkInEmail', $useFormLinkInEmail);
 
         $doubleOpInTemplateName = $this->options['doubleOpInTemplateName'] ?? 'DoubleOptIn';
         $mail

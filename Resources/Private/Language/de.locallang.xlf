@@ -42,6 +42,15 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_date" approved="yes">
                 <target>Validierungs-Datum</target>
             </trans-unit>
+			<trans-unit id="tx_formdoubleoptin_domain_model_optin.confirm-title" approved="yes">
+				<target>E-Mail Adresse bestätigen</target>
+			</trans-unit>
+			<trans-unit id="tx_formdoubleoptin_domain_model_optin.text-confirmation.button" approved="yes">
+				<target>Bestätigen</target>
+			</trans-unit>
+			<trans-unit id="tx_formdoubleoptin_domain_model_optin.text-confirm" approved="yes">
+				<target>Hiermit bestätige ich meine E-Mail adresse: </target>
+			</trans-unit>
             <trans-unit id="text.success.title" approved="yes">
                 <target>Erfolg</target>
             </trans-unit>

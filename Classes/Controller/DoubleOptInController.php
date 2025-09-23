@@ -73,6 +73,32 @@ class DoubleOptInController extends ActionController
         return $this->htmlResponse();
     }
 
+    /**
+     * Show confirmation form with button to confirm email
+     */
+    public function confirmEmailAction(): ResponseInterface
+    {
+        $success = false;
+        $optIn = null;
+        $validationPid = 0;
+
+        if ($this->request->hasArgument('hash')) {
+            $hash = $this->request->getArgument('hash');
+            $optIn = $this->optInRepository->findOneBy(['validationHash' => $hash]);
+
+            if ($optIn instanceof OptIn && !$optIn->isValidated()) {
+                $success = true;
+                $validationPid = $this->request->hasArgument('validationPid') ?
+                    (int)$this->request->getArgument('validationPid') : 0;
+            }
+        }
+
+        $this->view->assign('success', $success);
+        $this->view->assign('optIn', $optIn);
+        $this->view->assign('validationPid', $validationPid);
+        return $this->htmlResponse();
+    }
+
     public function deleteAction(): ResponseInterface
     {
         if ($this->request->hasArgument('hash')) {

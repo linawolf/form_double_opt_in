@@ -11,3 +11,4 @@ services:
   LinaWolf\FormDoubleOptIn\Upgrades\FormDoubleOptInNamespaceMigrationUpgradeWizard:
     tags:
       - name: install.upgradewizard
+

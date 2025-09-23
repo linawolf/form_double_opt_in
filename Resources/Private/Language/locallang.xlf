@@ -42,6 +42,15 @@
             <trans-unit id="tx_formdoubleoptin_domain_model_optin.validation_date">
                 <source>Validation date</source>
             </trans-unit>
+			<trans-unit id="tx_formdoubleoptin_domain_model_optin.confirm-title">
+				<source>Confirm e-mail address</source>
+			</trans-unit>
+			<trans-unit id="tx_formdoubleoptin_domain_model_optin.text-confirm">
+				<source>I hereby confirm my e-mail address: </source>
+			</trans-unit>
+			<trans-unit id="tx_formdoubleoptin_domain_model_optin.text-confirmation.button">
+				<source>Confirm</source>
+			</trans-unit>
             <trans-unit id="text.success.title">
                 <source>Success</source>
             </trans-unit>

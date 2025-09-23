@@ -169,6 +169,12 @@ TYPO3:
                           label: formEditor.elements.Form.finisher.EmailToSender.editor.addHtmlPart.label
                           propertyPath: options.addHtmlPart
                           fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.addHtmlPart.fieldExplanationText
+                        1100:
+                          identifier: useFormLinkInEmail
+                          templateName: Inspector-CheckboxEditor
+                          label: Use form for confimation
+                          propertyPath: options.useFormLinkInEmail
+                          fieldExplanationText: When enabled, email confirmation is done with a form instead of direct validation by link
                         1200:
                           identifier: language
                           templateName: Inspector-SingleSelectEditor
@@ -219,6 +225,7 @@ TYPO3:
                     carbonCopyAddress: ''
                     blindCarbonCopyAddress: ''
                     subjectReceiver: ''
+                    useFormLinkInEmail: false
               FormEngine:
                 label: 'Double Opt-In'
                 elements:
