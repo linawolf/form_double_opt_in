@@ -6,15 +6,21 @@
         <f:else><f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:email.greeting" />,</f:else>
     </f:if>
 
-
-    <f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:email.text" />
+    <f:if condition="{emailText}">
+        <f:then>
+            <f:format.nl2br>{emailText}</f:format.nl2br>
+        </f:then>
+        <f:else>
+            <f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:email.text" />
+        </f:else>
+    </f:if>
 
     <f:if condition="{useFormLinkInEmail}">
         <f:then>
-            <f:format.raw>{f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'confirmEmail', absolute: 1, arguments: {hash: optIn.validationHash, validationPid: validationPid})}</f:format.raw>
+            <f:format.raw>{f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'confirmEmail', absolute: 1, arguments: {hash: optIn.validationHash, validationPid: validationPid, textSuccess: textSuccess})}</f:format.raw>
         </f:then>
         <f:else>
-            <f:format.raw>{f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash})}</f:format.raw>
+            <f:format.raw>{f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash, textSuccess: textSuccess})}</f:format.raw>
         </f:else>
     </f:if>
 

@@ -7,7 +7,14 @@
         <f:if condition="{success}">
             <f:then>
                 <h2><f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:text.success.title" /></h2>
-                <p><f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:text.success" /></p>
+                <f:if condition="{textSuccess}">
+                    <f:then>
+                        <p><f:format.nl2br>{textSuccess}</f:format.nl2br></p>
+                    </f:then>
+                    <f:else>
+                        <p><f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:text.success" /></p>
+                    </f:else>
+                </f:if>
             </f:then>
             <f:else>
                 <h2><f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:text.error.title" /></h2>

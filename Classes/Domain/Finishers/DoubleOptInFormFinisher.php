@@ -236,13 +236,17 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         }
         // Check if we should use form link instead of direct validation link
         $useFormLinkInEmail = $this->parseOption('useFormLinkInEmail');
+        $emailText = (string)$this->parseOption('emailText');
+        $textSuccess = (string)$this->parseOption('textSuccess');
 
         $mail = $this->initializeFluidEmail($formRuntime)
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
             ->assign('title', $subject)
             ->assign('optIn', $optIn)
             ->assign('validationPid', $validationPid)
-            ->assign('useFormLinkInEmail', $useFormLinkInEmail);
+            ->assign('useFormLinkInEmail', $useFormLinkInEmail)
+            ->assign('emailText', $emailText)
+            ->assign('textSuccess', $textSuccess);
 
         $doubleOpInTemplateName = $this->options['doubleOpInTemplateName'] ?? 'DoubleOptIn';
         $mail

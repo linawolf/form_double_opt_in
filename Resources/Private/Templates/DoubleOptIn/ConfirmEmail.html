@@ -7,6 +7,7 @@
     <br /><br />
     <f:form action="validation" controller="DoubleOptIn" extensionName="formdoubleoptin" pluginName="doubleoptin" pageUid="{validationPid}" absolute="1">
         <f:form.hidden name="hash" value="{optIn.validationHash}" />
+        <f:form.hidden name="textSuccess" value="{textSuccess}" />
         <f:form.submit value="{f:translate(key: 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin.text-confirmation.button')}" class="btn btn-primary" />
     </f:form>
 </p>

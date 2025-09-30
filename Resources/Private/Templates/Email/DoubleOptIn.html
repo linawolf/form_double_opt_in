@@ -8,18 +8,25 @@
     </f:if>
 </p>
 <p>
-    <f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:email.text" />
+    <f:if condition="{emailText}">
+        <f:then>
+            <f:format.nl2br>{emailText}</f:format.nl2br>
+        </f:then>
+        <f:else>
+            <f:translate key="LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:email.text" />
+        </f:else>
+    </f:if>
 </p>
 <p>
     <f:if condition="{useFormLinkInEmail}">
         <f:then>
-            <f:format.raw><f:link.action pageUid="{validationPid}" extensionName="formdoubleoptin" pluginName="doubleoptin" controller="DoubleOptIn" action="confirmEmail" absolute="1" arguments="{hash: optIn.validationHash, validationPid: validationPid}">
-                {f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'confirmEmail', absolute: 1, arguments: {hash: optIn.validationHash, validationPid: validationPid})}
+            <f:format.raw><f:link.action pageUid="{validationPid}" extensionName="formdoubleoptin" pluginName="doubleoptin" controller="DoubleOptIn" action="confirmEmail" absolute="1" arguments="{hash: optIn.validationHash, validationPid: validationPid, textSuccess: textSuccess}">
+                {f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'confirmEmail', absolute: 1, arguments: {hash: optIn.validationHash, validationPid: validationPid, textSuccess: textSuccess})}
             </f:link.action></f:format.raw>
         </f:then>
         <f:else>
-            <f:format.raw><f:link.action pageUid="{validationPid}" extensionName="formdoubleoptin" pluginName="doubleoptin" controller="DoubleOptIn" action="validation" absolute="1" arguments="{hash: optIn.validationHash}">
-                {f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash})}
+            <f:format.raw><f:link.action pageUid="{validationPid}" extensionName="formdoubleoptin" pluginName="doubleoptin" controller="DoubleOptIn" action="validation" absolute="1" arguments="{hash: optIn.validationHash, textSuccess: textSuccess}">
+                {f:uri.action(pageUid: validationPid, extensionName: 'formdoubleoptin', pluginName: 'doubleoptin', controller: 'DoubleOptIn', action: 'validation', absolute: 1, arguments: {hash: optIn.validationHash, textSuccess: textSuccess})}
             </f:link.action></f:format.raw>
         </f:else>
     </f:if>
