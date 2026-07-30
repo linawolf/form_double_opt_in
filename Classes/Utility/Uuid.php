@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LinaWolf\FormDoubleOptIn\Utility;
 
 class Uuid
 {
     /**
      * Generate a UUID.
-     *
-     * @return string
      */
     public static function generate(): string
     {
@@ -18,8 +18,6 @@ class Uuid
 
     /**
      * Generate the UUID from hash.
-     *
-     * @return string
      */
     private static function uuidFromHash(string $hash, int $version): string
     {

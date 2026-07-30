@@ -11,6 +11,8 @@ use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
+use TYPO3\CMS\Core\Mail\MailerInterface;
+use TYPO3\CMS\Core\Mail\TemplatedEmailFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -22,14 +24,15 @@ use TYPO3\CMS\Form\Service\TranslationService;
 
 final class DoubleOptInFormFinisher extends EmailFinisher
 {
-    private EventDispatcherInterface $eventDispatcher;
-    private ConfigurationManager $configurationManager;
-    private PersistenceManager $persistenceManager;
-    public function __construct(private OptInRepository $optInRepository, EventDispatcherInterface $eventDispatcher, ConfigurationManager $configurationManager, PersistenceManager $persistenceManager)
-    {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->configurationManager = $configurationManager;
-        $this->persistenceManager = $persistenceManager;
+    public function __construct(
+        private readonly OptInRepository $optInRepository,
+        protected readonly EventDispatcherInterface $eventDispatcher,
+        protected readonly TemplatedEmailFactory $templatedEmailFactory,
+        protected readonly MailerInterface $mailer,
+        private readonly ConfigurationManager $configurationManager,
+        private readonly PersistenceManager $persistenceManager,
+        private readonly Context $context) {
+
     }
 
     /**
@@ -40,7 +43,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
      */
     protected function executeInternal(): void
     {
-        $context = GeneralUtility::makeInstance(Context::class);
+        $context = $this->context;
         $pagelanguage = $context->getPropertyFromAspect('language', 'id');
 
         $title = $this->parseOption('title');
@@ -74,7 +77,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         );
     }
 
-    protected function createOptInModel(
+    private function createOptInModel(
         string $pagelanguage,
         string $title,
         string $givenName,
@@ -86,22 +89,22 @@ final class DoubleOptInFormFinisher extends EmailFinisher
     ): OptIn {
         $optIn = new OptIn();
         $optIn->setPagelanguage($pagelanguage);
-        if (!empty($title)) {
+        if ($title !== '' && $title !== '0') {
             $optIn->setTitle($title);
         }
-        if (!empty($givenName)) {
+        if ($givenName !== '' && $givenName !== '0') {
             $optIn->setGivenName($givenName);
         }
-        if (!empty($familyName)) {
+        if ($familyName !== '' && $familyName !== '0') {
             $optIn->setFamilyName($familyName);
         }
-        if (!empty($email)) {
+        if ($email !== '' && $email !== '0') {
             $optIn->setEmail($email);
         }
-        if (!empty($company)) {
+        if ($company !== '' && $company !== '0') {
             $optIn->setCompany($company);
         }
-        if (!empty($customerNumber)) {
+        if ($customerNumber !== '' && $customerNumber !== '0') {
             $optIn->setCustomerNumber($customerNumber);
         }
         $optIn->setMailBody($mailToReceiverBody);
@@ -122,7 +125,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
      */
     private function validateInput(string $email, string $customerNumber, int $validationPid): void
     {
-        if (empty($email) && empty($customerNumber)) {
+        if (($email === '' || $email === '0') && ($customerNumber === '' || $customerNumber === '0')) {
             throw new FinisherException('The options "email" or "customerNumber" must be set.', 1_527_145_965);
         }
 
@@ -152,7 +155,7 @@ final class DoubleOptInFormFinisher extends EmailFinisher
 
         $bodyHTML = $mail->getHtmlBody(true);
         $bodyText = $mail->getTextBody(true);
-        $json = array_merge($this->getAdresses(), compact('recipientsArray', 'subject', 'addHtmlPart', 'bodyHTML', 'bodyText'));
+        $json = array_merge($this->getAdresses(), ['recipientsArray' => $recipientsArray, 'subject' => $subject, 'addHtmlPart' => $addHtmlPart, 'bodyHTML' => $bodyHTML, 'bodyText' => $bodyText]);
 
         return json_encode($json, JSON_THROW_ON_ERROR);
     }
@@ -187,9 +190,12 @@ final class DoubleOptInFormFinisher extends EmailFinisher
             throw new FinisherException('The option "senderAddress" must be set for the DoubleOptInFormFinisher.', 1_327_060_210);
         }
 
+        $useFormLinkInEmail = $this->parseOption('useFormLinkInEmail');
+
         $mail = $this->initializeFluidEmail($formRuntime)
             ->format($addHtmlPart ? FluidEmail::FORMAT_BOTH : FluidEmail::FORMAT_PLAIN)
             ->assign('title', $subject)
+            ->assign('useFormLinkInEmail', $useFormLinkInEmail)
             ->assign('optIn', $optIn)
             ->assign('validationPid', $validationPid);
 
@@ -226,13 +232,9 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         ) {
             $this->options['addHtmlPart'] = false;
         }
-        $addHtmlPart = $this->parseOption('addHtmlPart') ? true : false;
-        return $addHtmlPart;
+        return (bool)$this->parseOption('addHtmlPart');
     }
 
-    /**
-     * @return array
-     */
     private function getAdresses(): array
     {
         $senderAddress = $this->parseOption('senderAddress');
@@ -240,11 +242,11 @@ final class DoubleOptInFormFinisher extends EmailFinisher
         $senderName = $this->parseOption('senderName');
         $senderName = is_string($senderName) ? $senderName : '';
         $replyToRecipients = $this->getRecipients('replyToRecipients');
-        $replyToRecipientsArray = AddressUtility::toArray($replyToRecipients);
+        AddressUtility::toArray($replyToRecipients);
         $carbonCopyRecipients = $this->getRecipients('carbonCopyRecipients');
-        $carbonCopyRecipientsArray = AddressUtility::toArray($carbonCopyRecipients);
+        AddressUtility::toArray($carbonCopyRecipients);
         $blindCarbonCopyRecipients = $this->getRecipients('blindCarbonCopyRecipients');
-        $blindCarbonCopyRecipientsArray = AddressUtility::toArray($blindCarbonCopyRecipients);
-        return compact('senderAddress', 'senderName', 'replyToRecipients', 'carbonCopyRecipients', 'blindCarbonCopyRecipients');
+        AddressUtility::toArray($blindCarbonCopyRecipients);
+        return ['senderAddress' => $senderAddress, 'senderName' => $senderName, 'replyToRecipients' => $replyToRecipients, 'carbonCopyRecipients' => $carbonCopyRecipients, 'blindCarbonCopyRecipients' => $blindCarbonCopyRecipients];
     }
 }

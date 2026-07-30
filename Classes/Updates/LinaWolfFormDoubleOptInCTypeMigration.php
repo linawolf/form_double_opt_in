@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace LinaWolf\FormDoubleOptIn\Updates;
 
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate;
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate;
 
 #[UpgradeWizard('linawolfFormDoubleOptInCTypeMigration')]
 final class LinaWolfFormDoubleOptInCTypeMigration extends AbstractListTypeToCTypeUpdate

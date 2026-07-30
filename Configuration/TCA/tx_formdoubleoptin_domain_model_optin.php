@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:form_double_opt_in/Resources/Private/Language/locallang.xlf:tx_formdoubleoptin_domain_model_optin',
@@ -11,7 +13,6 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
-        'searchFields' => 'email, title, given_name, family_name, company, customer_number, validation_hash',
         'iconfile' => 'EXT:form_double_opt_in/Resources/Public/Icons/PluginDoubleOptIn.svg',
         'security' => [
             'ignorePageTypeRestriction' => true,
@@ -30,6 +31,7 @@ return [
                 'type' => 'input',
                 'size' => '10',
                 'readOnly' => 1,
+                'searchable' => false,
             ],
         ],
         'email' => [
@@ -47,6 +49,7 @@ return [
             'config' => [
                 'type' => 'text',
                 'readOnly' => 1,
+                'searchable' => false,
             ],
         ],
         'title' => [
@@ -119,6 +122,7 @@ return [
                 'size' => 20,
                 'checkbox' => 0,
                 'readOnly' => 1,
+                'searchable' => false,
             ],
         ],
         'validation_date' => [
@@ -129,6 +133,7 @@ return [
                 'size' => 20,
                 'checkbox' => 0,
                 'readOnly' => 1,
+                'searchable' => false,
             ],
         ],
     ],

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Form Double Opt-In',
     'description' => 'Double Opt-In for the TYPO3 CMS Form Framework',
@@ -8,8 +10,8 @@ $EM_CONF[$_EXTKEY] = [
     'version' => '13.2.3',
     'constraints' => [
         'depends' => [
-            'typo3' => '13.3.0-13.99.99',
-            'form' => '13.4.0-13.4.99',
+            'typo3' => '14.3.0-14.3.99',
+            'form' => '14.3.0-14.3.99',
         ],
         'conflicts' => [],
         'suggests' => [],

@@ -7,19 +7,18 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask;
 
-defined('TYPO3') or die();
+defined('TYPO3') || die();
 
 call_user_func(static function (): void {
     ExtensionUtility::configurePlugin(
         'form_double_opt_in',
         'DoubleOptIn',
         [
-            DoubleOptInController::class => 'validation,delete',
+            DoubleOptInController::class => 'validation,delete,confirmEmail',
         ],
         [
-            DoubleOptInController::class => 'validation,delete',
+            DoubleOptInController::class => 'validation,delete,confirmEmail',
         ],
-        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionManagementUtility::addTypoScript(

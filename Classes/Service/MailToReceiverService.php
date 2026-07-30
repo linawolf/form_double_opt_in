@@ -85,6 +85,6 @@ class MailToReceiverService
         }
         $mail->text($language . ', ' . $title . ', ' . $givenName . ', ' . $familyName . ', ' . $email . ', ' . $company . ', ' . $customerNumber);
         $mail->html($language . '<br />' . $title . '<br />' . $givenName . '<br />' . $familyName . '<br />' . $email . '<br />' . $company . '<br />' . $customerNumber);
-        $mail->send();
+        $this->mailer->send($mail);
     }
 }

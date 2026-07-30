@@ -57,6 +57,12 @@ settings:
     description: 'If empty, taken from the form data. '
     type: string
     default: ''
+  formdoubleoptin.notificationMailMultipleReceiversInBCC:
+    label: 'Put Multiple Receivers in BCC'
+    category: form_double_opt_in
+    description: 'If more than one receiver for the notification mail is given, first one is receiver, the other are put in BCC'
+    type: bool
+    default: false
   formdoubleoptin.templateRootPaths:
     label: 'Template path'
     category: form_double_opt_in

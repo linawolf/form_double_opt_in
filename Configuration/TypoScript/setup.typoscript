@@ -32,6 +32,7 @@ plugin.tx_formdoubleoptin_doubleoptin {
         notificationMailSenderName = {$formdoubleoptin.notificationMailSenderName ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailSenderName}
         notificationMailReceiverMail = {$formdoubleoptin.notificationMailReceiverMail ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverMail}
         notificationMailReceiverName = {$formdoubleoptin.notificationMailReceiverName ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailReceiverName}
+        notificationMailMultipleReceiversInBCC = {$formdoubleoptin.notificationMailMultipleReceiversInBCC ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.notificationMailMultipleReceiversInBCC}
         deleteOptInRecordsAfterOptIn = {$formdoubleoptin.deleteOptInRecordsAfterOptIn ?? $plugin.tx_formdoubleoptin_doubleoptin.settings.deleteOptInRecordsAfterOptIn}
     }
 }

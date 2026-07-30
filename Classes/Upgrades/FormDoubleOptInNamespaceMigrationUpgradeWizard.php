@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace LinaWolf\FormDoubleOptIn\Upgrades;
 
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\ConfirmableInterface;
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\ConfirmableInterface;
+use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
 use TYPO3\CMS\Install\Updates\Confirmation;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 #[UpgradeWizard('formDoubleOptInNamespaceMigrationMigration')]
 class FormDoubleOptInNamespaceMigrationUpgradeWizard implements UpgradeWizardInterface, ConfirmableInterface

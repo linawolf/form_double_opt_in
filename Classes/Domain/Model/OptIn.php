@@ -27,7 +27,7 @@ class OptIn extends AbstractEntity
 
     public function __construct()
     {
-        if (!$this->validationHash) {
+        if ($this->validationHash === '' || $this->validationHash === '0') {
             $this->validationHash = Uuid::generate();
         }
     }

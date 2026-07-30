@@ -38,9 +38,32 @@ class DoubleOptInController extends ActionController
 
                 if (!$isAlreadyValidated && $notificationMailEnable) {
                     if ($usePreparedEmail) {
+                        $mailData = json_decode($optIn->getMailBody(),true, 512, JSON_THROW_ON_ERROR);
+                        if($this->settings['notificationMailMultipleReceiversInBCC']) {
+                            $recipientsArray = $mailData['recipientsArray'] ?? [];
+                            $blindCarbonCopyRecipientsArray = $mailData['blindCarbonCopyRecipientsArray'] ?? [];
+                            if(count($recipientsArray) > 1) {
+                                $i = 0;
+                                foreach ($recipientsArray as $recipient) {
+                                    if($i > 0) {
+                                        $blindCarbonCopyRecipientsArray[] = $recipient;
+                                    }
+                                    else {
+                                        $mainRecipient = $recipient;
+                                    }
+                                    $i++;
+                                }
+                            }
+                            else {
+                                $mainRecipient = $recipientsArray[0];
+                            }
+                            $mailData['recipientsArray'] = [$mainRecipient];
+                            $mailData['blindCarbonCopyRecipientsArray'] = $blindCarbonCopyRecipientsArray;
+                        }
+
                         // Prepared e-mail with full power of the form extension
                         if ($optIn->getMailBody() !== '') {
-                            $this->mailToReceiverService->sendPreparedMail(json_decode($optIn->getMailBody(), true, 512, JSON_THROW_ON_ERROR));
+                            $this->mailToReceiverService->sendPreparedMail($mailData);
                         }
                     } else {
                         // Simple notification e-mail
@@ -73,6 +96,35 @@ class DoubleOptInController extends ActionController
 
         $this->view->assign('success', $success);
         $this->view->assign('validated', $validated);
+        return $this->htmlResponse();
+    }
+
+    /**
+     * Show confirmation form with button to confirm email
+     */
+    public function confirmEmailAction(): ResponseInterface
+    {
+        $success = false;
+        $optIn = null;
+        $validationPid = 0;
+
+        if ($this->request->hasArgument('hash')) {
+            $hash = $this->request->getArgument('hash');
+            $optIn = $this->optInRepository->findOneBy(['validationHash' => $hash]);
+
+            if ($optIn instanceof OptIn && !$optIn->isValidated()) {
+                $success = true;
+                $validationPid = $this->request->hasArgument('validationPid') ?
+                    (int)$this->request->getArgument('validationPid') : 0;
+            }
+        }
+
+        if ($this->request->hasArgument('textSuccess')) {
+            $this->view->assign('textSuccess', (string)$this->request->getArgument('textSuccess'));
+        }
+        $this->view->assign('success', $success);
+        $this->view->assign('optIn', $optIn);
+        $this->view->assign('validationPid', $validationPid);
         return $this->htmlResponse();
     }
 
